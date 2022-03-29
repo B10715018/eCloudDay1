@@ -6,7 +6,7 @@ response = client.lookup_events(
     LookupAttributes=[
         {
             'AttributeKey': 'EventName',
-            'AttributeValue': 'TranslateText'
+            'AttributeValue': 'CreateWebACL'
         },
     ],
     MaxResults=1,
@@ -15,7 +15,6 @@ response = client.lookup_events(
 for items in response['Events']:
     eventId=items['EventId']
     json_list=items['CloudTrailEvent']
-    print(json_list['userAgent'])
-    with open('./data/cloudtrail-translate-text-'+eventId+'.json','w')as outfile:
+    with open('./data/cloudtrail-waf-createWebACL-'+eventId+'.json','w')as outfile:
         outfile.write(json_list)
         outfile.close()
