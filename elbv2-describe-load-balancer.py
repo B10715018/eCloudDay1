@@ -8,7 +8,12 @@ dateList=[]
 count=0
 for item in response['LoadBalancers']:
   count+=1
-  dateList.append(json.dumps(items))
+  dateList.append(json.dumps(item['CreatedTime'],default=str))
+
+for i in range(count):
+  response['LoadBalancers'][i]['CreatedTime']=dateList[i]
+
+json_list=json.dumps(response)
 with open('./data/elbv2-describe-load-balancer'+'.json','w')as outfile:
         outfile.write(json_list)
         outfile.close()
