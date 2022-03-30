@@ -6,7 +6,7 @@ name: Test Function
 on:
   push:
     branches:
-      - 'github-action-workflow'
+      - github-action-workflow
     paths:
       - '*'
   pull_request:
