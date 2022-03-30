@@ -29,3 +29,7 @@ jobs:
       - name: Test function
         run: chmod u+x job.sh
       - run: ./job.sh
+        env:
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          AWS_REGION: 'us-west-2'
