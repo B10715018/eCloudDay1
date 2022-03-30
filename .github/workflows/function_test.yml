@@ -5,9 +5,10 @@ name: Test Function
 
 on:
   push:
-    branches: '*'
+    branches:
+      - '*'
     paths:
-      - './*'
+      - '*'
   pull_request:
     branches:
       - '*'
