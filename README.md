@@ -28,6 +28,6 @@
 
 2. execute this command in your terminal `chmod u+x job.sh`
 
-3. run it using this command in your terminal `./job.sh`
+3. run it using this command in your terminal `./job.sh`, run it 2 times to ensure there is no missing data
 
 # THANK YOU
