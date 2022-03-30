@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dependency for function
-        run: pip install
+        run: pip install -r requirements.txt
       - name: Test function
         run: chmod u+x job.sh
       - run: ./job.sh
