@@ -20,4 +20,6 @@ Steps on how to use:
 
 6. Results data can be obtained in the 'data' folder
 
+7. Please create a folder name 'data' at the eCloudDay1 repositories it is where we could store all metadata in form of JSON
+
 # THANK YOU
