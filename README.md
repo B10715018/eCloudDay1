@@ -1,6 +1,6 @@
 # eCloudDay1
 
-Steps on how to use:
+# Steps on how to use:
 
 1. Clone your repository:
    git clone https://github.com/B10715018/eCloudDay1.git
@@ -21,5 +21,13 @@ Steps on how to use:
 6. Results data can be obtained in the 'data' folder
 
 7. Please create a folder name 'data' at the eCloudDay1 repositories it is where we could store all metadata in form of JSON
+
+# Instruction to run script file:
+
+1. make sure you have the 'job.sh' file in your directory
+
+2. execute this command in your terminal `chmod u+x job.sh`
+
+3. run it using this command in your terminal `./job.sh`
 
 # THANK YOU
