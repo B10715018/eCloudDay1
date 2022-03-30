@@ -155,5 +155,3 @@ cython_debug/
 
 # data folder contains sensitive info
 data/*
-
-data
