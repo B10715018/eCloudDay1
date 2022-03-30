@@ -12,23 +12,11 @@ json_list=json.dumps(response)
 json_list=json.dumps(response)
 
 for items in response["ResourceArns"]:
-
-  # if "loadbalancer" in items:
-
-  #   print(response["ResourceArns"])
-
   arnInfo = items.split(":")
-
   string = []
-
   for value in arnInfo:
-
     string.append(value)
-
- 
-
   resourceType = string[-1].split("/")[0]
-
   print(resourceType)
   
 # response2 = client.get_web_acl_for_resource(
