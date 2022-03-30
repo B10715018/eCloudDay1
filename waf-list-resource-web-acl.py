@@ -9,9 +9,27 @@ response = client.list_resources_for_web_acl(
 )
 
 json_list=json.dumps(response)
+json_list=json.dumps(response)
+
 for items in response["ResourceArns"]:
-  if "loadbalancer" in items:
-    print("true there is load balancer")
+
+  # if "loadbalancer" in items:
+
+  #   print(response["ResourceArns"])
+
+  arnInfo = items.split(":")
+
+  string = []
+
+  for value in arnInfo:
+
+    string.append(value)
+
+ 
+
+  resourceType = string[-1].split("/")[0]
+
+  print(resourceType)
   
 # response2 = client.get_web_acl_for_resource(
 #     ResourceArn='arn:aws:elasticloadbalancing:us-west-2:758325631830:loadbalancer/app/appELB/5982e05975655deb'
