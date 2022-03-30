@@ -25,7 +25,6 @@ response = client.lookup_events(
     MaxResults=1,
 )
 # encode the whole event to json file
-print("Encode DateTime Object into JSON using custom JSONEncoder")
 json_list = json.dumps(response, indent=4, cls=DateTimeEncoder)
 with open('./data/cloudtrail-translate-text'+'.json', 'w')as outfile:
     outfile.write(json_list)
