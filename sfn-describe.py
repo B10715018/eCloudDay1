@@ -36,4 +36,4 @@ try:
             outfile2.write(definition)
             outfile2.close()
 except:
-    print('File not found')
+    print('File not found for sfn-describe')

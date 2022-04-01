@@ -12,10 +12,9 @@ try:
     for item in json_object['QueueUrls']:
         response = client.get_queue_attributes(
             QueueUrl=item)
-        print(response)
         with open('./data/sqs-get-queue-'+str(count)+'.json', 'w') as outfile:
             outfile.write(json.dumps(response))
             count += 1
             outfile.close()
 except:
-    print('File not found')
+    print('File not found for sqs-get-queue')

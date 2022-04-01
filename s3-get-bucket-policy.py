@@ -1,7 +1,7 @@
 import boto3
 import json
 
-client=boto3.client('s3',region_name='us-west-2')
+client = boto3.client('s3', region_name='us-west-2')
 try:
     f = open('./data/s3-list-bucket.json')
     data = json.load(f)
@@ -10,7 +10,7 @@ try:
     for item in data['Buckets']:
         count += 1
         BucketNameList.append(item['Name'])
-        #print(BucketNameList)
+        # print(BucketNameList)
     for i in range(count):
         try:
             response = client.get_bucket_policy(
@@ -25,4 +25,4 @@ try:
             print('Error in getPolicy')
 
 except:
-    print('File not found')
+    print('File not found for s3-get-bucket-policy')
