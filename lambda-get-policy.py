@@ -25,4 +25,4 @@ try:
             print('Error in getPolicy')
 
 except:
-    print('File not found')
+    print('File not found for lambda-get-policy')

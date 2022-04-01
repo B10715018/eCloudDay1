@@ -26,4 +26,4 @@ try:
             print('Something is Error')
 
 except:
-    print('File not found')
+    print('File not found for sns-get-topic-attr')
