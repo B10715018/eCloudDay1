@@ -7,6 +7,6 @@ response = client.describe_log_streams(
 json_list = json.dumps(response)
 # print(json_list)
 
-with open('./data/cloudwatch-aws-cloudtrail-logs-758325631830-df00f960-get-log-streams.json', 'w')as outfile:
+with open('./data/cloudwatch-get-log-streams.json', 'w')as outfile:
     outfile.write(json_list)
     outfile.close()
