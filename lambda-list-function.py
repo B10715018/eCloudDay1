@@ -2,7 +2,8 @@
 import boto3
 import json
 
-client = boto3.client('lambda', region_name='us-west-2')
+REGION_NAME = 'us-west-2'
+client = boto3.client('lambda', region_name=REGION_NAME)
 response = client.list_functions()
 json_list = json.dumps(response)
 
