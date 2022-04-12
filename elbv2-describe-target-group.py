@@ -18,7 +18,7 @@ try:
             )
             json_list = json.dumps(response)
             print(json_list)
-            with open('./data/elbv2-describe-target-group.json', 'w')as outfile:
+            with open('./data/elbv2-describe-target-group'+LoadBalancerArnList[i]+'.json', 'w')as outfile:
                 outfile.write(json_list)
                 outfile.close()
 
