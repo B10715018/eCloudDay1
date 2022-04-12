@@ -155,3 +155,4 @@ cython_debug/
 
 # data folder contains sensitive info
 data/*.json
+data/cloudwatch-log-stream/*.json

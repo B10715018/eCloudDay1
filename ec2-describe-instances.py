@@ -14,7 +14,7 @@ class DateTimeEncoder(JSONEncoder):
 
 
 REGION_NAME = 'us-west-2'
-client = boto3.client('ec2', region_name=REGION_NAME')
+client = boto3.client('ec2', region_name=REGION_NAME)
 response = client.describe_instances()
 
 
