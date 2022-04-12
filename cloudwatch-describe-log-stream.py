@@ -20,6 +20,6 @@ for i in range(count):
     new_logGroupName = str_logGroupName.replace('/', '-')
     list(new_logGroupName)
 
-    with open('./data/cloudwatch-describe-log-streams'+new_logGroupName+'.json', 'w')as outfile:
+    with open('./data/cloudwatch-log-stream/cloudwatch-describe-log-'+new_logGroupName+'.json', 'w')as outfile:
         outfile.write(json_list)
         outfile.close()
