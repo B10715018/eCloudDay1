@@ -30,6 +30,22 @@
 
 3. run it using this command in your terminal `./job.sh`, run it 2 times to ensure there is no missing data
 
+## To run prepare.py:
+
+1. make sure you have 'job2.sh' file in your directory
+
+2. execute this command in your terminal `chmod u+x job2.sh`
+
+3. run it using this command in your terminal `./job2.sh`
+
+## Added some extra function to clear all JSON file in ./data folder:
+
+1. make sure you have 'jobClearJSON.sh' file in your directory
+
+2. execute this command in your terminal `chmod u+x jobClearJSON.sh`
+
+3. run it using this command in your terminal `./jobClearJSON.sh`
+
 ## Github Action Workflow
 
 1. This is to automate checking test on every python file made.
