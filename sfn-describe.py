@@ -2,8 +2,8 @@ import boto3
 import json
 import os
 # describe available state machine
-client = boto3.client('stepfunctions', region_name='us-west-2')
-
+REGION_NAME = 'us-west-2'
+client = boto3.client('stepfunctions', region_name=REGION_NAME)
 # describe all available state machine
 
 try:
