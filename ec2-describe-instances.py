@@ -13,13 +13,9 @@ class DateTimeEncoder(JSONEncoder):
             return obj.isoformat()
 
 
-client = boto3.client('ec2', region_name='us-west-2')
-response = client.describe_instances(
-    InstanceIds=[
-        'i-04850a0016b6718f2',
-        'i-08e41dc2ea3da1a9f'
-    ],
-)
+REGION_NAME = 'us-west-2'
+client = boto3.client('ec2', region_name=REGION_NAME')
+response = client.describe_instances()
 
 
 response2 = json.dumps(response, indent=4, cls=DateTimeEncoder)
