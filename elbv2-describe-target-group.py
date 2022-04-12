@@ -1,11 +1,28 @@
 import boto3
 import json
-client = boto3.client('elbv2', region_name='us-west-2')
-response = client.describe_target_groups(
-    LoadBalancerArn='arn:aws:elasticloadbalancing:us-west-2:758325631830:loadbalancer/app/appELB/5982e05975655deb',
-)
+REGION_NAME='us-west-2'
+client = boto3.client('elbv2', region_name=REGION_NAME)
+try:
 
-json_list = json.dumps(response)
-with open('./data/elbv2-describe-target-group'+'.json', 'w')as outfile:
-    outfile.write(json_list)
-    outfile.close()
+    f = open('./data/elbv2-describe-load-balancer.json')
+    data = json.load(f)
+    count = 0
+    LoadBalancerArnList = []
+    for item in data['LoadBalancers']:
+        count += 1
+        LoadBalancerArnList.append(item['LoadBalancerArn'])
+    for i in range(count):
+        try:
+            response = client.describe_target_groups(
+            LoadBalancerArn=LoadBalancerArnList[i],
+            )
+            json_list = json.dumps(response)
+            print(json_list)
+            with open('./data/elbv2-describe-target-group'+LoadBalancerArnList[i]+'.json', 'w')as outfile:
+                outfile.write(json_list)
+                outfile.close()
+
+        except:
+            print('Error in describe target group')
+except:
+    print('File not found for elbv2-describe-target-group')
