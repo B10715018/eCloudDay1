@@ -17,7 +17,7 @@ try:
                 TargetGroupArn=TargetGroupArnList[i]
             )
         json_list = json.dumps(response)
-        with open('./data/elbv2-describe-target-health'+'.json', 'w')as outfile:
+        with open('./data/elbv2-describe-target-health'+TargetGroupArnList[i]+'.json', 'w')as outfile:
             outfile.write(json_list)
             outfile.close()
     except:
