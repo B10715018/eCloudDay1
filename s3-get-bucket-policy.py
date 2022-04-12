@@ -1,7 +1,8 @@
 import boto3
 import json
 
-client = boto3.client('s3', region_name='us-west-2')
+REGION_NAME = 'us-west-2'
+client = boto3.client('s3', region_name=REGION_NAME)
 try:
     f = open('./data/s3-list-bucket.json')
     data = json.load(f)
