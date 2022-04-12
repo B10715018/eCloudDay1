@@ -13,7 +13,8 @@ class DateTimeEncoder(JSONEncoder):
             return obj.isoformat()
 
 
-client = boto3.client('ec2', region_name='us-west-2')
+REGION_NAME = 'us-west-2'
+client = boto3.client('ec2', region_name=REGION_NAME)
 response = client.describe_availability_zones()
 
 # print(response)
