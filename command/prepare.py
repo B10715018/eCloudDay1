@@ -21,6 +21,21 @@ with open('./data/lambda-list-functions.json', 'r') as openfile:
 
     openfile.close()
 
+'''Prepare all the s3 bucket'''
+with open('./data/s3-list-bucket.json', 'r') as openfile:
+    s3_object = json.load(openfile)
+    for item in s3_object['Buckets']:
+        cytoscape_data.append({
+            "data": {
+                "type": "s3",
+                "id": "s3:"+item["Name"],
+                "region": 'us-west-2',
+                "name": item['Name'],
+            }
+        })
+
+    openfile.close()
+
 ''' Prepare all the dynamodb tables'''
 with open('./data/dynamodb-list-table.json', 'r') as openfile:
     ddb_object = json.load(openfile)
@@ -114,6 +129,30 @@ for each_file in list_of_files:
         openfile.close()
 
 '''FIND CONNECTION BETWEEN TRANSCRIBE AND S3'''
+for each_file in list_of_files:
+    # since its all type str you can simply use startswith
+    if each_file.startswith('cloudtrail-start-transcription'):
+        with open('./data/' + each_file, 'r') as openfile:
+            cloudtrail_transcribe_object = json.load(openfile)
+            try:
+                for s3 in s3_object['Buckets']:
+                    if(cloudtrail_transcribe_object['requestParameters']['outputBucketName'] == s3['Name']):
+                        transcribe_s3_edge_data = {
+                            "data": {
+                                "id": 'transcribe-'+'s3:'+s3['Name'],
+                                "source": 'transcribe',
+                                "target": 's3:'+s3['Name'],
+                            }
+                        }
+                        if(cytoscape_data.count(transcribe_s3_edge_data) == 0):
+                            cytoscape_data.append(transcribe_s3_edge_data)
+                            print('Found connection between transcribe and s3:{}'.format(
+                                cloudtrail_transcribe_object['requestParameters']['outputBucketName']))
+            except:
+                print('No connection between transcribe and s3 bucket:{}'.format(
+                    cloudtrail_transcribe_object['requestParameters']['outputBucketName']
+                ))
+        openfile.close()
 
 '''FIND CONNECTION BETWEEN LAMBDA AND TRANSLATE'''
 list_of_files = os.listdir('./data')  # list of files in the data directory
