@@ -3,14 +3,14 @@ import os
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
-
-cytoscape_data = []
-
+filtered_cytoscape_data = []
+cytoscape_node_data = []
+cytoscape_edge_data = []
 ''' Prepare all the lambda'''
 with open('./data/lambda-list-functions.json', 'r') as openfile:
     lambda_object = json.load(openfile)
     for item in lambda_object['Functions']:
-        cytoscape_data.append({
+        cytoscape_node_data.append({
             "data": {
                 "type": "lambda",
                 "id": item["FunctionArn"],
@@ -25,7 +25,7 @@ with open('./data/lambda-list-functions.json', 'r') as openfile:
 with open('./data/s3-list-bucket.json', 'r') as openfile:
     s3_object = json.load(openfile)
     for item in s3_object['Buckets']:
-        cytoscape_data.append({
+        cytoscape_node_data.append({
             "data": {
                 "type": "s3",
                 "id": "s3:"+item["Name"],
@@ -40,7 +40,7 @@ with open('./data/s3-list-bucket.json', 'r') as openfile:
 with open('./data/dynamodb-list-table.json', 'r') as openfile:
     ddb_object = json.load(openfile)
     for item in ddb_object['TableNames']:
-        cytoscape_data.append({
+        cytoscape_node_data.append({
             "data": {
                 "type": "dynamodb",
                 "id": 'ddb:'+item,
@@ -56,7 +56,7 @@ for each_file in list_of_files:
     # since its all type str you can simply use startswith
     if each_file.startswith('cloudtrail-start-transcription'):
         print('Found a cloudtrail transcribe file')
-        cytoscape_data.append({
+        cytoscape_node_data.append({
             "data": {
                 "type": "transcribe",
                 "id": "transcribe",
@@ -72,7 +72,7 @@ for each_file in list_of_files:
     # since its all type str you can simply use startswith
     if each_file.startswith('cloudtrail-translate-text-'):
         print('Found a cloudtrail translate file')
-        cytoscape_data.append({
+        cytoscape_node_data.append({
             "data": {
                 "type": "translate",
                 "id": "translate",
@@ -82,6 +82,8 @@ for each_file in list_of_files:
         })
         break
 
+'''STARTING FROM HERE IS LOGIC TO FIND RELATIONSHIPS'''
+
 '''FIND CONNECTION BETWEEN DDB AND LAMBDA'''
 for item in lambda_object['Functions']:
     for ddb in ddb_object['TableNames']:
@@ -89,7 +91,7 @@ for item in lambda_object['Functions']:
             if item['Environment']['Variables']['DB_TABLE_NAME'] == ddb:
                 # print('Found connection between {} and {}'.format(
                 #     item['FunctionName'], ddb))
-                cytoscape_data.append({
+                cytoscape_edge_data.append({
                     "data": {
                         "id": item['FunctionName'] + '-ddb:' + ddb,
                         "source": item["FunctionArn"],
@@ -120,8 +122,8 @@ for each_file in list_of_files:
                             "target": 'transcribe',
                         }
                     }
-                    if(cytoscape_data.count(transcribe_edge_data) == 0):
-                        cytoscape_data.append(transcribe_edge_data)
+                    if(cytoscape_edge_data.count(transcribe_edge_data) == 0):
+                        cytoscape_edge_data.append(transcribe_edge_data)
                     print('Found connection between transcribe and lambda:{}'.format(
                         cloudtrail_transcribe_object['userIdentity']['principalId'].split(':')[-1]))
             except:
@@ -144,8 +146,8 @@ for each_file in list_of_files:
                                 "target": 's3:'+s3['Name'],
                             }
                         }
-                        if(cytoscape_data.count(transcribe_s3_edge_data) == 0):
-                            cytoscape_data.append(transcribe_s3_edge_data)
+                        if(cytoscape_edge_data.count(transcribe_s3_edge_data) == 0):
+                            cytoscape_edge_data.append(transcribe_s3_edge_data)
                             print('Found connection between transcribe and s3:{}'.format(
                                 cloudtrail_transcribe_object['requestParameters']['outputBucketName']))
             except:
@@ -174,14 +176,17 @@ for each_file in list_of_files:
                             "target": 'translate',
                         }
                     }
-                    if(cytoscape_data.count(translate_edge_data) == 0):
-                        cytoscape_data.append(translate_edge_data)
+                    if(cytoscape_edge_data.count(translate_edge_data) == 0):
+                        cytoscape_edge_data.append(translate_edge_data)
                     print('Found connection between translate and lambda:{}'.format(
                         cloudtrail_translate_object['userIdentity']['principalId'].split(':')[-1]))
             except:
                 print('No connection between lambda and translate')
         openfile.close()
 
+filtered_cytoscape_data.append(cytoscape_node_data)
+filtered_cytoscape_data.append(cytoscape_edge_data)
+
 with open('./data/data.json', 'w') as outfile:
-    outfile.write(json.dumps(cytoscape_data))
+    outfile.write(json.dumps(filtered_cytoscape_data))
     outfile.close()
