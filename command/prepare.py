@@ -82,7 +82,95 @@ for each_file in list_of_files:
         })
         break
 
+'''Prepare for step function'''
+with open('./data/step-function-list-state-machine.json', 'r') as openfile:
+    sfn_object = json.load(openfile)
+    for sfn in sfn_object['stateMachines']:
+        cytoscape_node_data.append({
+            "data": {
+                "type": "step-function",
+                "id": sfn['stateMachineArn'],
+                "region": 'us-west-2',
+                "name": sfn['name'],
+            }
+        })
+
+    openfile.close()
+
+'''Prepare for SNS'''
+with open('./data/sns-list-topic-us-west-2.json', 'r') as openfile:
+    sns_object = json.load(openfile)
+    for sns in sns_object['Topics']:
+        cytoscape_node_data.append({
+            "data": {
+                "type": "sns",
+                "id": sns['TopicArn'],
+                "region": 'us-west-2',
+                "name": sns['TopicArn'],
+            }
+        })
+    openfile.close()
+
 '''STARTING FROM HERE IS LOGIC TO FIND RELATIONSHIPS'''
+
+'''FIND CONNECTION INSIDE STEP FUNCTION'''
+list_of_files = os.listdir('./data')  # list of files in the data directory
+for each_file in list_of_files:
+    # since its all type str you can simply use startswith
+    if each_file.startswith('sfn-definition-'):
+        with open('./data/' + each_file, 'r') as openfile:
+            unfiltered_sfn_arn = each_file[15:]
+            filtered_sfn_arn = unfiltered_sfn_arn.split('.')[0]
+            try:
+                sfn_connection_object = json.load(openfile)
+                listOfStates = list(sfn_connection_object['States'].values())
+                totalStates = len(sfn_connection_object['States'].keys())
+                for i in range(totalStates):
+                    # sourceId for edge
+                    sourceId = ''
+                    # if state is lambda
+                    if('lambda' in listOfStates[i]['Resource']):
+                        print('Lambda Found in SFN')
+                        sourceId = (
+                            listOfStates[i]['Parameters']['FunctionName'])[:-8]
+                        for item in cytoscape_node_data:
+                            if item['data']['id'] == sourceId:
+                                item['data'].update(
+                                    {"parent": filtered_sfn_arn})
+                    # if state is sns
+                    if('sns' in listOfStates[i]['Resource']):
+                        # give the last state parent node
+                        print('SNS Found in SFN')
+                        sourceId = (listOfStates[i]['Parameters']['TopicArn'])
+                        for item in cytoscape_node_data:
+                            if item['data']['id'] == sourceId:
+                                item['data'].update(
+                                    {"parent": filtered_sfn_arn})
+                    # if this is not end state
+                    if(i != totalStates-1):
+                        print('this is not end state', i)
+                        targetId = ''
+                        # if next state is lambda
+                        if('lambda' in listOfStates[i+1]['Resource']):
+                            targetId = (
+                                listOfStates[i+1]['Parameters']['FunctionName'])[:-8]
+                        # if next state is sns
+                        if('sns' in listOfStates[i+1]['Resource']):
+                            targetId = (
+                                listOfStates[i+1]['Parameters']['TopicArn'])
+                        # edge data
+                        sfn_edge_data = {
+                            "data": {
+                                "id": sourceId+'-'+targetId,
+                                "source": sourceId,
+                                "target": targetId,
+                            }
+                        }
+                        cytoscape_edge_data.append(sfn_edge_data)
+
+            except:
+                print('No connection inside step function')
+        openfile.close()
 
 '''FIND CONNECTION BETWEEN DDB AND LAMBDA'''
 for item in lambda_object['Functions']:
