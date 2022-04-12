@@ -2,10 +2,9 @@
 import boto3
 import json
 # list available state machine
-client = boto3.client('stepfunctions', region_name='us-west-2')
+REGION_NAME = 'us-west-2'
+client = boto3.client('stepfunctions', region_name=REGION_NAME)
 response = client.list_state_machines()
-
-
 sfnList = []
 count = 0
 for item in response['stateMachines']:
