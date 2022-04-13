@@ -5,6 +5,8 @@ from utils.sqs_get_queue import sqs_get_queue
 
 '''Collect class for collecting data from AWS Lambda'''
 
+REGION_NAME = 'us-west-2'
+
 
 class Collect:
     '''Collect class for collecting data from AWS Lambda'''
@@ -13,21 +15,22 @@ class Collect:
         self.region_name = region_name
 
     def get_lambda_list(self):
-        lambda_list_function()
+        lambda_list_function(self.region_name)
 
     def get_lambda_policy(self):
-        lambda_get_policy()
+        lambda_get_policy(self.region_name)
 
     def list_sqs_queue(self):
-        sqs_list_queue()
+        sqs_list_queue(self.region_name)
 
     def get_sqs_queue(self):
-        sqs_get_queue()
+        sqs_get_queue(self.region_name)
 
 
 # initialize class
-collect_command = Collect('us-west-2')
+collect_command = Collect(REGION_NAME)
 
+# call command functions
 collect_command.get_lambda_list()
 collect_command.get_lambda_policy()
 collect_command.list_sqs_queue()
