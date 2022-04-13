@@ -2,6 +2,7 @@ from utils.lambda_get_policy import lambda_get_policy
 from utils.lambda_list_function import lambda_list_function
 from utils.sqs_list_queue import sqs_list_queue
 from utils.sqs_get_queue import sqs_get_queue
+from utils.sns_list_topic import sns_list_topic
 
 '''Collect class for collecting data from AWS Lambda'''
 
@@ -26,6 +27,9 @@ class Collect:
     def get_sqs_queue(self):
         sqs_get_queue(self.region_name)
 
+    def list_sns_topic(self):
+        sns_list_topic(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -35,3 +39,4 @@ collect_command.get_lambda_list()
 collect_command.get_lambda_policy()
 collect_command.list_sqs_queue()
 collect_command.get_sqs_queue()
+collect_command.list_sns_topic()
