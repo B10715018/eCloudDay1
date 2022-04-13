@@ -1,9 +1,8 @@
 import boto3
 import json
-client = boto3.client('elbv2', region_name='us-west-2')
-response = client.describe_load_balancers(
-)
-
+REGION_NAME = 'us-west-2'
+client = boto3.client('elbv2', region_name=REGION_NAME)
+response = client.describe_load_balancers()
 dateList = []
 count = 0
 for item in response['LoadBalancers']:

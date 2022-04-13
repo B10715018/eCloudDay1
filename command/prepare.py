@@ -6,6 +6,7 @@ ACCOUNT_ID = '758325631830'
 filtered_cytoscape_data = []
 cytoscape_node_data = []
 cytoscape_edge_data = []
+
 ''' Prepare all the lambda'''
 with open('./data/lambda-list-functions.json', 'r') as openfile:
     lambda_object = json.load(openfile)
@@ -171,6 +172,28 @@ for each_file in list_of_files:
             except:
                 print('No connection inside step function')
         openfile.close()
+
+'''FIND CONNECTION BETWEEN LAMBDA AND SNS'''
+for item in lambda_object['Functions']:
+    for sns in sns_object['Topics']:
+        try:
+            if(item['Environment']['Variables']['SNS_TOPIC'] == sns['TopicArn']):
+                print('Found connection between lambda{} and sns{}'.format(
+                    item['FunctionName'], sns['TopicArn']))
+                lambda_sns_edge_data = {
+                    "data": {
+                        "id": item['FunctionArn']+'-'+sns['TopicArn'],
+                        "source": item['FunctionArn'],
+                        "target": sns['TopicArn'],
+                    }
+                }
+                if(cytoscape_edge_data.count(lambda_sns_edge_data) == 0):
+                    cytoscape_edge_data.append(lambda_sns_edge_data)
+                cytoscape_edge_data.append(lambda_sns_edge_data)
+        except:
+            print('No connection between lambda{} and sns{}'.format(
+                item['FunctionName'], sns['TopicArn'])
+            )
 
 '''FIND CONNECTION BETWEEN DDB AND LAMBDA'''
 for item in lambda_object['Functions']:
