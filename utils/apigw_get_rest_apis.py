@@ -10,7 +10,7 @@ REGION_NAME = 'us-west-2'
 
 def apigw_get_rest_apis():
     script_dir = os.path.dirname('.')
-    file_path = os.path.join(script_dir, 'data/lapigw-get-rest-apis'+'.json')
+    file_path = os.path.join(script_dir, 'data/apigw-get-rest-apis'+'.json')
 
     class DateTimeEncoder(JSONEncoder):
         # Override the default method
