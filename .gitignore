@@ -158,3 +158,4 @@ data/*.json
 data/cloudwatch-log-stream/*.json
 data/lambda-get-policy/*.json
 data/sqs-get-queue/*.json
+data/sns-get-topic-attr/*.json
