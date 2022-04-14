@@ -1,32 +1,39 @@
 import boto3
 import json
+REGION_NAME = 'us-west-2'
+client = boto3.client('logs', region_name=REGION_NAME)
+f = open('./data/cloudwatch-describe-log-groups.json')
+data = json.load(f)
+count = 0
+countStream = 0
+logGroupNameList = []
+LogStreamNameList = []
 
-client = boto3.client('logs', region_name='us-west-2')
-try:
-    f = open('./data/cloudwatch-get-log-streams.json')
-    data = json.load(f)
-    count = 0
-    LogStreamName = []
-    all_event = []
-    for item in data['logStreams']:
-        count += 1
-        LogStreamName.append(item['logStreamName'])
-        # print(LogStreamName)
-    for i in range(count):
-        response = client.get_log_events(
-            logGroupName='aws-cloudtrail-logs-758325631830-2cc34dd3',
-            logStreamName=LogStreamName[i]
-        )
-        json_list = json.dumps(response)
-        # print(json_list)
-        all_event.append(json_list)
-        all_event_json = json.dumps(all_event, indent=4, sort_keys=True)
-        with open('./data/cloudwatch-'+LogStreamName[i]+'-get-log-events.json', 'w')as outfile:
-            outfile.write(json_list)
-            outfile.close()
-    with open('./data/cloudwatch-get-log-events-all.json', 'w')as outfile:
-        outfile.write(all_event_json)
-        outfile.close()
-
-except:
-    print('File for log stream not found')
+for item in data['logGroups']:
+    count += 1
+    logGroupNameList.append(item['logGroupName'])
+    
+for i in range(count):
+    str_logGroupName = "".join(logGroupNameList[i])
+    new_logGroupName = str_logGroupName.replace('/', '-')
+    list(new_logGroupName)
+    a = open('./data/cloudwatch-log-stream/cloudwatch-describe-log-stream' +
+             new_logGroupName+'.json', 'r')
+    logs = json.load(a)
+    a.close()
+    try:
+        for Stream in logs['logStreams']:
+            countStream += 1
+            LogStreamNameList.append(Stream['logStreamName'])
+            str_logStreamName = "".join(LogStreamNameList[i])
+            new_logStreamName = str_logStreamName.replace('/', '-')
+            response = client.get_log_events(
+                logGroupName=logGroupNameList[i],
+                logStreamName=str_logStreamName
+            )
+            json_list = json.dumps(response)
+            with open('./data/cloudwatch-log-stream/cloudwatch-get-log-event'+new_logStreamName+'.json', 'w')as outfile:
+                outfile.write(json_list)
+                outfile.close()
+    except:
+        print("logStreams not found")
