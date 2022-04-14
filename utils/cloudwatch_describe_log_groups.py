@@ -1,3 +1,4 @@
+import os
 import boto3
 import json
 REGION_NAME = 'us-west-2'
