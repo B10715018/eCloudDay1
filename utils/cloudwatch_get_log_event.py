@@ -1,3 +1,4 @@
+import os
 import boto3
 import json
 REGION_NAME = 'us-west-2'
@@ -41,7 +42,8 @@ def cloudwatch_describe_log_event():
                     logStreamName=str_logStreamName
                 )
                 json_list = json.dumps(response)
-                file_path3=os.path.join(script_dir,'data/cloudwatch-log-stream/cloudwatch-get-log-event'+new_logStreamName+'.json')
+                file_path3 = os.path.join(
+                    script_dir, 'data/cloudwatch-log-stream/cloudwatch-get-log-event'+new_logStreamName+'.json')
                 with open(file_path3, 'w')as outfile:
                     outfile.write(json_list)
                     outfile.close()
