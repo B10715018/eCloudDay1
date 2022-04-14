@@ -35,9 +35,12 @@ def apigw_get_resource():
 
             json_list = json.dumps(response, indent=4, cls=DateTimeEncoder)
             file_path2 = os.path.join(
-                    script_dir, 'data/apigw-get-resource-'+ID[i]+'.json')
+                script_dir, 'data/apigw-get-resource-'+ID[i]+'.json')
             with open(file_path2, 'w') as outfile:
                 outfile.write(json_response)
                 outfile.close()
     except:
         print('File not found for apigw-get-resources')
+    return {
+        'statusCode': 200,
+    }
