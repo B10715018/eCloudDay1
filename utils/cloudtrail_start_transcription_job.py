@@ -25,5 +25,3 @@ def cloudtrail_lookup_event():
         with open(file_path, 'w')as outfile:
             outfile.write(json_list)
             outfile.close()
-
-
