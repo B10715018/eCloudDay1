@@ -8,7 +8,8 @@ def dynamodb_scan(region):
     count = 0
     TableList = []
     script_dir = os.path.dirname('.')
-    file_path_read = os.path.join(script_dir, 'data/dynamodb-list-table.json')
+    file_path_read = os.path.join(
+        script_dir, 'data/dynamodb-list-table-'+region+'.json')
     f = open(file_path_read, 'r')
     data = json.load(f)
     for item in data['TableNames']:

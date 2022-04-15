@@ -10,7 +10,7 @@ def dynamodb_list_table(region):
         response = client.list_tables()
         json_response = json.dumps(response)
         file_path_write = os.path.join(
-            script_dir, 'data/dynamodb-list-table'+'.json')
+            script_dir, 'data/dynamodb-list-table-'+region+'.json')
         with open(file_path_write, 'w') as outfile:
             outfile.write(json_response)
             outfile.close()
