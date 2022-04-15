@@ -12,6 +12,7 @@ from utils.cloudtrail_start_transcription_job import cloudtrail_start_transcript
 from utils.apigw_get_rest_apis import apigw_get_rest_apis
 from utils.apigw_get_resources import apigw_get_resource
 from utils.cloudtrail_waf_createWebACL import cloudtrail_waf_createWebACL
+from utils.cloudwatch_describe_log_groups import cloudwatch_describe_log_groups
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -66,6 +67,9 @@ class Collect:
     def get_cloudtrail_waf_createWebACL(self):
         cloudtrail_waf_createWebACL(self.region_name)
 
+    def get_cloudwatch_describe_log_groups(self):
+        cloudwatch_describe_log_groups(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -85,3 +89,4 @@ collect_command.get_cloudtrail_start_transcription_job()
 collect_command.get_apigw_rest_apis()
 collect_command.get_apigw_resources()
 collect_command.get_cloudtrail_waf_createWebACL()
+collect_command.get_cloudwatch_describe_log_groups()
