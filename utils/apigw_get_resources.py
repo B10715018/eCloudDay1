@@ -2,6 +2,7 @@ import boto3
 from json import JSONEncoder
 import datetime
 import json
+import os
 
 REGION_NAME = 'us-west-2'
 
