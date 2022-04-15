@@ -12,7 +12,7 @@ LogStreamNameList = []
 for item in data['logGroups']:
     count += 1
     logGroupNameList.append(item['logGroupName'])
-    
+
 for i in range(count):
     str_logGroupName = "".join(logGroupNameList[i])
     new_logGroupName = str_logGroupName.replace('/', '-')
@@ -25,8 +25,9 @@ for i in range(count):
         for Stream in logs['logStreams']:
             countStream += 1
             LogStreamNameList.append(Stream['logStreamName'])
-            str_logStreamName = "".join(LogStreamNameList[i])
-            new_logStreamName = str_logStreamName.replace('/', '-')
+            for j in range(countStream):
+                str_logStreamName = "".join(LogStreamNameList[j])
+                new_logStreamName = str_logStreamName.replace('/', '-')
             response = client.get_log_events(
                 logGroupName=logGroupNameList[i],
                 logStreamName=str_logStreamName
