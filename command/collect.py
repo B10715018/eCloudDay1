@@ -8,8 +8,9 @@ from utils.dynamodb_list_table import dynamodb_list_table
 from utils.dynamodb_scan import dynamodb_scan
 from utils.cloudtrail_sfn_start_execution import cloudtrail_start_sfn
 from utils.cloudtrail_translate_text import cloudtrail_translate_text
+from utils.cloudtrail_start_transcription_job import cloudtrail_start_transcription_job
 
-'''Collect class for collecting data from AWS Lambda'''
+'''Collect class for collecting data from AWS Services'''
 
 REGION_NAME = 'us-west-2'
 
@@ -50,6 +51,9 @@ class Collect:
     def get_cloudtrail_translate_text(self):
         cloudtrail_translate_text(self.region_name)
 
+    def get_cloudtrail_start_transcription_job(self):
+        cloudtrail_start_transcription_job(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -65,3 +69,4 @@ collect_command.list_dynamodb_table()
 collect_command.scan_dynamodb_table()
 collect_command.get_cloudtrail_start_sfn()
 collect_command.get_cloudtrail_translate_text()
+collect_command.get_cloudtrail_start_transcription_job()

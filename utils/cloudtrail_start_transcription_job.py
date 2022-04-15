@@ -1,12 +1,10 @@
 import boto3
 import os
-import json
-REGION_NAME = 'us-wet-2'
 
 
-def cloudtrail_lookup_event():
+def cloudtrail_start_transcription_job(region):
     script_dir = os.path.dirname('.')
-    client = boto3.client('cloudtrail', region_name=REGION_NAME)
+    client = boto3.client('cloudtrail', region_name=region)
 
     response = client.lookup_events(
         LookupAttributes=[
@@ -21,7 +19,7 @@ def cloudtrail_lookup_event():
         eventId = items['EventId']
         json_list = items['CloudTrailEvent']
         file_path = os.path.join(
-            script_dir, 'data/cloudtrail-start-transcription-job-'+eventId+'.json')
+            script_dir, 'data/cloudtrail-start-transcription/cloudtrail-start-transcription-job-'+region+'-'+eventId+'.json')
         with open(file_path, 'w')as outfile:
             outfile.write(json_list)
             outfile.close()

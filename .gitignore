@@ -162,3 +162,4 @@ data/sns-get-topic-attr/*.json
 data/dynamodb-table/*.json
 data/cloudtrail-start-sfn/*.json
 data/cloudtrail-translate-text/*.json
+data/cloudtrail-start-transcription/*.json
