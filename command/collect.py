@@ -11,6 +11,7 @@ from utils.cloudtrail_translate_text import cloudtrail_translate_text
 from utils.cloudtrail_start_transcription_job import cloudtrail_start_transcription_job
 from utils.apigw_get_rest_apis import apigw_get_rest_apis
 from utils.apigw_get_resources import apigw_get_resource
+from utils.cloudtrail_waf_createWebACL import cloudtrail_waf_createWebACL
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -62,6 +63,9 @@ class Collect:
     def get_apigw_resources(self):
         apigw_get_resource(self.region_name)
 
+    def get_cloudtrail_waf_createWebACL(self):
+        cloudtrail_waf_createWebACL(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -80,3 +84,4 @@ collect_command.get_cloudtrail_translate_text()
 collect_command.get_cloudtrail_start_transcription_job()
 collect_command.get_apigw_rest_apis()
 collect_command.get_apigw_resources()
+collect_command.get_cloudtrail_waf_createWebACL()

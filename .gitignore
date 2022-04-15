@@ -164,3 +164,4 @@ data/cloudtrail-start-sfn/*.json
 data/cloudtrail-translate-text/*.json
 data/cloudtrail-start-transcription/*.json
 data/apigw-resource/*.json
+data/cloudtrail-create-WebACL/*.json
