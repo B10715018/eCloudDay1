@@ -9,6 +9,7 @@ from utils.dynamodb_scan import dynamodb_scan
 from utils.cloudtrail_sfn_start_execution import cloudtrail_start_sfn
 from utils.cloudtrail_translate_text import cloudtrail_translate_text
 from utils.cloudtrail_start_transcription_job import cloudtrail_start_transcription_job
+from utils.apigw_get_rest_apis import apigw_get_rest_apis
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -54,6 +55,9 @@ class Collect:
     def get_cloudtrail_start_transcription_job(self):
         cloudtrail_start_transcription_job(self.region_name)
 
+    def get_apigw_rest_apis(self):
+        apigw_get_rest_apis(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -70,3 +74,4 @@ collect_command.scan_dynamodb_table()
 collect_command.get_cloudtrail_start_sfn()
 collect_command.get_cloudtrail_translate_text()
 collect_command.get_cloudtrail_start_transcription_job()
+collect_command.get_apigw_rest_apis()

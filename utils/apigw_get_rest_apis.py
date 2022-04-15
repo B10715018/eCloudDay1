@@ -3,25 +3,25 @@ import boto3
 from json import JSONEncoder
 import datetime
 import json
-
-# subclass JSONEncoder
-REGION_NAME = 'us-west-2'
+import os
 
 
-def apigw_get_rest_apis():
+class DateTimeEncoder(JSONEncoder):
+    # Override the default method
+    def default(self, obj):
+        if isinstance(obj, (datetime.date, datetime.datetime)):
+            return obj.isoformat()
+
+
+def apigw_get_rest_apis(region):
     script_dir = os.path.dirname('.')
-    file_path = os.path.join(script_dir, 'data/apigw-get-rest-apis'+'.json')
+    file_path_write = os.path.join(
+        script_dir, 'data/apigw-get-rest-apis-'+region+'.json')
 
-    class DateTimeEncoder(JSONEncoder):
-        # Override the default method
-        def default(self, obj):
-            if isinstance(obj, (datetime.date, datetime.datetime)):
-                return obj.isoformat()
-
-    client = boto3.client('apigateway', region_name=REGION_NAME)
+    client = boto3.client('apigateway', region_name=region)
     response = client.get_rest_apis()
     json_list = json.dumps(response, indent=4, cls=DateTimeEncoder)
-    with open(file_path, 'w')as outfile:
+    with open(file_path_write, 'w')as outfile:
         outfile.write(json_list)
         outfile.close()
 
