@@ -2,24 +2,21 @@ import boto3
 import json
 import os
 
-REGION_NAME = 'us-west-2'
 
-
-def dynamodb_scan():
-    client = boto3.client('dynamodb', region_name=REGION_NAME)
-    dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
+def dynamodb_scan(region):
+    dynamodb = boto3.resource('dynamodb', region_name=region)
     count = 0
     TableList = []
     script_dir = os.path.dirname('.')
-    file_path = os.path.join(script_dir, 'data/dynamodb-list-table.json')
-    f = open(file_path, 'r')
+    file_path_read = os.path.join(script_dir, 'data/dynamodb-list-table.json')
+    f = open(file_path_read, 'r')
     data = json.load(f)
     for item in data['TableNames']:
-        count+=1
+        count += 1
         TableList.append(item)
     try:
         for i in range(count):
-            table=dynamodb.Table(TableList[i])
+            table = dynamodb.Table(TableList[i])
             response = table.scan()
 
             existingKeys = []
@@ -31,8 +28,9 @@ def dynamodb_scan():
 
         response['Items'] = existingKeys
         json_string = json.dumps(response)
-        file_path2=os.path.join(script_dir,'data/dynamoDB-item-list-scan-'+TableList[i]+'.json')
-        with open(file_path2, 'w') as outfile:
+        file_path_write = os.path.join(
+            script_dir, 'data/dynamodb-table/dynamoDB-item-list-scan-'+region+'-'+TableList[i]+'.json')
+        with open(file_path_write, 'w') as outfile:
             outfile.write(json_string)
             outfile.close()
     except:

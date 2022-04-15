@@ -4,6 +4,8 @@ from utils.sqs_list_queue import sqs_list_queue
 from utils.sqs_get_queue import sqs_get_queue
 from utils.sns_list_topic import sns_list_topic
 from utils.sns_get_topic_attribute import sns_get_topic_attribute
+from utils.dynamodb_list_table import dynamodb_list_table
+from utils.dynamodb_scan import dynamodb_scan
 
 '''Collect class for collecting data from AWS Lambda'''
 
@@ -34,6 +36,12 @@ class Collect:
     def get_sns_topic_attribute(self):
         sns_get_topic_attribute(self.region_name)
 
+    def list_dynamodb_table(self):
+        dynamodb_list_table(self.region_name)
+
+    def scan_dynamodb_table(self):
+        dynamodb_scan(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -45,3 +53,5 @@ collect_command.list_sqs_queue()
 collect_command.get_sqs_queue()
 collect_command.list_sns_topic()
 collect_command.get_sns_topic_attribute()
+collect_command.list_dynamodb_table()
+collect_command.scan_dynamodb_table()
