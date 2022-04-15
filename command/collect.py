@@ -6,6 +6,7 @@ from utils.sns_list_topic import sns_list_topic
 from utils.sns_get_topic_attribute import sns_get_topic_attribute
 from utils.dynamodb_list_table import dynamodb_list_table
 from utils.dynamodb_scan import dynamodb_scan
+from utils.cloudtrail_sfn_start_execution import cloudtrail_start_sfn
 
 '''Collect class for collecting data from AWS Lambda'''
 
@@ -42,6 +43,9 @@ class Collect:
     def scan_dynamodb_table(self):
         dynamodb_scan(self.region_name)
 
+    def get_cloudtrail_start_sfn(self):
+        cloudtrail_start_sfn(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -55,3 +59,4 @@ collect_command.list_sns_topic()
 collect_command.get_sns_topic_attribute()
 collect_command.list_dynamodb_table()
 collect_command.scan_dynamodb_table()
+collect_command.get_cloudtrail_start_sfn()
