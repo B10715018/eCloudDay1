@@ -23,12 +23,12 @@ def elbv2_describe_target_health():
                 response = client.describe_target_health(
                     TargetGroupArn=TargetGroupArnList[i]
                 )
-            json_list = json.dumps(response)
-            file_path2 = os.path.join(
-                script_dir, 'data/elbv2-describe-target-health'+TargetGroupArnList[i]+'.json')
-            with open(file_path2, 'w')as outfile:
-                outfile.write(json_list)
-                outfile.close()
+                json_list = json.dumps(response)
+                file_path2 = os.path.join(
+                    script_dir, 'data/elbv2-describe-target-health'+TargetGroupArnList[i]+'.json')
+                with open(file_path2, 'w')as outfile:
+                    outfile.write(json_list)
+                    outfile.close()
         except:
             print('Error in elbv2-describe-target-health')
     except:
