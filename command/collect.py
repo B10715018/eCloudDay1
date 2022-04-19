@@ -21,6 +21,7 @@ from utils.rds_describe_instance import rds_describe_instance
 from utils.elbv2_describe_load_balancer import elbv2_describe_load_balancer
 from utils.elbv2_describe_target_group import elbv2_describe_target_group
 from utils.elbv2_describe_target_health import elbv2_describe_target_health
+from utils.ec2_describe_instances import ec2_describe_instances
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -102,6 +103,9 @@ class Collect:
     def describe_elbv2_target_health(self):
         elbv2_describe_target_health(self.region_name)
 
+    def describe_ec2_instances(self):
+        ec2_describe_instances(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -130,3 +134,4 @@ collect_command.describe_rds_instance()
 collect_command.describe_elbv2_load_balancer()
 collect_command.describe_elbv2_target_group()
 collect_command.describe_elbv2_target_health()
+collect_command.describe_ec2_instances()
