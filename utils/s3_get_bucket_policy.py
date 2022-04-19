@@ -35,6 +35,3 @@ def s3_get_bucket_policy(region):
 
     except:
         print('File not found for s3-get-bucket-policy')
-
-
-s3_get_bucket_policy('us-west-2')

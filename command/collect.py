@@ -17,6 +17,7 @@ from utils.cloudwatch_describe_log_stream import cloudwatch_describe_log_stream
 from utils.cloudwatch_get_log_event import cloudwatch_describe_log_event
 from utils.s3_list_bucket import s3_list_bucket
 from utils.s3_get_bucket_policy import s3_get_bucket_policy
+from utils.rds_describe_instance import rds_describe_instance
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -86,6 +87,9 @@ class Collect:
     def get_s3_bucket_policy(self):
         s3_get_bucket_policy(self.region_name)
 
+    def describe_rds_instance(self):
+        rds_describe_instance(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -110,3 +114,4 @@ collect_command.get_cloudwatch_describe_log_stream()
 collect_command.get_cloudwatch_describe_log_event()
 collect_command.list_s3_bucket()
 collect_command.get_s3_bucket_policy()
+collect_command.describe_rds_instance()

@@ -28,7 +28,7 @@ def lambda_get_policy(region):
                     outfile.write(json_response)
                     outfile.close()
             except:
-                print('Error in getPolicy')
+                print('Error in get lambda Policy')
 
     except:
         print('File not found for lambda-get-policy')
