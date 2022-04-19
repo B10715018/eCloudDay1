@@ -26,7 +26,7 @@ def cloudwatch_describe_log_stream(region):
             json_list = json.dumps(response)
 
             str_logGroupName = "".join(logGroupNameList[i])
-            new_logGroupName = str_logGroupName.replace('/', '-')
+            new_logGroupName = str_logGroupName.replace('/', '')
             list(new_logGroupName)
             file_path_write = os.path.join(
                 script_dir, 'data/cloudwatch-log-stream/cloudwatch-describe-log-stream-' +

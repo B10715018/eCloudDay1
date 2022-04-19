@@ -14,6 +14,7 @@ from utils.apigw_get_resources import apigw_get_resource
 from utils.cloudtrail_waf_createWebACL import cloudtrail_waf_createWebACL
 from utils.cloudwatch_describe_log_groups import cloudwatch_describe_log_groups
 from utils.cloudwatch_describe_log_stream import cloudwatch_describe_log_stream
+from utils.cloudwatch_get_log_event import cloudwatch_describe_log_event
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -74,6 +75,9 @@ class Collect:
     def get_cloudwatch_describe_log_stream(self):
         cloudwatch_describe_log_stream(self.region_name)
 
+    def get_cloudwatch_describe_log_event(self):
+        cloudwatch_describe_log_event(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -95,3 +99,4 @@ collect_command.get_apigw_resources()
 collect_command.get_cloudtrail_waf_createWebACL()
 collect_command.get_cloudwatch_describe_log_groups()
 collect_command.get_cloudwatch_describe_log_stream()
+collect_command.get_cloudwatch_describe_log_event()
