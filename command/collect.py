@@ -33,6 +33,7 @@ from utils.ec2_describe_availability_zones import ec2_describe_availability_zone
 from utils.sfn_list import sfn_list
 from utils.sfn_describe import sfn_describe
 from utils.waf_list_resource_web_acls import waf_list_resource_web_acl
+from utils.apigw_get_integration import apigw_get_integration
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -150,6 +151,9 @@ class Collect:
     def list_waf_web_acl(self):
         waf_list_resource_web_acl(self.region_name)
 
+    def get_apigw_integration(self):
+        apigw_get_integration(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -190,3 +194,4 @@ collect_command.describe_ec2_internet_gateway()
 collect_command.list_sfn()
 collect_command.describe_sfn()
 collect_command.list_waf_web_acl()
+collect_command.get_apigw_integration()
