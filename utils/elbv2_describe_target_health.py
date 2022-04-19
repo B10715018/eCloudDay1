@@ -1,16 +1,15 @@
 import boto3
 import json
 import os
-REGION_NAME = 'us-west-2'
 
 
-def elbv2_describe_target_health():
-    client = boto3.client('elbv2', region_name=REGION_NAME)
+def elbv2_describe_target_health(region):
+    client = boto3.client('elbv2', region_name=region)
     try:
         script_dir = os.path.dirname('.')
-        file_path = os.path.join(
-            script_dir, 'data/elbv2-describe-load-balancer.json')
-        f = open(file_path, 'r')
+        file_path_read = os.path.join(
+            script_dir, 'data/elbv2-describe-load-balancer-'+region+'.json')
+        f = open(file_path_read, 'r')
         data = json.load(f)
         count = 0
         TargetGroupArnList = []
@@ -24,9 +23,9 @@ def elbv2_describe_target_health():
                     TargetGroupArn=TargetGroupArnList[i]
                 )
                 json_list = json.dumps(response)
-                file_path2 = os.path.join(
-                    script_dir, 'data/elbv2-describe-target-health'+TargetGroupArnList[i]+'.json')
-                with open(file_path2, 'w')as outfile:
+                file_path_write = os.path.join(
+                    script_dir, 'data/elbv2-target-health/elbv2-describe-target-health-'+TargetGroupArnList[i]+'.json')
+                with open(file_path_write, 'w')as outfile:
                     outfile.write(json_list)
                     outfile.close()
         except:

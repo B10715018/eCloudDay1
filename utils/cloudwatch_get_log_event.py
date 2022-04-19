@@ -34,8 +34,9 @@ def cloudwatch_describe_log_event(region):
             for Stream in logs['logStreams']:
                 countStream += 1
                 LogStreamNameList.append(Stream['logStreamName'])
-                str_logStreamName = "".join(LogStreamNameList[i])
-                new_logStreamName = str_logStreamName.replace('/', '-')
+                for j in range(countStream):
+                    str_logStreamName = "".join(LogStreamNameList[j])
+                    new_logStreamName = str_logStreamName.replace('/', '-')
                 response = client.get_log_events(
                     logGroupName=logGroupNameList[i],
                     logStreamName=str_logStreamName
