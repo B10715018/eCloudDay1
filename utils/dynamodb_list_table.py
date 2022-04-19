@@ -18,4 +18,3 @@ def dynamodb_list_table():
     except:
         print('File not found for dynamodb-list-table')
 
-dynamodb_list_table()
