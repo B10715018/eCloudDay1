@@ -19,6 +19,7 @@ from utils.s3_list_bucket import s3_list_bucket
 from utils.s3_get_bucket_policy import s3_get_bucket_policy
 from utils.rds_describe_instance import rds_describe_instance
 from utils.elbv2_describe_load_balancer import elbv2_describe_load_balancer
+from utils.elbv2_describe_target_group import elbv2_describe_target_group
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -94,6 +95,9 @@ class Collect:
     def describe_elbv2_load_balancer(self):
         elbv2_describe_load_balancer(self.region_name)
 
+    def describe_elbv2_target_group(self):
+        elbv2_describe_target_group(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -120,3 +124,4 @@ collect_command.list_s3_bucket()
 collect_command.get_s3_bucket_policy()
 collect_command.describe_rds_instance()
 collect_command.describe_elbv2_load_balancer()
+collect_command.describe_elbv2_target_group()
