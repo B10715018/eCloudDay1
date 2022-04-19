@@ -33,7 +33,7 @@ def apigw_get_resource():
                 restApiId=ID[i]
             )
 
-            json_list = json.dumps(response, indent=4, cls=DateTimeEncoder)
+            json_response = json.dumps(response, indent=4, cls=DateTimeEncoder)
             file_path2 = os.path.join(
                     script_dir, 'data/apigw-get-resource-'+ID[i]+'.json')
             with open(file_path2, 'w') as outfile:

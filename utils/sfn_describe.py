@@ -6,34 +6,41 @@ REGION_NAME = 'us-west-2'
 client = boto3.client('stepfunctions', region_name=REGION_NAME)
 # describe all available state machine
 
-try:
-    f = open('./data/step-function-list-state-machine.json')
-    data = json.load(f)
+def sfn_describe():
 
-    count = 0
-    stateARN = []
-    for items in data['stateMachines']:
-        count += 1
-        stateARN.append(items['stateMachineArn'])
+    try:
+        script_dir = os.path.dirname('.')
+        file_path = os.path.join(script_dir, 'data/step-function-list-state-machine.json')
+        f = open(file_path, 'r')
+        data = json.load(f)
 
-    for i in range(count):
-        response2 = client.describe_state_machine(
-            stateMachineArn=stateARN[i])
-        definition = response2['definition']
-        response2.pop('definition')
-        serializeDate = json.dumps(response2['creationDate'], default=str)
-        response2['creationDate'] = serializeDate
-        json_string = json.dumps(response2)
+        count = 0
+        stateARN = []
+        for items in data['stateMachines']:
+            count += 1
+            stateARN.append(items['stateMachineArn'])
 
-        filename = './data/sfn-describe-'+stateARN[i]+'.json'
-        filename2 = './data/sfn-definition-'+stateARN[i]+'.json'
+        for i in range(count):
+            response2 = client.describe_state_machine(
+                stateMachineArn=stateARN[i])
+            definition = response2['definition']
+            response2.pop('definition')
+            serializeDate = json.dumps(response2['creationDate'], default=str)
+            response2['creationDate'] = serializeDate
+            json_string = json.dumps(response2)
 
-        with open(filename, 'w') as outfile:
-            outfile.write(json_string)
-            outfile.close()
+            #use os path
+            filename = os.path.join(
+            script_dir, 'data/sfn-describe-'+stateARN[i]+'-policy.json')
+            filename2 = os.path.join(
+            script_dir, 'data/sfn-definition-'+stateARN[i]+'-policy.json')
 
-        with open(filename2, 'w') as outfile2:
-            outfile2.write(definition)
-            outfile2.close()
-except:
-    print('File not found for sfn-describe')
+            with open(filename, 'w') as outfile:
+                outfile.write(json_string)
+                outfile.close()
+
+            with open(filename2, 'w') as outfile2:
+                outfile2.write(definition)
+                outfile2.close()
+    except:
+        print('File not found for sfn-describe')
