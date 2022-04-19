@@ -22,6 +22,15 @@ from utils.elbv2_describe_load_balancer import elbv2_describe_load_balancer
 from utils.elbv2_describe_target_group import elbv2_describe_target_group
 from utils.elbv2_describe_target_health import elbv2_describe_target_health
 from utils.ec2_describe_instances import ec2_describe_instances
+from utils.ec2_describe_vpc_endpoint import ec2_describe_vpc_endpoint
+from utils.ec2_describe_subnet import ec2_describe_subnets
+from utils.ec2_describe_security_group import ec2_describe_security_group
+from utils.ec2_describe_route_tables import ec2_describe_route_tables
+from utils.ec2_describe_network_interfaces import ec2_describe_network_interfaces
+from utils.ec2_describe_network_acls import ec2_describe_network_acls
+from utils.ec2_describe_internet_gateway import ec2_describe_internet_gateway
+from utils.ec2_describe_availability_zones import ec2_describe_availability_zone
+
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -106,6 +115,30 @@ class Collect:
     def describe_ec2_instances(self):
         ec2_describe_instances(self.region_name)
 
+    def describe_ec2_vpc_endpoint(self):
+        ec2_describe_vpc_endpoint(self.region_name)
+
+    def describe_ec2_subnets(self):
+        ec2_describe_subnets(self.region_name)
+
+    def describe_ec2_security_groups(self):
+        ec2_describe_security_group(self.region_name)
+
+    def describe_ec2_route_tables(self):
+        ec2_describe_route_tables(self.region_name)
+
+    def describe_ec2_network_interfaces(self):
+        ec2_describe_network_interfaces(self.region_name)
+
+    def describe_ec2_network_acls(self):
+        ec2_describe_network_acls(self.region_name)
+
+    def describe_ec2_describe_availability_zones(self):
+        ec2_describe_availability_zone(self.region_name)
+
+    def describe_ec2_internet_gateway(self):
+        ec2_describe_internet_gateway(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -135,3 +168,11 @@ collect_command.describe_elbv2_load_balancer()
 collect_command.describe_elbv2_target_group()
 collect_command.describe_elbv2_target_health()
 collect_command.describe_ec2_instances()
+collect_command.describe_ec2_vpc_endpoint()
+collect_command.describe_ec2_subnets()
+collect_command.describe_ec2_security_groups()
+collect_command.describe_ec2_route_tables()
+collect_command.describe_ec2_network_interfaces()
+collect_command.describe_ec2_network_acls()
+collect_command.describe_ec2_describe_availability_zones()
+collect_command.describe_ec2_internet_gateway()
