@@ -26,6 +26,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install dependency for function
         run: pip install -r requirements.txt
+      - name: Install private library
+        run: python setup.py install
       - name: Test function
         run: chmod u+x job.sh
       - run: ./job.sh
