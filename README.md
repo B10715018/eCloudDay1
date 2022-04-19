@@ -22,6 +22,16 @@
 
 7. Please create a folder name 'data' at the eCloudDay1 repositories it is where we could store all metadata in form of JSON
 
+## New Version (OOP Version)
+
+1. Make sure that you activate the virtual environment by executing this command `source venv/bin/activate`
+
+2. To begin with execute this command in your working directory `python setup.py install`. This will make all the files in `utils` folder becoming a global package inside the virtual environment
+
+3. Now execute the `collect.py` file inside the `command` folder by running `python ./command/collect.py` to retrieve all the data
+
+4. The design of class diagram can be find in `docs` folder in `classdiagram.png`
+
 ## Instruction to run script file:
 
 1. make sure you have the 'job.sh' file in your directory
@@ -54,14 +64,5 @@
 
 3. If all checks are passed, you may continue to create a pull request or else you need to fix your code first
 
-## New Version (OOP Version)
-
-1. Make sure that you activate the virtual environment by executing this command `source venv/bin/activate`
-
-2. To begin with execute this command in your working directory `python setup.py install`. This will make all the files in `utils` folder becoming a global package inside the virtual environment
-
-3. Now execute the `collect.py` file inside the `command` folder by running `python ./command/collect.py` to retrieve all the data
-
-4. The design of class diagram can be find in `docs` folder in `classdiagram.png`
 
 # THANK YOU
