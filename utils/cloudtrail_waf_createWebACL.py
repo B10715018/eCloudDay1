@@ -1,12 +1,9 @@
-import json
 import boto3
 import os
 
-REGION_NAME = 'us-west-2'
 
-
-def cloudtrail_waf_createWEBACL():
-    client = boto3.client('cloudtrail', region_name=REGION_NAME)
+def cloudtrail_waf_createWebACL(region):
+    client = boto3.client('cloudtrail', region_name=region)
 
     response = client.lookup_events(
         LookupAttributes=[
@@ -21,8 +18,8 @@ def cloudtrail_waf_createWEBACL():
         eventId = items['EventId']
         json_list = items['CloudTrailEvent']
         script_dir = os.path.dirname('.')
-        file_path = (
-            script_dir, 'data/cloudtrail-waf-createWebACL-'+eventId+'.json')
-        with open(file_path, 'w')as outfile:
+        file_path_write = os.path.join(
+            script_dir, 'data/cloudtrail-create-WebACL/cloudtrail-waf-createWebACL-'+eventId+'.json')
+        with open(file_path_write, 'w')as outfile:
             outfile.write(json_list)
             outfile.close()
