@@ -15,6 +15,8 @@ from utils.cloudtrail_waf_createWebACL import cloudtrail_waf_createWebACL
 from utils.cloudwatch_describe_log_groups import cloudwatch_describe_log_groups
 from utils.cloudwatch_describe_log_stream import cloudwatch_describe_log_stream
 from utils.cloudwatch_get_log_event import cloudwatch_describe_log_event
+from utils.s3_list_bucket import s3_list_bucket
+from utils.s3_get_bucket_policy import s3_get_bucket_policy
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -78,6 +80,12 @@ class Collect:
     def get_cloudwatch_describe_log_event(self):
         cloudwatch_describe_log_event(self.region_name)
 
+    def list_s3_bucket(self):
+        s3_list_bucket(self.region_name)
+
+    def get_s3_bucket_policy(self):
+        s3_get_bucket_policy(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -100,3 +108,5 @@ collect_command.get_cloudtrail_waf_createWebACL()
 collect_command.get_cloudwatch_describe_log_groups()
 collect_command.get_cloudwatch_describe_log_stream()
 collect_command.get_cloudwatch_describe_log_event()
+collect_command.list_s3_bucket()
+collect_command.get_s3_bucket_policy()
