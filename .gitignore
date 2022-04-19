@@ -169,3 +169,4 @@ data/cloudwatch-log-event/*.json
 data/s3-policy/*.json
 data/elbv2-target-group/*.json
 data/elbv2-target-health/*.json
+data/sfn/*.json
