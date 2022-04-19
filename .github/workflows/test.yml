@@ -27,7 +27,7 @@ jobs:
       - name: Install dependency for function
         run: pip install -r requirements.txt
       - name: Install private library
-        run: python setup.py install
+        run: python setup.py install --user || exit 1
       - name: Test function
         run: chmod u+x job.sh
       - run: ./job.sh
