@@ -171,3 +171,4 @@ data/elbv2-target-group/*.json
 data/elbv2-target-health/*.json
 data/sfn/*.json
 data/waf-list-resource/*.json
+data/apigw-integration/*.json
