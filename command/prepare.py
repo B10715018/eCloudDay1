@@ -1,5 +1,4 @@
-import json
-import os
+from utils.export_to_JSON import export_to_JSON
 from utils.lambda_node_prepare import lambda_prepare_node
 
 REGION_NAME = 'us-west-2'
@@ -14,15 +13,7 @@ class Prepare:
         self.cytoscape_edge_data = []
 
     def exportToJSON(self):
-        filtered_cytoscape_data = []
-        filtered_cytoscape_data.append(self.cytoscape_node_data)
-        filtered_cytoscape_data.append(self.cytoscape_edge_data)
-        script_dir = os.path.dirname('.')
-        file_path_write = os.path.join(
-            script_dir, 'data/data.json')
-        with open(file_path_write, 'w') as outfile:
-            outfile.write(json.dumps(filtered_cytoscape_data))
-            outfile.close()
+        export_to_JSON(self.cytoscape_node_data, self.cytoscape_edge_data)
 
     def prepare_lambda_node(self):
         lambda_prepare_node(self.region_name, self.account_id,
