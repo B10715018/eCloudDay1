@@ -1,5 +1,6 @@
 import json
 import os
+from utils.lambda_node_prepare import lambda_prepare_node
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -23,27 +24,17 @@ class Prepare:
             outfile.write(json.dumps(filtered_cytoscape_data))
             outfile.close()
 
+    def prepare_lambda_node(self):
+        lambda_prepare_node(self.region_name, self.account_id,
+                            self.cytoscape_node_data)
+
 
 # initialize a class
-prepare = Prepare(REGION_NAME, ACCOUNT_ID)
+prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
 
 # call Prepare function
-prepare.exportToJSON()
-
-# ''' Prepare all the lambda'''
-# with open('./data/lambda-list-functions.json', 'r') as openfile:
-#     lambda_object = json.load(openfile)
-#     for item in lambda_object['Functions']:
-#         cytoscape_node_data.append({
-#             "data": {
-#                 "type": "lambda",
-#                 "id": item["FunctionArn"],
-#                 "region": 'us-west-2',
-#                 "name": item['FunctionName'],
-#             }
-#         })
-
-#     openfile.close()
+prepare_command.prepare_lambda_node()
+prepare_command.exportToJSON()
 
 # '''Prepare all the s3 bucket'''
 # with open('./data/s3-list-bucket.json', 'r') as openfile:
