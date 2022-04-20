@@ -34,6 +34,8 @@ from utils.sfn_list import sfn_list
 from utils.sfn_describe import sfn_describe
 from utils.waf_list_resource_web_acls import waf_list_resource_web_acl
 from utils.apigw_get_integration import apigw_get_integration
+from utils.cloudwatch_get_cognito_log_event import cloudwatch_get_cognito_log_event
+from utils.cognito_list_identity_pool import cognito_list_identity_pool
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -154,6 +156,12 @@ class Collect:
     def get_apigw_integration(self):
         apigw_get_integration(self.region_name)
 
+    def get_cloudwatch_cognito_event(self):
+        cloudwatch_get_cognito_log_event(self.region_name)
+
+    def list_cognito_identity_pool(self):
+        cognito_list_identity_pool(self.region_name)
+
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -195,3 +203,5 @@ collect_command.list_sfn()
 collect_command.describe_sfn()
 collect_command.list_waf_web_acl()
 collect_command.get_apigw_integration()
+collect_command.get_cloudwatch_cognito_event()
+collect_command.list_cognito_identity_pool()

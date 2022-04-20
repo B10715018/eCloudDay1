@@ -172,3 +172,4 @@ data/elbv2-target-health/*.json
 data/sfn/*.json
 data/waf-list-resource/*.json
 data/apigw-integration/*.json
+data/cloudwatch-cognito/*.json
