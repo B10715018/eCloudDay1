@@ -10,7 +10,19 @@ def cognito_prepare_node(region, account_id, cytoscape_node_data):
         cognito_object = json.load(openfile_cognito)
         openfile_cognito.close()
     for cognito in cognito_object['IdentityPools']:
-        print(cognito)
-
-
-cognito_prepare_node('us-west-2', '758325631830', [])
+        file_path_read_cognito_description=os.path.join(script_dir,'data/cognito-describe/cognito-describe-'+cognito['IdentityPoolName']+'-'+region+'.json')
+        with open(file_path_read_cognito_description,'r') as openfile_describe_cognito:
+            cognito_describe_object=json.load(openfile_describe_cognito)
+            openfile_describe_cognito.close()
+        cognito_node={
+            'data': {
+                'id': cognito['IdentityPoolId'],
+                'arn': cognito['IdentityPoolId'],
+                'type': 'cognito',
+                'name': cognito['IdentityPoolName'],
+                'account_id': account_id,
+                'region': region,
+            }
+        }
+        cognito_node['data'].update(cognito_describe_object)
+        cytoscape_node_data.append(cognito_node)

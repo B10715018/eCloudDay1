@@ -13,6 +13,7 @@ from utils.edge_lambda_to_transcribe import edge_lambda_to_transcribe
 from utils.edge_lambda_to_translate import edge_lambda_to_translate_find
 from utils.edge_transcribe_to_s3_find import edge_transcribe_to_s3_find
 from utils.apigw_prepare_node import api_gw_prepare_node
+from utils.cognito_prepare_node import cognito_prepare_node
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -81,6 +82,9 @@ class Prepare:
         edge_transcribe_to_s3_find(
             self.cytoscape_edge_data, self.region_name, self.account_id)
 
+    def prepare_cognito_node(self):
+        cognito_prepare_node(
+            self.region_name, self.account_id, self.cytoscape_node_data)
 
 # initialize a class
 prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
@@ -96,6 +100,7 @@ prepare_command.prepare_translate_node()
 prepare_command.prepare_sns_node()
 prepare_command.prepare_sfn_node()
 prepare_command.prepare_apigw_node()
+prepare_command.prepare_cognito_node()
 # prepare edge logic
 prepare_command.find_sfn_connection()
 prepare_command.find_edge_lambda_to_sns()
