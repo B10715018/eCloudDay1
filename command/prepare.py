@@ -6,6 +6,7 @@ from utils.dynamodb_prepare_node import dynamodb_prepare_node
 from utils.transcribe_prepare_node import transcribe_prepare_node
 from utils.translate_prepare_node import translate_prepare_node
 from utils.sns_prepare_node import sns_prepare_node
+from utils.sfn_prepare_node import sfn_prepare_node
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -45,6 +46,10 @@ class Prepare:
         sns_prepare_node(self.region_name, self.account_id,
                          self.cytoscape_node_data)
 
+    def prepare_sfn_node(self):
+        sfn_prepare_node(self.region_name, self.account_id,
+                         self.cytoscape_node_data)
+
 
 # initialize a class
 prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
@@ -58,6 +63,7 @@ prepare_command.prepare_dynamodb_node()
 prepare_command.prepare_transcribe_node()
 prepare_command.prepare_translate_node()
 prepare_command.prepare_sns_node()
+prepare_command.prepare_sfn_node()
 # prepare edge logic
 
 # EXPORT INTO JSON FILE
@@ -79,19 +85,6 @@ prepare_command.exportToJSON()
 
 #     openfile.close()
 
-# '''Prepare for SNS'''
-# with open('./data/sns-list-topic-us-west-2.json', 'r') as openfile:
-#     sns_object = json.load(openfile)
-#     for sns in sns_object['Topics']:
-#         cytoscape_node_data.append({
-#             "data": {
-#                 "type": "sns",
-#                 "id": sns['TopicArn'],
-#                 "region": 'us-west-2',
-#                 "name": sns['TopicArn'],
-#             }
-#         })
-#     openfile.close()
 
 # '''STARTING FROM HERE IS LOGIC TO FIND RELATIONSHIPS'''
 
