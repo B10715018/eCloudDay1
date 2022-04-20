@@ -11,7 +11,7 @@ def cognito_list_identity_pool(region):
     json_list = json.dumps(response)
     script_dir = os.path.dirname('.')
     file_path = os.path.join(
-        script_dir, 'data/cognito-list-identity-pools.json')
+        script_dir, 'data/cognito-list-identity-pools-'+region+'.json')
     with open(file_path, 'w') as outfile:
         outfile.write(json_list)
         outfile.close()
