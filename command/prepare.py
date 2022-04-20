@@ -1,6 +1,6 @@
-'''Import dependency for node creation'''
+from utils.edge_lambda_ddb_find import edge_lambda_ddb_find
+from utils.sfn_find_connection import sfn_find_connection
 from utils.edge_lambda_sns_find import edge_lambda_sns_find
-from multiprocessing.spawn import prepare
 from utils.export_to_JSON import export_to_JSON
 from utils.lambda_node_prepare import lambda_prepare_node
 from utils.s3_prepare_node import s3_prepare_node
@@ -9,8 +9,6 @@ from utils.transcribe_prepare_node import transcribe_prepare_node
 from utils.translate_prepare_node import translate_prepare_node
 from utils.sns_prepare_node import sns_prepare_node
 from utils.sfn_prepare_node import sfn_prepare_node
-from utils.sfn_find_connection import sfn_find_connection
-'''Import dependency for edge creation'''
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -57,8 +55,11 @@ class Prepare:
     def find_sfn_connection(self):
         sfn_find_connection(self.cytoscape_node_data, self.cytoscape_edge_data)
 
-    def find_edge_sns_lambda(self):
+    def find_edge_lambda_to_sns(self):
         edge_lambda_sns_find(self.cytoscape_edge_data, self.region_name)
+
+    def find_edge_lambda_to_ddb(self):
+        edge_lambda_ddb_find(self.cytoscape_edge_data, self.region_name)
 
 
 # initialize a class
@@ -76,29 +77,12 @@ prepare_command.prepare_sns_node()
 prepare_command.prepare_sfn_node()
 # prepare edge logic
 prepare_command.find_sfn_connection()
-prepare_command.find_edge_sns_lambda()
+prepare_command.find_edge_lambda_to_sns()
+prepare_command.find_edge_lambda_to_ddb()
 # EXPORT INTO JSON FILE
 prepare_command.exportToJSON()
 
 # '''STARTING FROM HERE IS LOGIC TO FIND RELATIONSHIPS'''
-
-# '''FIND CONNECTION BETWEEN DDB AND LAMBDA'''
-# for item in lambda_object['Functions']:
-#     for ddb in ddb_object['TableNames']:
-#         try:
-#             if item['Environment']['Variables']['DB_TABLE_NAME'] == ddb:
-#                 # print('Found connection between {} and {}'.format(
-#                 #     item['FunctionName'], ddb))
-#                 cytoscape_edge_data.append({
-#                     "data": {
-#                         "id": item['FunctionName'] + '-ddb:' + ddb,
-#                         "source": item["FunctionArn"],
-#                         "target": 'ddb:'+ddb,
-#                     }
-#                 })
-#         except:
-#             print('No connection between {} and {}'.format(
-#                 item['FunctionName'], ddb))
 
 # '''FIND CONNECTION BETWEEN LAMBDA AND TRANSCRIBE'''
 # list_of_files = os.listdir('./data')  # list of files in the data directory
