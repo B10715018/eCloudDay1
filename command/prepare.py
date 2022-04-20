@@ -2,6 +2,7 @@ from utils.export_to_JSON import export_to_JSON
 from utils.lambda_node_prepare import lambda_prepare_node
 from utils.s3_prepare_node import s3_prepare_node
 from utils.dynamodb_prepare_node import dynamodb_prepare_node
+from utils.transcribe_prepare_node import transcribe_prepare_node
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -29,6 +30,10 @@ class Prepare:
         dynamodb_prepare_node(
             self.region_name, self.account_id, self.cytoscape_node_data)
 
+    def prepare_transcribe_node(self):
+        transcribe_prepare_node(
+            self.region_name, self.account_id, self.cytoscape_node_data)
+
 
 # initialize a class
 prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
@@ -37,37 +42,8 @@ prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
 prepare_command.prepare_lambda_node()
 prepare_command.prepare_s3_node()
 prepare_command.prepare_dynamodb_node()
+prepare_command.prepare_transcribe_node()
 prepare_command.exportToJSON()
-
-# ''' Prepare all the dynamodb tables'''
-# with open('./data/dynamodb-list-table.json', 'r') as openfile:
-#     ddb_object = json.load(openfile)
-#     for item in ddb_object['TableNames']:
-#         cytoscape_node_data.append({
-#             "data": {
-#                 "type": "dynamodb",
-#                 "id": 'ddb:'+item,
-#                 "region": "us-west-2",
-#                 "name": item,
-#             }
-#         })
-#     openfile.close()
-
-# '''Prepare for transcribe'''
-# list_of_files = os.listdir('./data')  # list of files in the data directory
-# for each_file in list_of_files:
-#     # since its all type str you can simply use startswith
-#     if each_file.startswith('cloudtrail-start-transcription'):
-#         print('Found a cloudtrail transcribe file')
-#         cytoscape_node_data.append({
-#             "data": {
-#                 "type": "transcribe",
-#                 "id": "transcribe",
-#                 "region": "us-west-2",
-#                 "name": "transcribe",
-#             }
-#         })
-#         break
 
 # '''Prepare for translate'''
 # list_of_files = os.listdir('./data')  # list of files in the data directory
@@ -299,3 +275,7 @@ prepare_command.exportToJSON()
 
 # filtered_cytoscape_data.append(cytoscape_node_data)
 # filtered_cytoscape_data.append(cytoscape_edge_data)
+
+'''FIND CONNECTION FROM LAMBDA TO STEP FUNCTION'''
+'''FIND CONNECTION APIGW TO STEP FUNCTION'''
+'''FIND CONNECTION S3 TO COGNITO'''
