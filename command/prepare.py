@@ -9,6 +9,7 @@ from utils.transcribe_prepare_node import transcribe_prepare_node
 from utils.translate_prepare_node import translate_prepare_node
 from utils.sns_prepare_node import sns_prepare_node
 from utils.sfn_prepare_node import sfn_prepare_node
+from utils.edge_lambda_to_transcribe import edge_lambda_to_transcribe
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -61,6 +62,10 @@ class Prepare:
     def find_edge_lambda_to_ddb(self):
         edge_lambda_ddb_find(self.cytoscape_edge_data, self.region_name)
 
+    def find_edge_lambda_to_transcribe(self):
+        edge_lambda_to_transcribe(
+            self.cytoscape_edge_data, self.region_name, self.account_id)
+
 
 # initialize a class
 prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
@@ -79,6 +84,7 @@ prepare_command.prepare_sfn_node()
 prepare_command.find_sfn_connection()
 prepare_command.find_edge_lambda_to_sns()
 prepare_command.find_edge_lambda_to_ddb()
+prepare_command.find_edge_lambda_to_transcribe()
 # EXPORT INTO JSON FILE
 prepare_command.exportToJSON()
 
