@@ -1,3 +1,5 @@
+'''Import dependency for node creation'''
+from utils.edge_lambda_sns_find import edge_lambda_sns_find
 from multiprocessing.spawn import prepare
 from utils.export_to_JSON import export_to_JSON
 from utils.lambda_node_prepare import lambda_prepare_node
@@ -8,6 +10,7 @@ from utils.translate_prepare_node import translate_prepare_node
 from utils.sns_prepare_node import sns_prepare_node
 from utils.sfn_prepare_node import sfn_prepare_node
 from utils.sfn_find_connection import sfn_find_connection
+'''Import dependency for edge creation'''
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -54,6 +57,9 @@ class Prepare:
     def find_sfn_connection(self):
         sfn_find_connection(self.cytoscape_node_data, self.cytoscape_edge_data)
 
+    def find_edge_sns_lambda(self):
+        edge_lambda_sns_find(self.cytoscape_edge_data, self.region_name)
+
 
 # initialize a class
 prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
@@ -70,91 +76,11 @@ prepare_command.prepare_sns_node()
 prepare_command.prepare_sfn_node()
 # prepare edge logic
 prepare_command.find_sfn_connection()
+prepare_command.find_edge_sns_lambda()
 # EXPORT INTO JSON FILE
 prepare_command.exportToJSON()
 
 # '''STARTING FROM HERE IS LOGIC TO FIND RELATIONSHIPS'''
-
-# '''FIND CONNECTION INSIDE STEP FUNCTION'''
-# list_of_files = os.listdir('./data')  # list of files in the data directory
-# for each_file in list_of_files:
-#     # since its all type str you can simply use startswith
-#     if each_file.startswith('sfn-definition-'):
-#         with open('./data/' + each_file, 'r') as openfile:
-#             unfiltered_sfn_arn = each_file[15:]
-#             filtered_sfn_arn = unfiltered_sfn_arn.split('.')[0]
-#             try:
-#                 sfn_connection_object = json.load(openfile)
-#                 listOfStates = list(sfn_connection_object['States'].values())
-#                 totalStates = len(sfn_connection_object['States'].keys())
-#                 for i in range(totalStates):
-#                     # sourceId for edge
-#                     sourceId = ''
-#                     # if state is lambda
-#                     if('lambda' in listOfStates[i]['Resource']):
-#                         print('Lambda Found in SFN')
-#                         sourceId = (
-#                             listOfStates[i]['Parameters']['FunctionName'])[:-8]
-#                         for item in cytoscape_node_data:
-#                             if item['data']['id'] == sourceId:
-#                                 item['data'].update(
-#                                     {"parent": filtered_sfn_arn})
-#                     # if state is sns
-#                     if('sns' in listOfStates[i]['Resource']):
-#                         # give the last state parent node
-#                         print('SNS Found in SFN')
-#                         sourceId = (listOfStates[i]['Parameters']['TopicArn'])
-#                         for item in cytoscape_node_data:
-#                             if item['data']['id'] == sourceId:
-#                                 item['data'].update(
-#                                     {"parent": filtered_sfn_arn})
-#                     # if this is not end state
-#                     if(i != totalStates-1):
-#                         print('this is not end state', i)
-#                         targetId = ''
-#                         # if next state is lambda
-#                         if('lambda' in listOfStates[i+1]['Resource']):
-#                             targetId = (
-#                                 listOfStates[i+1]['Parameters']['FunctionName'])[:-8]
-#                         # if next state is sns
-#                         if('sns' in listOfStates[i+1]['Resource']):
-#                             targetId = (
-#                                 listOfStates[i+1]['Parameters']['TopicArn'])
-#                         # edge data
-#                         sfn_edge_data = {
-#                             "data": {
-#                                 "id": sourceId+'-'+targetId,
-#                                 "source": sourceId,
-#                                 "target": targetId,
-#                             }
-#                         }
-#                         cytoscape_edge_data.append(sfn_edge_data)
-
-#             except:
-#                 print('No connection inside step function')
-#         openfile.close()
-
-# '''FIND CONNECTION BETWEEN LAMBDA AND SNS'''
-# for item in lambda_object['Functions']:
-#     for sns in sns_object['Topics']:
-#         try:
-#             if(item['Environment']['Variables']['SNS_TOPIC'] == sns['TopicArn']):
-#                 print('Found connection between lambda{} and sns{}'.format(
-#                     item['FunctionName'], sns['TopicArn']))
-#                 lambda_sns_edge_data = {
-#                     "data": {
-#                         "id": item['FunctionArn']+'-'+sns['TopicArn'],
-#                         "source": item['FunctionArn'],
-#                         "target": sns['TopicArn'],
-#                     }
-#                 }
-#                 if(cytoscape_edge_data.count(lambda_sns_edge_data) == 0):
-#                     cytoscape_edge_data.append(lambda_sns_edge_data)
-#                 cytoscape_edge_data.append(lambda_sns_edge_data)
-#         except:
-#             print('No connection between lambda{} and sns{}'.format(
-#                 item['FunctionName'], sns['TopicArn'])
-#             )
 
 # '''FIND CONNECTION BETWEEN DDB AND LAMBDA'''
 # for item in lambda_object['Functions']:
@@ -263,3 +189,4 @@ prepare_command.exportToJSON()
 '''FIND CONNECTION APIGW TO STEP FUNCTION'''
 '''FIND CONNECTION S3 TO COGNITO'''
 '''PREPARE FOR APIGW'''
+'''FIND CONNECTION FROM SNS TO LAMBDA'''
