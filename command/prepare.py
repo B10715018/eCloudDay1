@@ -1,5 +1,6 @@
 from utils.export_to_JSON import export_to_JSON
 from utils.lambda_node_prepare import lambda_prepare_node
+from utils.s3_prepare_node import s3_prepare_node
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -19,28 +20,18 @@ class Prepare:
         lambda_prepare_node(self.region_name, self.account_id,
                             self.cytoscape_node_data)
 
+    def prepare_s3_node(self):
+        s3_prepare_node(self.region_name, self.account_id,
+                        self.cytoscape_node_data)
+
 
 # initialize a class
 prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
 
 # call Prepare function
 prepare_command.prepare_lambda_node()
+prepare_command.prepare_s3_node()
 prepare_command.exportToJSON()
-
-# '''Prepare all the s3 bucket'''
-# with open('./data/s3-list-bucket.json', 'r') as openfile:
-#     s3_object = json.load(openfile)
-#     for item in s3_object['Buckets']:
-#         cytoscape_node_data.append({
-#             "data": {
-#                 "type": "s3",
-#                 "id": "s3:"+item["Name"],
-#                 "region": 'us-west-2',
-#                 "name": item['Name'],
-#             }
-#         })
-
-#     openfile.close()
 
 # ''' Prepare all the dynamodb tables'''
 # with open('./data/dynamodb-list-table.json', 'r') as openfile:
