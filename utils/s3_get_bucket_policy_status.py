@@ -16,7 +16,6 @@ def s3_get_bucket_policy_status(region):
         for item in data['Buckets']:
             count += 1
             BucketNameList.append(item['Name'])
-        print(BucketNameList)
         for i in range(count):
             try:
                 response = client.get_bucket_policy_status(
@@ -25,7 +24,6 @@ def s3_get_bucket_policy_status(region):
                 json_response = json.dumps(response)
                 filename = os.path.join(script_dir, 'data/s3-policy-status/s3-' +
                                         BucketNameList[i]+'-policy-status-'+region+'.json')
-                print(filename)
                 with open(filename, 'w') as outfile:
                     outfile.write(json_response)
                     outfile.close()
