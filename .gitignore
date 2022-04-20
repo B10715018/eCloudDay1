@@ -173,3 +173,5 @@ data/sfn/*.json
 data/waf-list-resource/*.json
 data/apigw-integration/*.json
 data/cloudwatch-cognito/*.json
+data/s3-policy-status/*.json
+data/ddb-describe-table/*.json

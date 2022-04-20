@@ -4,21 +4,22 @@ import json
 from json import JSONEncoder
 import datetime
 
-REGION_NAME = 'us-west-2'
+
+class DateTimeEncoder(JSONEncoder):
+    # Override the default method
+    def default(self, obj):
+        if isinstance(obj, (datetime.date, datetime.datetime)):
+            return obj.isoformat()
 
 
-def dynamodb_describe_table():
-    class DateTimeEncoder(JSONEncoder):
-        # Override the default method
-        def default(self, obj):
-            if isinstance(obj, (datetime.date, datetime.datetime)):
-                return obj.isoformat()
+def dynamodb_describe_table(region):
 
-    client = boto3.client('dynamodb', region_name=REGION_NAME)
+    client = boto3.client('dynamodb', region_name=region)
     TableNameList = []
     count = 0
     script_dir = os.path.dirname('.')
-    file_path = os.path.join(script_dir, 'data/dynamodb-list-table.json')
+    file_path = os.path.join(
+        script_dir, 'data/dynamodb-list-table-'+region+'.json')
     f = open(file_path, 'r')
     data = json.load(f)
 
@@ -31,7 +32,7 @@ def dynamodb_describe_table():
         )
         json_list = json.dumps(response, indent=4, cls=DateTimeEncoder)
         file_path2 = os.path.join(
-            script_dir, 'data/dynamodb-describe-table-'+TableNameList[i]+'.json')
+            script_dir, 'data/ddb-describe-table/dynamodb-describe-table-'+TableNameList[i]+'-'+region+'.json')
         with open(file_path2, 'w')as outfile:
             outfile.write(json_list)
             outfile.close()
