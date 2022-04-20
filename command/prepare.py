@@ -7,6 +7,7 @@ from utils.transcribe_prepare_node import transcribe_prepare_node
 from utils.translate_prepare_node import translate_prepare_node
 from utils.sns_prepare_node import sns_prepare_node
 from utils.sfn_prepare_node import sfn_prepare_node
+from utils.sfn_find_connection import sfn_find_connection
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -50,6 +51,9 @@ class Prepare:
         sfn_prepare_node(self.region_name, self.account_id,
                          self.cytoscape_node_data)
 
+    def find_sfn_connection(self):
+        sfn_find_connection(self.cytoscape_node_data, self.cytoscape_edge_data)
+
 
 # initialize a class
 prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
@@ -65,26 +69,9 @@ prepare_command.prepare_translate_node()
 prepare_command.prepare_sns_node()
 prepare_command.prepare_sfn_node()
 # prepare edge logic
-
+prepare_command.find_sfn_connection()
 # EXPORT INTO JSON FILE
 prepare_command.exportToJSON()
-
-
-# '''Prepare for step function'''
-# with open('./data/step-function-list-state-machine.json', 'r') as openfile:
-#     sfn_object = json.load(openfile)
-#     for sfn in sfn_object['stateMachines']:
-#         cytoscape_node_data.append({
-#             "data": {
-#                 "type": "step-function",
-#                 "id": sfn['stateMachineArn'],
-#                 "region": 'us-west-2',
-#                 "name": sfn['name'],
-#             }
-#         })
-
-#     openfile.close()
-
 
 # '''STARTING FROM HERE IS LOGIC TO FIND RELATIONSHIPS'''
 
