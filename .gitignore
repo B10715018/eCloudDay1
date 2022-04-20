@@ -156,3 +156,19 @@ cython_debug/
 # data folder contains sensitive info
 data/*.json
 data/cloudwatch-log-stream/*.json
+data/lambda-get-policy/*.json
+data/sqs-get-queue/*.json
+data/sns-get-topic-attr/*.json
+data/dynamodb-table/*.json
+data/cloudtrail-start-sfn/*.json
+data/cloudtrail-translate-text/*.json
+data/cloudtrail-start-transcription/*.json
+data/apigw-resource/*.json
+data/cloudtrail-create-WebACL/*.json
+data/cloudwatch-log-event/*.json
+data/s3-policy/*.json
+data/elbv2-target-group/*.json
+data/elbv2-target-health/*.json
+data/sfn/*.json
+data/waf-list-resource/*.json
+data/apigw-integration/*.json

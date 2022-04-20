@@ -1,15 +1,15 @@
 import boto3
 import json
-REGION_NAME = 'us-west-2'
+import os
 
 
-def cloudwatch_describe_log_stream():
-    client = boto3.client('logs', region_name=REGION_NAME)
+def cloudwatch_describe_log_stream(region):
+    client = boto3.client('logs', region_name=region)
     try:
         script_dir = os.path.dirname('.')
-        file_path = os.path.join(
-            script_dir, 'data/cloudwatch-describe-log-groups.json')
-        f = open(file_path, 'r')
+        file_path_read = os.path.join(
+            script_dir, 'data/cloudwatch-describe-log-groups-'+region+'.json')
+        f = open(file_path_read, 'r')
         data = json.load(f)
         count = 0
         logGroupNameList = []
@@ -26,12 +26,13 @@ def cloudwatch_describe_log_stream():
             json_list = json.dumps(response)
 
             str_logGroupName = "".join(logGroupNameList[i])
-            new_logGroupName = str_logGroupName.replace('/', '-')
+            new_logGroupName = str_logGroupName.replace('/', '')
             list(new_logGroupName)
-            file_path2 = os.path.join(
-                script_dir, 'data/cloudwatch-log-stream/cloudwatch-describe-log-stream'+new_logGroupName+'.json', 'w'
-                )
-            with open(file_path2, 'w')as outfile:
+            file_path_write = os.path.join(
+                script_dir, 'data/cloudwatch-log-stream/cloudwatch-describe-log-stream-' +
+                new_logGroupName+'.json'
+            )
+            with open(file_path_write, 'w')as outfile:
                 outfile.write(json_list)
                 outfile.close()
     except:
