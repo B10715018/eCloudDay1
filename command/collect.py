@@ -38,6 +38,7 @@ from utils.cloudwatch_get_cognito_log_event import cloudwatch_get_cognito_log_ev
 from utils.cognito_list_identity_pool import cognito_list_identity_pool
 from utils.s3_get_bucket_policy_status import s3_get_bucket_policy_status
 from utils.dynamodb_describe_table import dynamodb_describe_table
+from utils.cognito_describe_identity_pools import cognito_describe_identity_pools
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -170,6 +171,8 @@ class Collect:
     def describe_dynamodb_table(self):
         dynamodb_describe_table(self.region_name)
 
+    def describe_cognito_identity_pools(self):
+        cognito_describe_identity_pools(self.region_name)
 
 # initialize class
 collect_command = Collect(REGION_NAME)
@@ -215,3 +218,4 @@ collect_command.get_apigw_integration()
 collect_command.get_cloudwatch_cognito_event()
 collect_command.list_cognito_identity_pool()
 collect_command.get_s3_bucket_policy_status()
+collect_command.describe_cognito_identity_pools()
