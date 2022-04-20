@@ -3,6 +3,7 @@ from utils.lambda_node_prepare import lambda_prepare_node
 from utils.s3_prepare_node import s3_prepare_node
 from utils.dynamodb_prepare_node import dynamodb_prepare_node
 from utils.transcribe_prepare_node import transcribe_prepare_node
+from utils.translate_prepare_node import translate_prepare_node
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -34,32 +35,28 @@ class Prepare:
         transcribe_prepare_node(
             self.region_name, self.account_id, self.cytoscape_node_data)
 
+    def prepare_translate_node(self):
+        translate_prepare_node(
+            self.region_name, self.account_id, self.cytoscape_node_data)
+
 
 # initialize a class
 prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
 
-# call Prepare function
+# call Prepare function ( doing the logic )
+
+# prepare node logic
 prepare_command.prepare_lambda_node()
 prepare_command.prepare_s3_node()
 prepare_command.prepare_dynamodb_node()
 prepare_command.prepare_transcribe_node()
+prepare_command.prepare_translate_node()
+
+# prepare edge logic
+
+# EXPORT INTO JSON FILE
 prepare_command.exportToJSON()
 
-# '''Prepare for translate'''
-# list_of_files = os.listdir('./data')  # list of files in the data directory
-# for each_file in list_of_files:
-#     # since its all type str you can simply use startswith
-#     if each_file.startswith('cloudtrail-translate-text-'):
-#         print('Found a cloudtrail translate file')
-#         cytoscape_node_data.append({
-#             "data": {
-#                 "type": "translate",
-#                 "id": "translate",
-#                 "region": "us-west-2",
-#                 "name": "translate",
-#             }
-#         })
-#         break
 
 # '''Prepare for step function'''
 # with open('./data/step-function-list-state-machine.json', 'r') as openfile:
@@ -279,3 +276,4 @@ prepare_command.exportToJSON()
 '''FIND CONNECTION FROM LAMBDA TO STEP FUNCTION'''
 '''FIND CONNECTION APIGW TO STEP FUNCTION'''
 '''FIND CONNECTION S3 TO COGNITO'''
+'''PREPARE FOR APIGW'''
