@@ -123,8 +123,6 @@ prepare_command.find_edge_lambda_to_sfn()
 # EXPORT INTO JSON FILE
 prepare_command.exportToJSON()
 
-
-'''FIND CONNECTION FROM LAMBDA TO STEP FUNCTION'''
 '''FIND CONNECTION APIGW TO lambda'''
 '''FIND CONNECTION S3 TO COGNITO'''
 '''FIND CONNECTION FROM SNS TO LAMBDA'''
