@@ -133,5 +133,3 @@ prepare_command.find_edge_apigw_to_lambda()
 prepare_command.find_edge_sns_to_lambda()
 # EXPORT INTO JSON FILE
 prepare_command.exportToJSON()
-
-'''FIND CONNECTION FROM SNS TO LAMBDA'''
