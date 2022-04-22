@@ -1,0 +1,1 @@
+This package is meant to help retrieve the metadata in AWS Service
