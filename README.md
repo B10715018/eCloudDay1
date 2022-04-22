@@ -10,7 +10,7 @@
    `python3 -m venv ./venv && source venv/bin/activate`
 
 3. Install the dependencies:
-   `pip install -r requirements.txt`
+   `pip3 install -r requirements.txt`
 
 4. Don't forget to configure your account:
    `aws configure --profile`
@@ -22,17 +22,21 @@
 
 7. Please create a folder name 'data' at the eCloudDay1 repositories it is where we could store all metadata in form of JSON
 
+## Publish `clouday1_extract_aws_metadata` into python package
+
+1. To Publish python package file make sure you have `twine` in your virtual environment: execute `pip3 install setuptools twine`
+2. Create a distribution folder for our python package by executing `python3 setup.py sdist`
+3. Upload your package folder into PyPi repository by executing : `twine upload --repository-url https://upload.pypi.org/legacy dist/* `
+4. You will be asked to insert your username and password for PyPi account to upload the package to PyPi repositories
+5. Then you can view our package here: `https://pypi.org/project/clouday1-extract-aws-metadata/0.0.1/` 
+
+Reference Video can be found here : `https://www.youtube.com/watch?v=zhpI6Yhz9_4`
+
 ## New Version (OOP Version)
 
-1. Make sure that you activate the virtual environment by executing this command `source venv/bin/activate`
+1. The design of class diagram can be find in `docs` folder in `classdiagram.png`
 
-2. To begin with execute this command in your working directory `python setup.py install`. This will make all the files in `utils` folder becoming a global package inside the virtual environment
-
-3. Now execute the `collect.py` file inside the `command` folder by running `python ./command/collect.py` to retrieve all the data
-
-4. The design of class diagram can be find in `docs` folder in `classdiagram.png`
-
-## Instruction to run script file:
+## Instruction to run `collect.py` file:
 
 1. make sure you have the 'job.sh' file in your directory
 
@@ -40,7 +44,7 @@
 
 3. run it using this command in your terminal `./job.sh`, run it 2 times to ensure there is no missing data
 
-## To run prepare.py:
+## To run `prepare.py` file:
 
 1. make sure you have 'job2.sh' file in your directory
 
