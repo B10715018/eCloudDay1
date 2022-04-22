@@ -99,7 +99,8 @@ class Prepare:
                                 self.cytoscape_edge_data)
 
     def find_edge_apigw_to_lambda(self):
-        edge_apigw_to_lambda_find(self.cytoscape_edge_data)
+        edge_apigw_to_lambda_find(
+            self.cytoscape_edge_data, self.cytoscape_node_data)
 
     def find_edge_sns_to_lambda(self):
         edge_sns_to_lambda_find(self.cytoscape_edge_data)
