@@ -302,6 +302,12 @@ sudo systemctl restart nginx
 
 8. Last, click on `Associate` and we are done allocating elastic IP for EC2
 
+### Update the repository inside EC2 instance terminal
+1. To update Github Repository inside the EC2 instance, execute:
+```
+git pull https://github.com/B10715018/eCloudDay1.git
+```
+
 ## Documentation
 - [How to setup nginx, gunicorn(WGSI) and Django tutorial](https://www.youtube.com/watch?v=I4eN7QQzKd0) 
 
