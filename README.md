@@ -308,8 +308,53 @@ sudo systemctl restart nginx
 git pull https://github.com/B10715018/eCloudDay1.git
 ```
 
-## Documentation
+### EC2 bootstrap documentation
+1. We need to make the EC2 instance run the gunicorn as soon as it is being started then we should configure something
+
+2. First SSH to your EC2 instance
+
+3. Then execute to go to the ubuntu bootstrap directory:
+```
+cd /etc/systemd/system
+```
+4. Create a service file to run our project bootstrap, execute:
+```
+sudo vi myproject.service
+```
+5. Insert this template for the bootstrap:
+```
+# myproject.service
+
+[Unit]
+Description=Gunicorn instance to serve myproject
+After=network.target
+
+[Service]
+WorkingDirectory=/home/ubuntu/eClouday1/eCloudDay1
+Type=simple
+Environment="PATH=/home/ubuntu/eClouday1/eCloudDay1/venv/bin"
+ExecStart=/home/ubuntu/eClouday1/eCloudDay1/venv/bin/gunicorn --workers=3 --bind {your_port_ip_addr}:{PORT} wsgi:app
+
+[Install]
+WantedBy=multi-user.target
+```
+6. Then to make sure that daemon is restarted :
+```
+sudo systemctl daemon-reload
+```
+
+7. Then enter these command to ensure that our service will start everytime bootup:
+```
+sudo systemctl start myproject
+sudo systemctl enable myproject
+sudo systemctl status myproject
+```
+8. You need to ensure that all the worker service in Gunicorn have start, then if done, we have succesfully setup the bootstrap
+
+## Reference
 - [How to setup nginx, gunicorn(WGSI) and Django tutorial](https://www.youtube.com/watch?v=I4eN7QQzKd0) 
+
+- [Setup bootstrap for EC2](https://stackoverflow.com/questions/55471199/how-to-start-gunicorn-on-startup-ec2-instance)
 
 - [Nginx Documentation](https://nginx.org/en/docs/)
 
