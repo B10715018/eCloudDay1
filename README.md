@@ -317,4 +317,4 @@ git pull https://github.com/B10715018/eCloudDay1.git
 
 - [Flask Documentation](https://flask.palletsprojects.com/en/2.1.x/)
 
-# THANK YOU :LOVE:
+# THANK YOU :heart:
