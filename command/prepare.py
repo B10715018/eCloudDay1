@@ -18,6 +18,7 @@ from clouday1_extract_aws_metadata import edge_s3_to_cognito_find
 from clouday1_extract_aws_metadata import edge_lambda_sns_find
 from clouday1_extract_aws_metadata import edge_transcribe_to_s3_find
 from clouday1_extract_aws_metadata import edge_lambda_to_sfn_find
+from clouday1_extract_aws_metadata import export_to_s3
 
 REGION_NAME = 'us-west-2'
 ACCOUNT_ID = '758325631830'
@@ -104,6 +105,12 @@ class Prepare:
 
     def find_edge_sns_to_lambda(self):
         edge_sns_to_lambda_find.edge_sns_to_lambda_find(self.cytoscape_edge_data)
+    
+    def export_JSON_to_S3(self):
+        export_to_s3.upload_to_S3(self.region_name)
+
+    def write_to_dynamoDB(self):
+        export_to_s3.write_to_dynamo_db(self.region_name,self.account_id)
 
 
 # initialize a class
@@ -134,5 +141,7 @@ prepare_command.find_edge_apigw_to_lambda()
 prepare_command.find_edge_sns_to_lambda()
 # EXPORT INTO JSON FILE
 prepare_command.exportToJSON()
+prepare_command.export_JSON_to_S3()
+prepare_command.write_to_dynamoDB()
 
-'''FIND CONNECTION FROM SNS TO LAMBDA'''
+
