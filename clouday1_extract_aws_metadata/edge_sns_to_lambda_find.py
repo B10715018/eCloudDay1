@@ -15,18 +15,21 @@ def edge_sns_to_lambda_find(cytoscape_edge_data):
                 modified_policy = json.loads(sns_lambda_description['Policy'])
                 # in this policy there would be stated one or several service that could trigger lambda
                 for items in (modified_policy['Statement']):
-                    lambdaArn = items['Resource']
-                    triggerArn = items['Condition']['ArnLike']['AWS:SourceArn']
-                    # check if source trigger is sns
-                    if('sns.amazonaws.com' in items['Principal']['Service']):
-                        print('Found connection between SNS:{} and lambda:{}'.
-                              format(triggerArn, lambdaArn))
-                        # put data into cytoscape_edge_data
-                        data_sns_lambda = {
-                            "data": {
-                                "id": "edge_"+triggerArn+'_to_'+lambdaArn,
-                                "source": triggerArn,
-                                "target": lambdaArn
+                    try:
+                        lambdaArn = items['Resource']
+                        triggerArn = items['Condition']['ArnLike']['AWS:SourceArn']
+                        # check if source trigger is sns
+                        if('sns.amazonaws.com' in items['Principal']['Service']):
+                            print('Found connection between SNS:{} and lambda:{}'.
+                                format(triggerArn, lambdaArn))
+                            # put data into cytoscape_edge_data
+                            data_sns_lambda = {
+                                "data": {
+                                    "id": "edge_"+triggerArn+'_to_'+lambdaArn,
+                                    "source": triggerArn,
+                                    "target": lambdaArn
+                                }
                             }
-                        }
-                        cytoscape_edge_data.append(data_sns_lambda)
+                            cytoscape_edge_data.append(data_sns_lambda)
+                    except:
+                        print('Something error in sns and lambda edge')
