@@ -29,7 +29,7 @@ def dynamodb_prepare_node(region, account_id, cytoscape_node_data):
                     "name": item,
                     "account_id": account_id,
                     "itemCount": ddb_items["Count"],
-                    "partition_key": ddb_table["table"]["KeySchema"]["AttributeName"][0],
+                    "partition_key": ddb_table["table"]["KeySchema"][0]["AttributeName"],
                     "items": ddb_items["Items"]
                 }
             })
