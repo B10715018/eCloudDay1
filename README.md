@@ -354,6 +354,8 @@ sudo systemctl status myproject
 ## Documentation for Docker Container and ECS could be found here
 [Link to Docker and ECS Documentation](./docs/dockertoECS.md)
 
+## Documentation on how to update the PYPI package
+[Link to Tutorial to update PYPI Package](./docs/updatePythonPackage.md)
 ## Reference
 - [How to setup nginx, gunicorn(WGSI) and Django tutorial](https://www.youtube.com/watch?v=I4eN7QQzKd0) 
 
