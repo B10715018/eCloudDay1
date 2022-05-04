@@ -23,6 +23,9 @@ def lambda_prepare_node(region, account_id, cytoscape_node_data):
                     "region": region,
                     "account_id": account_id,
                     "name": item['FunctionName'],
+                    "description": item['Description'],
+                    "role": item['Role'],
+                    "codesize": item['CodeSize']
                 }
             })
 
