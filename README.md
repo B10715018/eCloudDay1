@@ -351,6 +351,9 @@ sudo systemctl status myproject
 ```
 8. You need to ensure that all the worker service in Gunicorn have start, then if done, we have succesfully setup the bootstrap
 
+## Documentation for Docker Container and ECS could be found here
+[Link to Docker and ECS Documentation](./docs/dockertoECS.md)
+
 ## Reference
 - [How to setup nginx, gunicorn(WGSI) and Django tutorial](https://www.youtube.com/watch?v=I4eN7QQzKd0) 
 
@@ -361,5 +364,7 @@ sudo systemctl status myproject
 - [Gunicorn Documentation](https://docs.gunicorn.org/en/stable/configure.html)
 
 - [Flask Documentation](https://flask.palletsprojects.com/en/2.1.x/)
+
+- [How to dockerize app and deploy to Fargate](https://towardsdatascience.com/deploying-a-docker-container-with-ecs-and-fargate-7b0cbc9cd608)
 
 # THANK YOU :heart:
