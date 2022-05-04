@@ -18,6 +18,7 @@ def sfn_prepare_node(region, account_id, cytoscape_node_data):
                     "account_id": account_id,
                     "region": region,
                     "name": sfn['name'],
+                    "CreationDate" : sfn['CreationDate']
                 }
             })
 
