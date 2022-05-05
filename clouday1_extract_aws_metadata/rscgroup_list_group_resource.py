@@ -22,7 +22,7 @@ def rscgroup_list_group_resource(region):
                 )
                 json_response = json.dumps(response, indent=4)
                 filename = os.path.join(script_dir, 'data/rscgroup-group-resource/rscgroup-' +
-                                        GroupNameList[i]+'list-group-resource-'+region+'.json')
+                                        GroupNameList[i]+'-list-group-resource-'+region+'.json')
                 with open(filename, 'w') as outfile:
                     outfile.write(json_response)
                     outfile.close()
