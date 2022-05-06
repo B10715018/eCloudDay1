@@ -14,7 +14,8 @@ def sfn_find_connection(cytoscape_node_data, cytoscape_edge_data):
             file_path_read = os.path.join(script_dir, each_file)
             with open(file_path_read, 'r') as openfile:
                 unfiltered_sfn_arn = each_file[15:]
-                filtered_sfn_arn = unfiltered_sfn_arn.split('.')[0]
+                filtered_sfn_arn = (unfiltered_sfn_arn.split('.')[0])[0:-7]
+                print(filtered_sfn_arn)
                 try:
                     sfn_connection_object = json.load(openfile)
                     listOfStates = list(
