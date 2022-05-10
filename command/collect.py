@@ -41,6 +41,7 @@ from clouday1_extract_aws_metadata import cognito_list_identity_pool
 from clouday1_extract_aws_metadata import cognito_describe_identity_pools
 import os
 import json
+import boto3
 
 
 '''Collect class for collecting data from AWS Services'''
@@ -173,6 +174,14 @@ class Collect:
     def describe_cognito_identity_pools(self):
         cognito_describe_identity_pools.cognito_describe_identity_pools(self.region_name)
 
+
+s3 = boto3.client('s3')
+script_dir=os.path.dirname('.')
+file_name=os.path.join(script_dir,'data/input.json')
+bucket_name='clouday1-userdata'
+object_name='user-clouday1'+'.json'
+with open(file_name, 'w') as f:
+    s3.download_fileobj(bucket_name, object_name, f)
 script_dir=os.path.dirname('.')
 file_path_read=os.path.join(script_dir,'data/input.json')
 with open(file_path_read,'r') as openfile:
