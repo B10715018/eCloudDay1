@@ -15,7 +15,7 @@ class Initialize:
     def print_class_parameter(self):
         print(self.account_id)
         print(self.account_name)
-        print(self.region_name)
+        print(len(self.region_name))
         print(self.aws_access_key_id)
         print(self.aws_secret_access_key)
         print(self.aws_session_token)

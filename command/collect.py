@@ -39,14 +39,11 @@ from clouday1_extract_aws_metadata import cloudwatch_get_cognito_log_event
 from clouday1_extract_aws_metadata import dynamodb_describe_table
 from clouday1_extract_aws_metadata import cognito_list_identity_pool
 from clouday1_extract_aws_metadata import cognito_describe_identity_pools
-
+import os
+import json
 
 
 '''Collect class for collecting data from AWS Services'''
-
-REGION_NAME = 'us-west-2'
-
-
 class Collect:
     '''Collect class for collecting data from AWS Lambda'''
 
@@ -176,48 +173,55 @@ class Collect:
     def describe_cognito_identity_pools(self):
         cognito_describe_identity_pools.cognito_describe_identity_pools(self.region_name)
 
-# initialize class
-collect_command = Collect(REGION_NAME)
+script_dir=os.path.dirname('.')
+file_path_read=os.path.join(script_dir,'data/input.json')
+with open(file_path_read,'r') as openfile:
+    json_object=json.load(openfile)
+    openfile.close()
 
-# call command functions
-collect_command.get_lambda_list()
-collect_command.get_lambda_policy()
-collect_command.list_sqs_queue()
-collect_command.get_sqs_queue()
-collect_command.list_sns_topic()
-collect_command.get_sns_topic_attribute()
-collect_command.list_dynamodb_table()
-collect_command.scan_dynamodb_table()
-collect_command.describe_dynamodb_table()
-collect_command.get_cloudtrail_start_sfn()
-collect_command.get_cloudtrail_translate_text()
-collect_command.get_cloudtrail_start_transcription_job()
-collect_command.get_apigw_rest_apis()
-collect_command.get_apigw_resources()
-collect_command.get_cloudtrail_waf_createWebACL()
-collect_command.get_cloudwatch_describe_log_groups()
-collect_command.get_cloudwatch_describe_log_stream()
-collect_command.get_cloudwatch_describe_log_event()
-collect_command.list_s3_bucket()
-collect_command.get_s3_bucket_policy()
-collect_command.describe_rds_instance()
-collect_command.describe_elbv2_load_balancer()
-collect_command.describe_elbv2_target_group()
-collect_command.describe_elbv2_target_health()
-collect_command.describe_ec2_instances()
-collect_command.describe_ec2_vpc_endpoint()
-collect_command.describe_ec2_subnets()
-collect_command.describe_ec2_security_groups()
-collect_command.describe_ec2_route_tables()
-collect_command.describe_ec2_network_interfaces()
-collect_command.describe_ec2_network_acls()
-collect_command.describe_ec2_describe_availability_zones()
-collect_command.describe_ec2_internet_gateway()
-collect_command.list_sfn()
-collect_command.describe_sfn()
-collect_command.list_waf_web_acl()
-collect_command.get_apigw_integration()
-collect_command.get_cloudwatch_cognito_event()
-collect_command.list_cognito_identity_pool()
-collect_command.get_s3_bucket_policy_status()
-collect_command.describe_cognito_identity_pools()
+for region in json_object['region']:
+    # initialize class
+    collect_command = Collect(region)
+
+    # call command functions
+    collect_command.get_lambda_list()
+    collect_command.get_lambda_policy()
+    collect_command.list_sqs_queue()
+    collect_command.get_sqs_queue()
+    collect_command.list_sns_topic()
+    collect_command.get_sns_topic_attribute()
+    collect_command.list_dynamodb_table()
+    collect_command.scan_dynamodb_table()
+    collect_command.describe_dynamodb_table()
+    collect_command.get_cloudtrail_start_sfn()
+    collect_command.get_cloudtrail_translate_text()
+    collect_command.get_cloudtrail_start_transcription_job()
+    collect_command.get_apigw_rest_apis()
+    collect_command.get_apigw_resources()
+    collect_command.get_cloudtrail_waf_createWebACL()
+    collect_command.get_cloudwatch_describe_log_groups()
+    collect_command.get_cloudwatch_describe_log_stream()
+    collect_command.get_cloudwatch_describe_log_event()
+    collect_command.list_s3_bucket()
+    collect_command.get_s3_bucket_policy()
+    collect_command.describe_rds_instance()
+    collect_command.describe_elbv2_load_balancer()
+    collect_command.describe_elbv2_target_group()
+    collect_command.describe_elbv2_target_health()
+    collect_command.describe_ec2_instances()
+    collect_command.describe_ec2_vpc_endpoint()
+    collect_command.describe_ec2_subnets()
+    collect_command.describe_ec2_security_groups()
+    collect_command.describe_ec2_route_tables()
+    collect_command.describe_ec2_network_interfaces()
+    collect_command.describe_ec2_network_acls()
+    collect_command.describe_ec2_describe_availability_zones()
+    collect_command.describe_ec2_internet_gateway()
+    collect_command.list_sfn()
+    collect_command.describe_sfn()
+    collect_command.list_waf_web_acl()
+    collect_command.get_apigw_integration()
+    collect_command.get_cloudwatch_cognito_event()
+    collect_command.list_cognito_identity_pool()
+    collect_command.get_s3_bucket_policy_status()
+    collect_command.describe_cognito_identity_pools()
