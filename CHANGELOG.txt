@@ -1,8 +1,8 @@
 Change Log
 ==========
 
-0.0.9 (04/06/2022)
-------------------
+0.0.14 (04/11/2022)
+-------------------
 - First Release : Collect metadata from AWS Service,
   Supported Service Include: Lambda, API Gateway, Cloudwatch, SNS, Step Function, Cognito, EC2, Dynamo DB, S3
 - Second Release: Fix some bug for dynamodb and add some new features like export to S3 bucket and write to dynamodb
@@ -13,3 +13,8 @@ Change Log
 - Seventh Release: Fix specific bug in the step function where there is extra unwanted word
 - Eight Release: Added new functionality used in initialize class
 - Ninth Release: Fix some functionality used in initialize class
+- Tenth Release: Modify some functionality in initialize class
+- Eleventh Release: Modify the table name to write into dynamoDB
+- Twelveth Release: Minor bug in updating item in prepare class
+- Thirteenth Release: Bug Fix in updating item in prepare class
+- Fourteenth Release: Fix Bug

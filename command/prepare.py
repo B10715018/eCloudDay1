@@ -109,39 +109,5 @@ class Prepare:
     def export_JSON_to_S3(self):
         export_to_s3.upload_to_S3(self.region_name)
 
-    def write_to_dynamoDB(self):
-        export_to_s3.write_to_dynamo_db(self.region_name,self.account_id)
-
-
-# initialize a class
-prepare_command = Prepare(REGION_NAME, ACCOUNT_ID)
-
-# call Prepare function ( doing the logic )
-
-# prepare node logic
-prepare_command.prepare_lambda_node()
-prepare_command.prepare_s3_node()
-prepare_command.prepare_dynamodb_node()
-prepare_command.prepare_transcribe_node()
-prepare_command.prepare_translate_node()
-prepare_command.prepare_sns_node()
-prepare_command.prepare_sfn_node()
-prepare_command.prepare_apigw_node()
-prepare_command.prepare_cognito_node()
-# prepare edge logic
-prepare_command.find_sfn_connection()
-prepare_command.find_edge_lambda_to_sns()
-prepare_command.find_edge_lambda_to_ddb()
-prepare_command.find_edge_lambda_to_transcribe()
-prepare_command.find_edge_lambda_to_translate()
-prepare_command.find_edge_transcribe_to_s3()
-prepare_command.find_edge_s3_to_cognito()
-prepare_command.find_edge_lambda_to_sfn()
-prepare_command.find_edge_apigw_to_lambda()
-prepare_command.find_edge_sns_to_lambda()
-# EXPORT INTO JSON FILE
-prepare_command.exportToJSON()
-prepare_command.export_JSON_to_S3()
-prepare_command.write_to_dynamoDB()
-
-
+    def write_to_dynamoDB(self,requestID):
+        export_to_s3.write_to_dynamo_db(self.region_name,requestID)

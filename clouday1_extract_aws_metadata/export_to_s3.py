@@ -17,13 +17,21 @@ def upload_to_S3(region):
         print('Failed to export to S3')
 
 
-def write_to_dynamo_db(region,account_id):
+def write_to_dynamo_db(region,requestID):
     client=boto3.client('dynamodb',region_name=region)
-    item_dict={
-        'account_id':{'S':account_id},
-        'status': {'S':'COMPLETED'},
-        'data_name': {'S':object_name},
-        'timestamp': {'S':str(datetime.datetime.now())}
-    }
-    client.put_item(TableName='architecture',
-    Item=item_dict)
+    
+    client.update_item(TableName='architectureDB',
+    Key={
+        'requestID':{'S':requestID}
+    },
+    UpdateExpression="SET #attr1 = :var1, #attr2 = :var2,#attr3 = :var3",
+    ExpressionAttributeNames={
+        '#attr1': 'status',
+        '#attr2':'data_name',
+        '#attr3':'timestamp'
+    },
+    ExpressionAttributeValues={
+            ':var1': {'S':'COMPLETED'},
+            ':var2': {'S':object_name},
+            ':var3': {'S':str(datetime.datetime.now())}
+            })
