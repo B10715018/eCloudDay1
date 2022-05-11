@@ -1,6 +1,5 @@
 from flask import Flask, request
 import os
-from os.path import exists
 from command.initialize import Initialize
 from command.collect import Collect
 from command.prepare import Prepare
@@ -10,7 +9,7 @@ app=Flask(__name__)
 def root_route():
     return 'Hello World'
 
-@app.route('/initialize', methods=['POST'])
+@app.route('/newPost', methods=['POST'])
 def initialize():
     input=request.json
 
@@ -110,45 +109,6 @@ def initialize():
         'status': 'Success',
         'code': 200,
         'message': 'Succeed initializing credentials'
-    }
-@app.route('/collect', methods=['POST'])
-def collectMetadata():
-
-    # data = request.get_json()
-    try:
-        os.system('python ./command/collect.py')  
-    except:
-        return{
-            'status': 'Error',
-            'code': 500,
-            'message':'Bad Request Error'
-        }
-
-
-    return {  
-        'status': 'Success',
-        'code': 200,
-        'message': 'Succeed collecting metadata'
-    }
-
-@app.route('/prepare',methods=['POST'])
-def prepareJSONFile():
-    try:
-        os.system('./job2.sh')
-        if(not exists('./data/data.json')):
-            raise Exception('No JSON file exist')
-    except Exception as e:
-        return{
-            'status': 'Error',
-            'code': 500,
-            'message':'Bad Request Error',
-            'detail': str(e)
-        }
-
-    return {  
-        'status': 'Success',
-        'code': 200,
-        'message': 'Succeed prepare JSON file'
     }
 
 @app.route('/request',methods=['DELETE'])
