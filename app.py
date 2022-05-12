@@ -1,9 +1,11 @@
 from flask import Flask, request
+from flask_cors import CORS
 import os
 from command.initialize import Initialize
 from command.collect import Collect
 from command.prepare import Prepare
 app=Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def root_route():
