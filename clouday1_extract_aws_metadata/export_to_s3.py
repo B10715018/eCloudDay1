@@ -2,6 +2,7 @@ import boto3
 import os
 import uuid
 import datetime
+import pytz
 
 object_name='data-'+str(uuid.uuid4())+'.json'
 
@@ -19,7 +20,10 @@ def upload_to_S3(region):
 
 def write_to_dynamo_db(region,requestID):
     client=boto3.client('dynamodb',region_name=region)
-    
+    date=datetime.datetime.now()
+    # create taipei timezone
+    tw=pytz.timezone('Asia/Taipei')
+    twDate=tw.localize(date)
     client.update_item(TableName='architectureDB',
     Key={
         'requestID':{'S':requestID}
@@ -33,5 +37,5 @@ def write_to_dynamo_db(region,requestID):
     ExpressionAttributeValues={
             ':var1': {'S':'COMPLETED'},
             ':var2': {'S':object_name},
-            ':var3': {'S':str(datetime.datetime.now())}
+            ':var3': {'S':str(twDate)}
             })

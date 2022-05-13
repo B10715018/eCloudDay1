@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-0.0.14 (04/11/2022)
+0.0.15 (04/13/2022)
 -------------------
 - First Release : Collect metadata from AWS Service,
   Supported Service Include: Lambda, API Gateway, Cloudwatch, SNS, Step Function, Cognito, EC2, Dynamo DB, S3
@@ -18,3 +18,4 @@ Change Log
 - Twelveth Release: Minor bug in updating item in prepare class
 - Thirteenth Release: Bug Fix in updating item in prepare class
 - Fourteenth Release: Fix Bug
+- Fifteenth Release: Change timezone into Taipei Timezone
