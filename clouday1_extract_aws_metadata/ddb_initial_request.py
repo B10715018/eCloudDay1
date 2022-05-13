@@ -3,6 +3,7 @@ import datetime
 import uuid
 import pytz
 
+
 def initial_request_to_ddb(region,account_id,account_name,user_id):
     date=datetime.datetime.now()
     # create taipei timezone

@@ -10,7 +10,7 @@ classifiers = [
  
 setup(
   name='clouday1_extract_aws_metadata',
-  version='0.0.15',
+  version='0.0.16',
   description='A tool to extract metadata from AWS',
   long_description=open('README.txt').read() + '\n\n' + open('CHANGELOG.txt').read(),
   url='',  
