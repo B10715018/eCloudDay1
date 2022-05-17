@@ -1,6 +1,8 @@
 from clouday1_extract_aws_metadata import ddb_initial_request
 from clouday1_extract_aws_metadata import send_request_to_s3
 from clouday1_extract_aws_metadata import iam_get_caller_identity
+from clouday1_extract_aws_metadata import processing_requestID
+from clouday1_extract_aws_metadata import get_credentials_from_s3
 
 class Initialize:
     '''Initialize the request and validate the aws credentials'''
@@ -100,3 +102,26 @@ class Initialize:
         requestID=ddb_initial_request.initial_request_to_ddb(self.region_name,self.account_id,
         self.account_name,self.user_id)
         return requestID
+    def process_requestID(self,requestID):
+        response=processing_requestID.process_requestID(requestID)
+        self.account_name=response['message']
+        if(response['status_code']!=200):
+            return{
+                'status':'Error',
+                'code': 500,
+                'message':'Bad Error Request'
+            }
+        return {
+            'status':'Success',
+            'code': 200,
+            'message':'Success processing request ID'
+        }
+    
+    def get_credentials(self):
+        response=get_credentials_from_s3.get_credentials_from_s3(self.account_name)
+        self.account_id=response['message']['account_id']
+        self.aws_access_key_id=response['message']['aws_access_key_id']
+        self.aws_secret_access_key=response['message']['aws_secret_access_key']
+        self.aws_session_token=response['message']['aws_session_token']
+        self.user_id=response['message']['user_id']
+        self.region_name=response['message']['region']
