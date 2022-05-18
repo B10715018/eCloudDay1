@@ -2,10 +2,7 @@ name: CI/CD local to EC2
 
 on:
   push:
-    branches:
-      - '*'
-    paths:
-      - '*'
+    branches: [main]
 jobs:
   deploy:
     runs-on: ubuntu-latest
