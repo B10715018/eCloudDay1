@@ -13,7 +13,7 @@ def sns_prepare_node(region, account_id, cytoscape_node_data):
         for sns in sns_object['Topics']:
             cytoscape_node_data.append({
                 "data": {
-                    "type": "sns",
+                    "type": "SNS",
                     "id": sns['TopicArn'],
                     "arn": sns['TopicArn'],
                     "account_id": account_id,

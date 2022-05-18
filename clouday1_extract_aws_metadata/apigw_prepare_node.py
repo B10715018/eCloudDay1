@@ -23,7 +23,7 @@ def api_gw_prepare_node(region, account_id, cytoscape_node_data):
             "data": {
                 "id": "arn:aws:execute-api:"+region+":"+account_id+":"+apiId,
                 "arn": "arn:aws:execute-api:"+region+":"+account_id+":"+apiId,
-                "type": "apigw",
+                "type": "API Gateway",
                 "name": apiName,
                 "account_id": account_id,
                 "region": region,

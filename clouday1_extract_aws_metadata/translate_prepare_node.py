@@ -11,7 +11,7 @@ def translate_prepare_node(region, account_id, cytoscape_node_data):
             print('Found a cloudtrail translate file')
             cytoscape_node_data.append({
                 "data": {
-                    "type": "translate",
+                    "type": "Translate",
                     "id": "translate",
                     "region": region,
                     "account_id": account_id,
