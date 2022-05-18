@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-0.0.16 (04/13/2022)
+0.0.18 (04/18/2022)
 -------------------
 - First Release : Collect metadata from AWS Service,
   Supported Service Include: Lambda, API Gateway, Cloudwatch, SNS, Step Function, Cognito, EC2, Dynamo DB, S3
@@ -20,3 +20,5 @@ Change Log
 - Fourteenth Release: Fix Bug
 - Fifteenth Release: Change timezone into Taipei Timezone
 - Sixteenth Release: Automate Deployment to PYPI Testing
+- Seventeenth Release: Added feature for getting credentials from S3 and prcessing requestID to dynamodb
+- Eighteenth Release: Change the naming for certain AWS service and dynamodb arn structuring
