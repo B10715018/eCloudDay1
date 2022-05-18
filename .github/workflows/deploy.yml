@@ -23,7 +23,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
           
             #Now we have got the access of EC2 and we will start the deploy .
-            cd eClouday1/eCloudDay1 &&
+            cd /home/ubuntu/eClouday1/eCloudDay1 &&
             git pull https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/B10715018/eCloudDay1.git &&
             source venv/bin/activate &&
             pip3 install -r requirements.txt &&
