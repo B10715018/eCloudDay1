@@ -14,7 +14,7 @@ jobs:
         env:
             PRIVATE_KEY: ${{ secrets.AWS_EC2_SSH_KEY  }}
             HOSTNAME : ${{ secrets.HOSTNAME  }}
-            USER_NAME : ${{ secrets.USER_NAME  }}
+            USER_NAME : ${{ secrets.USERNAME  }}
             GITHUB_TOKEN  : ${{ secrets.GIT_TOKEN  }}
             
         run: |
