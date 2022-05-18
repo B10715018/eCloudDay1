@@ -24,7 +24,7 @@ jobs:
           
             #Now we have got the access of EC2 and we will start the deploy .
             cd /home/ubuntu/eClouday1/eCloudDay1 &&
-            git remote add origin https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/B10715018/eCloudDay1.git &&
+            git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/B10715018/eCloudDay1.git &&
             git pull origin main &&
             source venv/bin/activate &&
             pip3 install -r requirements.txt &&
