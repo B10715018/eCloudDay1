@@ -15,8 +15,6 @@ jobs:
             PRIVATE_KEY: ${{ secrets.AWS_EC2_SSH_KEY  }}
             HOSTNAME : ${{ secrets.HOSTNAME  }}
             USER_NAME : ${{ secrets.USERNAME  }}
-            GITHUB_TOKEN  : ${{ secrets.GIT_TOKEN  }}
-            GITHUB_USERNAME  : ${{ secrets.GIT_USERNAME  }}
             
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
@@ -24,7 +22,6 @@ jobs:
           
             #Now we have got the access of EC2 and we will start the deploy .
             cd /home/ubuntu/eClouday1/eCloudDay1 &&
-            git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/B10715018/eCloudDay1.git &&
             git pull origin main &&
             source venv/bin/activate &&
             pip3 install -r requirements.txt &&
