@@ -2,7 +2,8 @@ name: CI/CD local to EC2
 
 on:
   push:
-    branches: '*'
+    branches:
+      - '*'
 
 jobs:
   deploy:
