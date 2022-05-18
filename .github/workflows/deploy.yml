@@ -1,0 +1,30 @@
+name: CI/CD local to EC2
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy to EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_EC2_SSH_KEY  }}
+            HOSTNAME : ${{ secrets.HOSTNAME  }}
+            USER_NAME : ${{ secrets.USER_NAME  }}
+            GITHUB_TOKEN  : ${{ secrets.GIT_TOKEN  }}
+            
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          
+            #Now we have got the access of EC2 and we will start the deploy .
+            cd /home/ubuntu/eClouday1/eCloudDay1 &&
+            git pull https://${GITHUB_TOKEN}@github.com/B10715018/eCloudDay1.git &&
+            source venv/bin/activate &&
+            pip3 install -r requirements.txt &&
+            sudo systemctl restart myproject.service
+          '
