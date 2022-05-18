@@ -22,8 +22,8 @@ def dynamodb_prepare_node(region, account_id, cytoscape_node_data):
 
             cytoscape_node_data.append({
                 "data": {
-                    "type": "dynamodb",
-                    "id": 'ddb:'+item,
+                    "type": "DynamoDB",
+                    "id": 'arn:aws:dynamodb:'+region+':'+account_id+':table/'+item,
                     "region": region,
                     "name": item,
                     "account_id": account_id,

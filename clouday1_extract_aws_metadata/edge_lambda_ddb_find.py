@@ -22,14 +22,16 @@ def edge_lambda_ddb_find(cytoscape_edge_data, region):
     for lambdas in lambda_object['Functions']:
         for ddb in ddb_object['TableNames']:
             try:
+                account_id=lambdas['FunctionArn'].split(':')[4]
                 if lambdas['Environment']['Variables']['DB_TABLE_NAME'] == ddb:
-                    # print('Found connection between {} and {}'.format(
-                    #     lambdas['FunctionName'], ddb))
+                    print('Found connection between {} and {}'.format(
+                        lambdas['FunctionName'], ddb))
+                    arn_ddb='arn:aws:dynamodb:'+region+':'+account_id+':table/'+ddb
                     cytoscape_edge_data.append({
                         "data": {
-                            "id": lambdas['FunctionName'] + '-ddb:' + ddb,
+                            "id": lambdas['FunctionName'] + '-' + arn_ddb,
                             "source": lambdas["FunctionArn"],
-                            "target": 'ddb:'+ddb,
+                            "target": arn_ddb,
                         }
                     })
             except:
