@@ -14,6 +14,10 @@ def api_gw_prepare_node(region, account_id, cytoscape_node_data):
     for apigw in apigw_object["items"]:
         apiName = apigw['name']
         apiId = apigw['id']
+        #get tags for each apigw 
+        if "tags" in apigw.keys():
+            apiTag = apigw['tags'] 
+
         file_path_read_resourceapigw = os.path.join(
             script_dir, 'data/apigw-resource/apigw-get-resource-'+region+'-'+apiId+'.json')
         with open(file_path_read_resourceapigw, 'r') as openfile_resourceAPI:
@@ -28,5 +32,6 @@ def api_gw_prepare_node(region, account_id, cytoscape_node_data):
                 "account_id": account_id,
                 "region": region,
                 "resource": apigw_resource['items'],
+                "tag": apiTag,
             }
         })
