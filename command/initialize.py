@@ -95,16 +95,20 @@ class Initialize:
         account_id=iam_get_caller_identity.get_account_id(self.aws_access_key_id,
             self.aws_secret_access_key,self.region_name[0])
         self.account_id=account_id
-    def send_request_to_s3(self):
+
+    def send_request_to_s3(self,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
         send_request_to_s3.send_request_to_s3(self.account_name,self.account_id,
         self.aws_access_key_id,self.aws_secret_access_key,self.region_name,
-        self.user_id,self.aws_session_token)
-    def make_request(self):
+        self.user_id,self.aws_session_token,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+
+    def make_request(self,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
         requestID=ddb_initial_request.initial_request_to_ddb(self.region_name,self.account_id,
-        self.account_name,self.user_id)
+        self.account_name,self.user_id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
         return requestID
-    def process_requestID(self,requestID):
-        response=processing_requestID.process_requestID(requestID)
+
+    def process_requestID(self,requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
+        response=processing_requestID.process_requestID(requestID,
+        AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
         self.account_name=response['message']
         if(response['status_code']!=200):
             return{
@@ -118,8 +122,9 @@ class Initialize:
             'message':'Success processing request ID'
         }
     
-    def get_credentials(self):
-        response=get_credentials_from_s3.get_credentials_from_s3(self.account_name)
+    def get_credentials(self,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
+        response=get_credentials_from_s3.get_credentials_from_s3(self.account_name,
+        AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
         self.account_id=response['message']['account_id']
         self.aws_access_key_id=response['message']['aws_access_key_id']
         self.aws_secret_access_key=response['message']['aws_secret_access_key']
@@ -127,5 +132,5 @@ class Initialize:
         self.user_id=response['message']['user_id']
         self.region_name=response['message']['region']
     
-    def update_ddb_status(self,requestID):
-        update_ddb_status.update_ddb_status(requestID)
+    def update_ddb_status(self,requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
+        update_ddb_status.update_ddb_status(requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
