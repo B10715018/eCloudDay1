@@ -4,9 +4,13 @@ import os
 from command.initialize import Initialize
 from command.collect import Collect
 from command.prepare import Prepare
+from dotenv import load_dotenv, find_dotenv
 app=Flask(__name__)
 CORS(app)
+load_dotenv(find_dotenv())
 
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 @app.route('/')
 def root_route():
     return 'Hello World'
@@ -14,6 +18,8 @@ def root_route():
 @app.route('/newPost', methods=['POST'])
 def initialize():
     input=request.json
+    print(AWS_ACCESS_KEY_ID)
+    print(AWS_SECRET_ACCESS_KEY)
 
     # make class instance
     initialize_command=Initialize(input['region'], input['user_id'],
@@ -22,8 +28,8 @@ def initialize():
     # execute class function
     initialize_command.validate_input()
     initialize_command.check_identity()
-    initialize_command.send_request_to_s3()
-    requestID=initialize_command.make_request()
+    initialize_command.send_request_to_s3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+    requestID=initialize_command.make_request(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
     print('The requestID is:', requestID)
     initialize_command.print_class_parameter()
 
@@ -105,8 +111,8 @@ def initialize():
         # EXPORT INTO JSON FILE
         if(i==len(regions)-1):
             prepare_command.exportToJSON()
-            prepare_command.export_JSON_to_S3()
-            prepare_command.write_to_dynamoDB(str(requestID))
+            prepare_command.export_JSON_to_S3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+            prepare_command.write_to_dynamoDB(str(requestID),AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
     return {  
         'status': 'Success',
         'code': 200,
@@ -118,8 +124,9 @@ def update():
     input=request.json
     print(input)
     initialize_command=Initialize('','','','','','')
-    initialize_command.process_requestID(input['requestID'])
-    initialize_command.get_credentials()
+    initialize_command.process_requestID(input['requestID'],AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+    initialize_command.update_ddb_status(input['requestID'],AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+    initialize_command.get_credentials(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
     initialize_command.check_identity()
     initialize_command.print_class_parameter()
 
@@ -201,8 +208,8 @@ def update():
         # EXPORT INTO JSON FILE
         if(i==len(regions)-1):
             prepare_command.exportToJSON()
-            prepare_command.export_JSON_to_S3()
-            prepare_command.write_to_dynamoDB(str(input['requestID']))
+            prepare_command.export_JSON_to_S3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+            prepare_command.write_to_dynamoDB(str(input['requestID']),AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
     return {  
         'status': 'Success',
         'code': 200,
