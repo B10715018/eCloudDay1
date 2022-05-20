@@ -119,6 +119,7 @@ def update():
     print(input)
     initialize_command=Initialize('','','','','','')
     initialize_command.process_requestID(input['requestID'])
+    initialize_command.update_ddb_status(input['requestID'])
     initialize_command.get_credentials()
     initialize_command.check_identity()
     initialize_command.print_class_parameter()

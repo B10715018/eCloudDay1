@@ -3,6 +3,7 @@ from clouday1_extract_aws_metadata import send_request_to_s3
 from clouday1_extract_aws_metadata import iam_get_caller_identity
 from clouday1_extract_aws_metadata import processing_requestID
 from clouday1_extract_aws_metadata import get_credentials_from_s3
+from clouday1_extract_aws_metadata import update_ddb_status
 
 class Initialize:
     '''Initialize the request and validate the aws credentials'''
@@ -125,3 +126,6 @@ class Initialize:
         self.aws_session_token=response['message']['aws_session_token']
         self.user_id=response['message']['user_id']
         self.region_name=response['message']['region']
+    
+    def update_ddb_status(self,requestID):
+        update_ddb_status.update_ddb_status(requestID)
