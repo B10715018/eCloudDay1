@@ -1,11 +1,12 @@
 import boto3
 from boto3.dynamodb.conditions import  Key
-def process_requestID(requestID):
+def process_requestID(requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
     status_code=None
     message= None
     try:
             # initiliaze dynamodb request
-            dynamodb = boto3.resource('dynamodb')
+            dynamodb = boto3.resource('dynamodb',
+    aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
             table = dynamodb.Table('architectureDB')
             # query the table based on the requestID partition key
             response = table.query(

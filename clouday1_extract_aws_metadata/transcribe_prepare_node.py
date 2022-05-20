@@ -11,7 +11,7 @@ def transcribe_prepare_node(region, account_id, cytoscape_node_data):
             print('Found a cloudtrail transcribe file')
             cytoscape_node_data.append({
                 "data": {
-                    "type": "transcribe",
+                    "type": "Transcribe",
                     "id": "transcribe",
                     "region": region,
                     "account_id": account_id,
