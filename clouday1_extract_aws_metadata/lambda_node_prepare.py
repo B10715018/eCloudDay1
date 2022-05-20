@@ -13,7 +13,7 @@ def lambda_prepare_node(region, account_id, cytoscape_node_data):
         for item in lambda_object['Functions']:
             cytoscape_node_data.append({
                 "data": {
-                    "type": "lambda",
+                    "type": "Lambda",
                     "id": item["FunctionArn"],
                     "arn": item["FunctionArn"],
                     "runtime": item["Runtime"],

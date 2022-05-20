@@ -12,7 +12,7 @@ def sfn_prepare_node(region, account_id, cytoscape_node_data):
         for sfn in sfn_object['stateMachines']:
             cytoscape_node_data.append({
                 "data": {
-                    "type": "step-function",
+                    "type": "Step-Functions",
                     "id": sfn['stateMachineArn'],
                     "arn": sfn['stateMachineArn'],
                     "account_id": account_id,
