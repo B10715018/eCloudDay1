@@ -4,12 +4,14 @@ import uuid
 import pytz
 
 
-def initial_request_to_ddb(region,account_id,account_name,user_id):
+def initial_request_to_ddb(region,account_id,account_name,user_id,
+AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
     date=datetime.datetime.now()
     # create taipei timezone
     tw=pytz.timezone('Asia/Taipei')
     twDate=tw.localize(date)
-    client=boto3.client('dynamodb',region_name='us-west-2')
+    client=boto3.client('dynamodb',region_name='us-west-2',
+    aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     requestId=str(uuid.uuid4())
     item_dict={
         'requestID': {'S':requestId},
