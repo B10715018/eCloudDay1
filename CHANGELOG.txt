@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-0.0.23 (05/24/2022)
+0.0.24 (05/24/2022)
 -------------------
 - First Release : Collect metadata from AWS Service,
   Supported Service Include: Lambda, API Gateway, Cloudwatch, SNS, Step Function, Cognito, EC2, Dynamo DB, S3
@@ -27,3 +27,4 @@ Change Log
 - Twentiethone Release: Introduce new tag system in the data json file
 - TwentyTwo Release: Fix bug in dynamodb tagging system
 - TwentiethThird Release: Fix some tagging version output
+- TwentiethFourth Release: Added Fake Cost Feature
