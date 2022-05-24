@@ -27,4 +27,6 @@ def cognito_prepare_node(region, account_id, cytoscape_node_data):
         }
         cognito_node['data'].update(cognito_describe_object)
         cognito_node['data']['tag'] = cognito_node['data']['IdentityPoolTags']
+        cognito_node['data'].pop('IdentityPoolTags')
         cytoscape_node_data.append(cognito_node)
+

@@ -39,14 +39,19 @@ from clouday1_extract_aws_metadata import cloudwatch_get_cognito_log_event
 from clouday1_extract_aws_metadata import dynamodb_describe_table
 from clouday1_extract_aws_metadata import cognito_list_identity_pool
 from clouday1_extract_aws_metadata import cognito_describe_identity_pools
-
+from clouday1_extract_aws_metadata import sns_list_tags
+from clouday1_extract_aws_metadata import sfn_list_tags
+from clouday1_extract_aws_metadata import dynamodb_list_tags_of_resource
+from clouday1_extract_aws_metadata import s3_get_bucket_tagging
+from clouday1_extract_aws_metadata import lambda_list_tags
 
 '''Collect class for collecting data from AWS Services'''
 class Collect:
     '''Collect class for collecting data from AWS Lambda'''
 
-    def __init__(self, region_name):
+    def __init__(self, region_name,account_id):
         self.region_name = region_name
+        self.account_id=account_id
 
     def get_lambda_list(self):
         lambda_list_function.lambda_list_function(self.region_name)
@@ -170,3 +175,19 @@ class Collect:
 
     def describe_cognito_identity_pools(self):
         cognito_describe_identity_pools.cognito_describe_identity_pools(self.region_name)
+
+    def list_sns_tag(self):
+        sns_list_tags.sns_list_tags(self.region_name)
+    
+    def list_sfn_tag(self):
+        sfn_list_tags.sfn_list_tags(self.region_name)
+
+    def list_ddb_tag(self):
+        dynamodb_list_tags_of_resource.ddb_list_tags_of_resource(self.region_name,
+        self.account_id)
+    
+    def list_s3_tag(self):
+        s3_get_bucket_tagging.s3_get_bucket_tagging(self.region_name)
+    
+    def list_lambda_tag(self):
+        lambda_list_tags.lambda_list_tags(self.region_name)
