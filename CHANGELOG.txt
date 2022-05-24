@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-0.0.20 (05/20/2022)
+0.0.22 (05/24/2022)
 -------------------
 - First Release : Collect metadata from AWS Service,
   Supported Service Include: Lambda, API Gateway, Cloudwatch, SNS, Step Function, Cognito, EC2, Dynamo DB, S3
@@ -24,3 +24,5 @@ Change Log
 - Eighteenth Release: Change the naming for certain AWS service and dynamodb arn structuring
 - Nineteenth Release: Change the SNS naming and add status 'updating' into initialize class 
 - Twentieth Release: Change some of credential gaining way in the system
+- Twentiethone Release: Introduce new tag system in the data json file
+- TwentyTwo Release: Fix bug in dynamodb tagging system

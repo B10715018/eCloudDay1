@@ -19,7 +19,7 @@ def ddb_list_tags_of_resource(region, account_id):
 
         #get tags for each ddb table
         response = client.list_tags_of_resource(
-            ResourceArn="arn:aws:dynamodb:"+region+":"+account_id+":table/"+TableNameList[i]
+            ResourceArn="arn:aws:dynamodb:"+region+":"+str(account_id)+":table/"+TableNameList[i]
         )
 
         json_list = json.dumps(response, indent=4)
