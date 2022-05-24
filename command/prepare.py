@@ -106,8 +106,8 @@ class Prepare:
     def find_edge_sns_to_lambda(self):
         edge_sns_to_lambda_find.edge_sns_to_lambda_find(self.cytoscape_edge_data)
     
-    def export_JSON_to_S3(self):
-        export_to_s3.upload_to_S3(self.region_name)
+    def export_JSON_to_S3(self,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
+        export_to_s3.upload_to_S3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
 
-    def write_to_dynamoDB(self,requestID):
-        export_to_s3.write_to_dynamo_db(self.region_name,requestID)
+    def write_to_dynamoDB(self,requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
+        export_to_s3.write_to_dynamo_db(requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)

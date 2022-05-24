@@ -11,6 +11,7 @@ def sns_prepare_node(region, account_id, cytoscape_node_data):
     with open(file_path_read, 'r') as openfile:
         sns_object = json.load(openfile)
         for sns in sns_object['Topics']:
+            sns_name=sns['TopicArn'].split(':')[5]
             cytoscape_node_data.append({
                 "data": {
                     "type": "SNS",
@@ -18,8 +19,7 @@ def sns_prepare_node(region, account_id, cytoscape_node_data):
                     "arn": sns['TopicArn'],
                     "account_id": account_id,
                     "region": region,
-                    "name": sns['TopicArn'],
-                    "cost_for_month": "0.50 USD"
+                    "name": sns_name,
                 }
             })
         openfile.close()
