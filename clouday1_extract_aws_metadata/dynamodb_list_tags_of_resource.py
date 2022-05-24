@@ -2,7 +2,7 @@ import os
 import boto3
 import json
 
-def list_tags_of_resource(region, account_id):
+def ddb_list_tags_of_resource(region, account_id):
     client = boto3.client('dynamodb', region_name=region)
     TableNameList = []
     count = 0
