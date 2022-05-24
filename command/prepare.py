@@ -19,11 +19,6 @@ from clouday1_extract_aws_metadata import edge_lambda_sns_find
 from clouday1_extract_aws_metadata import edge_transcribe_to_s3_find
 from clouday1_extract_aws_metadata import edge_lambda_to_sfn_find
 from clouday1_extract_aws_metadata import export_to_s3
-
-REGION_NAME = 'us-west-2'
-ACCOUNT_ID = '758325631830'
-
-
 class Prepare:
     def __init__(self, region_name, account_id):
         self.region_name = region_name

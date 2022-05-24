@@ -2,7 +2,7 @@ import os
 import boto3
 import json
 
-def get_bucket_tagging(region):
+def s3_get_bucket_tagging(region):
     client = boto3.client('s3', region_name=region)
     script_dir = os.path.dirname('.')
     file_path_read = os.path.join(
