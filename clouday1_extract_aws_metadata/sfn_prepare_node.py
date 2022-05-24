@@ -18,7 +18,8 @@ def sfn_prepare_node(region, account_id, cytoscape_node_data):
                     "account_id": account_id,
                     "region": region,
                     "name": sfn['name'],
-                    "CreationDate" : sfn['creationDate']
+                    "CreationDate" : sfn['creationDate'],
+                    "cost_for_month":"0.65 USD"
                 }
             })
 

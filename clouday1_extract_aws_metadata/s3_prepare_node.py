@@ -19,7 +19,8 @@ def s3_prepare_node(region, account_id, cytoscape_node_data):
                     "region": region,
                     "account_id": account_id,
                     "name": item['Name'],
-                    "CreationDate":item['CreationDate']
+                    "CreationDate":item['CreationDate'],
+                    "cost_for_month": "0.26 USD"
                 }
             })
 

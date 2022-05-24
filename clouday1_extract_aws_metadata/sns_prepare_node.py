@@ -19,6 +19,7 @@ def sns_prepare_node(region, account_id, cytoscape_node_data):
                     "account_id": account_id,
                     "region": region,
                     "name": sns['TopicArn'],
+                    "cost_for_month": "0.50 USD"
                 }
             })
         openfile.close()
