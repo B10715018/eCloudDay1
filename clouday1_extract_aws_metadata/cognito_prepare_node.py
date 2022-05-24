@@ -18,7 +18,7 @@ def cognito_prepare_node(region, account_id, cytoscape_node_data):
             'data': {
                 'id': cognito['IdentityPoolId'],
                 'arn': cognito['IdentityPoolId'],
-                'type': 'cognito',
+                'type': 'Cognito',
                 'name': cognito['IdentityPoolName'],
                 'account_id': account_id,
                 'region': region,

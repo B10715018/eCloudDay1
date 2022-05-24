@@ -13,7 +13,7 @@ def s3_prepare_node(region, account_id, cytoscape_node_data):
         for item in s3_object['Buckets']:
             cytoscape_node_data.append({
                 "data": {
-                    "type": "s3",
+                    "type": "S3",
                     "id": "arn:aws:s3:::"+item["Name"],
                     "arn": "arn:aws:s3:::"+item["Name"],
                     "region": region,
