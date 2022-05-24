@@ -27,3 +27,7 @@ Change Log
 - Twentiethone Release: Introduce new tag system in the data json file
 - TwentyTwo Release: Fix bug in dynamodb tagging system
 - TwentiethThird Release: Fix some tagging version output
+- TwentiethFourth Release: Added Fake Cost Feature
+- TwentiethFive Release: Fix add cost feature
+- TwentiethSixth Release: Fix the rds describe instance file
+- TwentiethSeventh Release: Fix minor bug in RDS extractingv metadata
