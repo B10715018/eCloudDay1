@@ -11,12 +11,14 @@ def sfn_prepare_node(region, account_id, cytoscape_node_data):
         sfn_object = json.load(openfile)
         openfile.close()
         for sfn in sfn_object['stateMachines']:
+            sfn_tag={}
             file_path_read_tag=os.path.join(script_dir,
             'data/sfn/sfn-list-tags-'+sfn['stateMachineArn']+'.json')
             with open(file_path_read_tag,'r') as openfile_tag:
                 sfn_tag_object=json.load(openfile_tag)
                 openfile_tag.close()
-                sfn_tag=sfn_tag_object['tags']
+                for tag in sfn_tag_object['tags']:
+                    sfn_tag[tag['key']]=tag['value']
             cytoscape_node_data.append({
                 "data": {
                     "type": "Step-Functions",
@@ -29,4 +31,3 @@ def sfn_prepare_node(region, account_id, cytoscape_node_data):
                     "tag": sfn_tag
                 }
             })
-

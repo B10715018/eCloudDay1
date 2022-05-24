@@ -27,7 +27,9 @@ def dynamodb_prepare_node(region, account_id, cytoscape_node_data):
             with open(file_path_read_tag,'r') as openfile_tag:
                 ddb_tag_object=json.load(openfile_tag)
                 openfile_tag.close()
-            ddb_tag=ddb_tag_object['Tags']
+            ddb_tag={}
+            for tag in ddb_tag_object['Tags']:
+                ddb_tag[tag['Key']]=tag['Value']
             cytoscape_node_data.append({
                 "data": {
                     "type": "DynamoDB",

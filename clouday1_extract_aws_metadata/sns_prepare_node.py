@@ -17,7 +17,9 @@ def sns_prepare_node(region, account_id, cytoscape_node_data):
             with open(file_path_read_tag,'r') as openfile_tag:
                 sns_tag_object=json.load(openfile_tag)
                 openfile_tag.close()
-            sns_tag=sns_tag_object['Tags']
+            sns_tag={}
+            for tag in sns_tag_object['Tags']:
+                sns_tag[tag['Key']]=tag['Value']
             sns_name=sns['TopicArn'].split(':')[5]
             cytoscape_node_data.append({
                 "data": {

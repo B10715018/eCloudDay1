@@ -21,9 +21,10 @@ def s3_prepare_node(region, account_id, cytoscape_node_data):
                     openfile_tag.close()
             except:
                 print('file not exist')
-            s3_tag=[]
+            filtered_s3_tag={}
             if('TagSet' in s3_tag_object):
-                s3_tag=s3_tag_object['TagSet']
+                for tag in s3_tag_object['TagSet']:
+                    filtered_s3_tag[tag['Key']]=tag['Value']
             cytoscape_node_data.append({
                 "data": {
                     "type": "S3",
@@ -33,6 +34,6 @@ def s3_prepare_node(region, account_id, cytoscape_node_data):
                     "account_id": account_id,
                     "name": item['Name'],
                     "CreationDate":item['CreationDate'],
-                    "tag":s3_tag
+                    "tag":filtered_s3_tag
                 }
             })
