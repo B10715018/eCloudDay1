@@ -30,7 +30,7 @@ def dynamodb_prepare_node(region, account_id, cytoscape_node_data):
                     "itemCount": ddb_items["Count"],
                     "partition_key": ddb_table["Table"]["KeySchema"][0]["AttributeName"],
                     "items": ddb_items["Items"],
-                    "cost_for_month":"17.03 USD"
+                    "cost_for_month": "17.03 USD"
                 }
             })
         openfile.close()

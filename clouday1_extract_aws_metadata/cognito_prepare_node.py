@@ -22,7 +22,7 @@ def cognito_prepare_node(region, account_id, cytoscape_node_data):
                 'name': cognito['IdentityPoolName'],
                 'account_id': account_id,
                 'region': region,
-                "cost_for_month":"0.00 USD",
+                "cost_for_month": "0.00 USD",
             }
         }
         cognito_node['data'].update(cognito_describe_object)
