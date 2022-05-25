@@ -19,6 +19,8 @@ from clouday1_extract_aws_metadata import edge_lambda_sns_find
 from clouday1_extract_aws_metadata import edge_transcribe_to_s3_find
 from clouday1_extract_aws_metadata import edge_lambda_to_sfn_find
 from clouday1_extract_aws_metadata import export_to_s3
+from clouday1_extract_aws_metadata import rds_prepare_node
+from clouday1_extract_aws_metadata import ec2_prepare_node
 class Prepare:
     def __init__(self, region_name, account_id):
         self.region_name = region_name
@@ -65,6 +67,14 @@ class Prepare:
         cognito_prepare_node.cognito_prepare_node(
             self.region_name, self.account_id, self.cytoscape_node_data)
 
+    def prepare_ec2_node(self):
+        ec2_prepare_node.ec2_prepare_node(self.region_name,self.account_id,
+        self.cytoscape_node_data)
+
+    def prepare_rds_node(self):
+        rds_prepare_node.rds_prepare_node(self.region_name,self.account_id,
+        self.cytoscape_node_data)
+    
     def find_sfn_connection(self):
         sfn_find_connection.sfn_find_connection(self.cytoscape_node_data, self.cytoscape_edge_data)
 
