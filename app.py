@@ -107,6 +107,8 @@ def initialize():
         prepare_command.prepare_sfn_node()
         prepare_command.prepare_apigw_node()
         prepare_command.prepare_cognito_node()
+        prepare_command.prepare_rds_node()
+        prepare_command.prepare_ec2_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()
@@ -215,6 +217,8 @@ def update():
         prepare_command.prepare_sfn_node()
         prepare_command.prepare_apigw_node()
         prepare_command.prepare_cognito_node()
+        prepare_command.prepare_rds_node()
+        prepare_command.prepare_ec2_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()
