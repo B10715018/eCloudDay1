@@ -16,6 +16,7 @@ def transcribe_prepare_node(region, account_id, cytoscape_node_data):
                     "region": region,
                     "account_id": account_id,
                     "name": "transcribe",
+                    "cost_for_month": "24.04 USD"
                 }
             })
             break

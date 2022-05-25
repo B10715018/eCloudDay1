@@ -67,6 +67,9 @@ chmod u+x ./tools/shell/jobClearJSON.sh
 
 ## Documentation on how to update the PYPI package
 [Link to Tutorial to update PYPI Package](./docs/updatePythonPackage.md)
+
+## Documentation on how to create CI/CD from local to EC2
+[Link to Tutorial to create CI/CD](./docs/ci_cd_local_to_ec2.md)
 ## Reference
 - [How to setup nginx, gunicorn(WGSI) and Django tutorial](https://www.youtube.com/watch?v=I4eN7QQzKd0) 
 
@@ -81,4 +84,6 @@ chmod u+x ./tools/shell/jobClearJSON.sh
 - [How to dockerize app and deploy to Fargate](https://towardsdatascience.com/deploying-a-docker-container-with-ecs-and-fargate-7b0cbc9cd608)
 
 - [Scripting Techniques](https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-environment-variables-in-linux/)
+
+- [How to setup CI/CD from loca to EC2 using Github Actions](https://farhan-tanvir.medium.com/ci-cd-from-github-to-aws-ec2-using-github-action-e18b621c0507)
 # THANK YOU :heart:

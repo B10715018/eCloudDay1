@@ -13,7 +13,8 @@ class DateTimeEncoder(JSONEncoder):
 def rds_describe_instance(region):
     client = boto3.client('rds', region_name=region)
     response = client.describe_db_instances()
-    json_list = json.dumps(response, indent=4 , cls=DateTimeEncoder)
+    json_list = json.dumps(response, indent=4,
+    cls=DateTimeEncoder)
     script_dir = os.path.dirname('.')
     file_path = os.path.join(
         script_dir, 'data/rds-describe-instance-'+region+'.json')
