@@ -2,9 +2,10 @@ import boto3
 import os
 
 
-def cloudtrail_start_transcription_job(region):
+def cloudtrail_start_transcription_job(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
     script_dir = os.path.dirname('.')
-    client = boto3.client('cloudtrail', region_name=region)
+    client = boto3.client('cloudtrail', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
 
     response = client.lookup_events(
         LookupAttributes=[

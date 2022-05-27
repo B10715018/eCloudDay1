@@ -12,8 +12,9 @@ class DateTimeEncoder(JSONEncoder):
             return obj.isoformat()
 
 
-def s3_list_bucket(region):
-    client = boto3.client('s3', region_name=region)
+def s3_list_bucket(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('s3', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
 
     response = client.list_buckets()
     json_response = json.dumps(response, indent=4, cls=DateTimeEncoder)

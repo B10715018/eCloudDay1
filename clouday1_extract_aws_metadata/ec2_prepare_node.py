@@ -9,7 +9,10 @@ def ec2_prepare_node(region, account_id, cytoscape_node_data):
         ec2_object = json.load(openfile_ec2)
         openfile_ec2.close()
     for ec2 in ec2_object["Reservations"]:
-        ec2KeyName = ec2['Instances'][0]['KeyName']
+        # check whether or not EC2 have keyName
+        ec2KeyName=""
+        if('KeyName' in ec2['Instances'][0]):
+            ec2KeyName = ec2['Instances'][0]['KeyName']
         ec2Id = ec2['Instances'][0]['InstanceId']
         LaunchTime= ec2['Instances'][0]['LaunchTime']
         InstanceType=ec2['Instances'][0]['InstanceType']
