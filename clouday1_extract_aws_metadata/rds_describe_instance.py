@@ -10,8 +10,9 @@ class DateTimeEncoder(JSONEncoder):
         if isinstance(obj, (datetime.date, datetime.datetime)):
             return obj.isoformat()
 
-def rds_describe_instance(region):
-    client = boto3.client('rds', region_name=region)
+def rds_describe_instance(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('rds', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
     response = client.describe_db_instances()
     json_list = json.dumps(response, indent=4,
     cls=DateTimeEncoder)

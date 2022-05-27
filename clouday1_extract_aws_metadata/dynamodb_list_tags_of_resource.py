@@ -2,8 +2,9 @@ import os
 import boto3
 import json
 
-def ddb_list_tags_of_resource(region, account_id):
-    client = boto3.client('dynamodb', region_name=region)
+def ddb_list_tags_of_resource(region, account_id,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('dynamodb', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
     TableNameList = []
     count = 0
     script_dir = os.path.dirname('.')
