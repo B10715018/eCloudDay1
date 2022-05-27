@@ -38,12 +38,14 @@ def initialize():
     initialize_command.print_class_parameter()
     # get account id to initialize collect class
     account_id=initialize_command.get_account_id()
-
+    user_aws_access_key_id=initialize_command.get_aws_access_key_id()
+    user_aws_secret_access_key=initialize_command.get_aws_secret_access_key()
     # get the region
     regions=initialize_command.get_region()
     for region in regions:
         # initialize class
-        collect_command = Collect(region,account_id)
+        collect_command = Collect(region,account_id,user_aws_access_key_id,
+        user_aws_secret_access_key)
 
         # call command functions
         collect_command.get_lambda_list()
@@ -149,11 +151,14 @@ def update():
     initialize_command.print_class_parameter()
     # get account_id 
     account_id=initialize_command.get_account_id()
+    user_aws_access_key_id=initialize_command.get_aws_access_key_id()
+    user_aws_secret_access_key=initialize_command.get_aws_secret_access_key()
     # get the region
     regions=initialize_command.get_region()
     for region in regions:
         # initialize class
-        collect_command = Collect(region,account_id)
+        collect_command = Collect(region,account_id,user_aws_access_key_id,
+        user_aws_secret_access_key)
 
         # call command functions
         collect_command.get_lambda_list()
