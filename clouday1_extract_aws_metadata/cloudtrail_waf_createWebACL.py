@@ -2,8 +2,9 @@ import boto3
 import os
 
 
-def cloudtrail_waf_createWebACL(region):
-    client = boto3.client('cloudtrail', region_name=region)
+def cloudtrail_waf_createWebACL(region,AWS_ACCESS_KEY, AWS_SECRET_KEY):
+    client = boto3.client('cloudtrail', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
 
     response = client.lookup_events(
         LookupAttributes=[

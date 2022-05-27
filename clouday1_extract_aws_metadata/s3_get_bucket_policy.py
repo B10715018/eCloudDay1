@@ -3,7 +3,7 @@ import json
 import os
 
 
-def s3_get_bucket_policy(region):
+def s3_get_bucket_policy(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
     try:
         script_dir = os.path.dirname('.')
         file_path_read = os.path.join(
@@ -19,7 +19,8 @@ def s3_get_bucket_policy(region):
 
         for i in range(count):
             try:
-                client = boto3.client('s3', region_name=region)
+                client = boto3.client('s3', region_name=region,
+                aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
                 response = client.get_bucket_policy(
                     Bucket=BucketNameList[i]
                 )

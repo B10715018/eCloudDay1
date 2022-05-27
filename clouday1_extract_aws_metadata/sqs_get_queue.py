@@ -3,8 +3,9 @@ import json
 import os
 
 
-def sqs_get_queue(region):
-    client = boto3.client('sqs', region_name=region)
+def sqs_get_queue(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('sqs', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
     script_dir = os.path.dirname('.')
     file_path_read = os.path.join(
         script_dir, 'data/sqs-list-queue-'+region+'.json')
