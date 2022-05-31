@@ -3,9 +3,10 @@ import boto3
 import json
 
 
-def sns_list_tags(region):
+def sns_list_tags(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
     try:
-        client = boto3.client('sns', region_name=region)
+        client = boto3.client('sns', region_name=region,
+        aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
 
         # open file for searching all kind of sns topic
         script_dir = os.path.dirname('.')

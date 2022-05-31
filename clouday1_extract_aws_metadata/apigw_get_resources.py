@@ -12,8 +12,9 @@ class DateTimeEncoder(JSONEncoder):
             return obj.isoformat()
 
 
-def apigw_get_resource(region):
-    client = boto3.client('apigateway', region_name=region)
+def apigw_get_resource(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('apigateway', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
     try:
         script_dir = os.path.dirname('.')
         file_path_read = os.path.join(
