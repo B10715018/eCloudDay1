@@ -3,8 +3,9 @@ import json
 import os
 
 
-def dynamodb_scan(region):
-    dynamodb = boto3.resource('dynamodb', region_name=region)
+def dynamodb_scan(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    dynamodb = boto3.resource('dynamodb', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
     count = 0
     TableList = []
     script_dir = os.path.dirname('.')
@@ -36,4 +37,3 @@ def dynamodb_scan(region):
                 outfile.close()
     except:
         print('File not found for dynamodb scan')
-

@@ -17,6 +17,9 @@ def root_route():
 
 @app.route('/newPost', methods=['POST'])
 def initialize():
+    # clear all the data inside the VM
+    os.system('./tools/shell/jobClearJSON.sh')
+    # get the input
     input=request.json
     print(AWS_ACCESS_KEY_ID)
     print(AWS_SECRET_ACCESS_KEY)
@@ -31,13 +34,18 @@ def initialize():
     initialize_command.send_request_to_s3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
     requestID=initialize_command.make_request(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
     print('The requestID is:', requestID)
+    # print parameter inside class
     initialize_command.print_class_parameter()
-
+    # get account id to initialize collect class
+    account_id=initialize_command.get_account_id()
+    user_aws_access_key_id=initialize_command.get_aws_access_key_id()
+    user_aws_secret_access_key=initialize_command.get_aws_secret_access_key()
     # get the region
     regions=initialize_command.get_region()
     for region in regions:
         # initialize class
-        collect_command = Collect(region)
+        collect_command = Collect(region,account_id,user_aws_access_key_id,
+        user_aws_secret_access_key)
 
         # call command functions
         collect_command.get_lambda_list()
@@ -81,9 +89,13 @@ def initialize():
         collect_command.list_cognito_identity_pool()
         collect_command.get_s3_bucket_policy_status()
         collect_command.describe_cognito_identity_pools()
+        collect_command.list_sns_tag()
+        collect_command.list_sfn_tag()
+        collect_command.list_ddb_tag()
+        collect_command.list_s3_tag()
+        collect_command.list_lambda_tag()
 
     # initialize a class
-    account_id=initialize_command.get_account_id()
     for i in range(len(regions)):
         prepare_command = Prepare(regions[i], account_id)
 
@@ -97,6 +109,8 @@ def initialize():
         prepare_command.prepare_sfn_node()
         prepare_command.prepare_apigw_node()
         prepare_command.prepare_cognito_node()
+        prepare_command.prepare_rds_node()
+        prepare_command.prepare_ec2_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()
@@ -121,20 +135,30 @@ def initialize():
 
 @app.route('/update',methods=['POST'])
 def update():
+    # clear all data inside VM
+    os.system('./tools/shell/jobClearJSON.sh')
+    # get the input from http
     input=request.json
     print(input)
+    # initialize the Initialize Class
     initialize_command=Initialize('','','','','','')
+    # execute the sequence for update
     initialize_command.process_requestID(input['requestID'],AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
     initialize_command.update_ddb_status(input['requestID'],AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
     initialize_command.get_credentials(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
     initialize_command.check_identity()
+    # print the parameter inside Initialize Class
     initialize_command.print_class_parameter()
-
+    # get account_id 
+    account_id=initialize_command.get_account_id()
+    user_aws_access_key_id=initialize_command.get_aws_access_key_id()
+    user_aws_secret_access_key=initialize_command.get_aws_secret_access_key()
     # get the region
     regions=initialize_command.get_region()
     for region in regions:
         # initialize class
-        collect_command = Collect(region)
+        collect_command = Collect(region,account_id,user_aws_access_key_id,
+        user_aws_secret_access_key)
 
         # call command functions
         collect_command.get_lambda_list()
@@ -178,9 +202,13 @@ def update():
         collect_command.list_cognito_identity_pool()
         collect_command.get_s3_bucket_policy_status()
         collect_command.describe_cognito_identity_pools()
+        collect_command.list_sns_tag()
+        collect_command.list_sfn_tag()
+        collect_command.list_ddb_tag()
+        collect_command.list_s3_tag()
+        collect_command.list_lambda_tag()
 
     # initialize a class
-    account_id=initialize_command.get_account_id()
     for i in range(len(regions)):
         prepare_command = Prepare(regions[i], account_id)
 
@@ -194,6 +222,8 @@ def update():
         prepare_command.prepare_sfn_node()
         prepare_command.prepare_apigw_node()
         prepare_command.prepare_cognito_node()
+        prepare_command.prepare_rds_node()
+        prepare_command.prepare_ec2_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()
@@ -216,20 +246,5 @@ def update():
         'message': 'Succeed updating metadata file'
     }
 
-@app.route('/request',methods=['DELETE'])
-def clearJSONMetadata():
-    try:
-        os.system('./jobClearJSON.sh')
-    except:
-        return{
-            'status': 'Error',
-            'code': 500,
-            'message':'Bad Request Error'
-        }
-    return {  
-        'status': 'Success',
-        'code': 200,
-        'message': 'Succeed erasing metadata file'
-    }
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9000, debug=True)

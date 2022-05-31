@@ -3,8 +3,9 @@ import json
 import os
 
 
-def waf_list_resource_web_acl(region):
-    client = boto3.client('wafv2', region_name=region)
+def waf_list_resource_web_acl(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('wafv2', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
 
     # list of files in the data directory
     list_of_files = os.listdir('./data/cloudtrail-create-WebACL')
