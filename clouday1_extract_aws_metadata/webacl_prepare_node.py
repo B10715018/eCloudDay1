@@ -25,6 +25,6 @@ def webacl_prepare_node(region, account_id, cytoscape_node_data):
                     "name": web_acl_object['WebACL']['Name'],
                     "account_id": account_id,
                     "rules": web_acl_rules,
-                    "cost_for_month": "5.00 USD"
+                    "cost_for_month": 5.00
                 }
             })
