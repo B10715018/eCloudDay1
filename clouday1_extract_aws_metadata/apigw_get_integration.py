@@ -12,7 +12,7 @@ class DateTimeEncoder(JSONEncoder):
             return obj.isoformat()
 
 
-def apigw_get_integration(region):
+def apigw_get_integration(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
 
     script_dir = os.path.dirname('.')
     file_path_read = os.path.join(
@@ -49,7 +49,8 @@ def apigw_get_integration(region):
             try:
                 for k in range(count_method):
                     client = boto3.client(
-                        'apigateway', region_name=region)
+                        'apigateway', region_name=region,aws_access_key_id=AWS_ACCESS_KEY,
+                        aws_secret_access_key=AWS_SECRET_KEY)
                     response = client.get_integration(
                         restApiId=RestApiIdList[i],
                         resourceId=ResourceIdList[j],
