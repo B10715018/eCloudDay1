@@ -1,15 +1,12 @@
 import boto3
-import os
 
-def get_account_id(aws_access_key_id,aws_secret_key,region):
+def get_account_id(AWS_ACCESS_KEY,AWS_SECRET_KEY,region):
     try:
-        # set credentials in the aws environment
-        os.system('aws configure set aws_access_key_id {}'.format(aws_access_key_id))
-        os.system('aws configure set aws_secret_access_key {}'.format(aws_secret_key))
         # try to get the account id
-        client=boto3.client('sts',region_name=region)
+        client=boto3.client('sts',region_name=region, aws_access_key_id=AWS_ACCESS_KEY,
+        aws_secret_access_key=AWS_SECRET_KEY)
         response = client.get_caller_identity()
-        print(response['Account'])
+        print('The user account id:', response['Account'])
     except:
         # will fail if aws access token is invalid
         return{

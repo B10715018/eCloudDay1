@@ -3,8 +3,9 @@ import json
 import os
 
 
-def sns_list_topic(region):
-    client = boto3.client('sns', region_name=region)
+def sns_list_topic(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('sns', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
 
     response = client.list_topics()
 
