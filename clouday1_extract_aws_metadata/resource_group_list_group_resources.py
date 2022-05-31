@@ -26,7 +26,7 @@ def resource_group_list_group_resources(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
                 )
                 json_response = json.dumps(response)
                 file_path_write = os.path.join(
-                    script_dir, 'data/resource-group-resources/resource-group-list-group_resources-'+region+'-'+groupName[i]+'.json')
+                    script_dir, 'data/resource-group-resources/resource-group-list-group-resources-'+region+'-'+groupName[i]+'.json')
                 with open(file_path_write, 'w') as outfile:
                     outfile.write(json_response)
                     outfile.close()
@@ -35,3 +35,4 @@ def resource_group_list_group_resources(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
 
     except:
         print('File not found for list group resources')
+resource_group_list_group_resources('us-west-2','AKIA3BD523NLHVGEZDDC','23Coye0Q6+1xRnyU4ZK4ZaY+brKx3Cag/ajAlzUV')
