@@ -33,5 +33,6 @@ def api_gw_prepare_node(region, account_id, cytoscape_node_data):
                 "region": region,
                 "resource": apigw_resource['items'],
                 "tag": apiTag,
+                "cost_for_month": 3.50
             }
         })

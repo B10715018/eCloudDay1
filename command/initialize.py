@@ -16,6 +16,7 @@ class Initialize:
         self.aws_access_key_id=awsAccessKeyId or ''
         self.aws_secret_access_key=awsSecretAccessKey or ''
         self.aws_session_token=awsSessionToken or ''
+
     def print_class_parameter(self):
         # function to see private of class
         print(self.account_id)
@@ -25,10 +26,19 @@ class Initialize:
         print(self.aws_secret_access_key)
         print(self.aws_session_token)
         print(self.user_id)
+
     def get_region(self):
         return self.region_name
+
     def get_account_id(self):
         return self.account_id
+
+    def get_aws_access_key_id(self):
+        return self.aws_access_key_id
+
+    def get_aws_secret_access_key(self):
+        return self.aws_secret_access_key
+
     def validate_input(self):
         if(not (isinstance(self.region_name,list))):
             return {
@@ -91,6 +101,7 @@ class Initialize:
                 'code': 401,
                 'message': 'No accountName Provided'
             }
+
     def check_identity(self):
         account_id=iam_get_caller_identity.get_account_id(self.aws_access_key_id,
             self.aws_secret_access_key,self.region_name[0])

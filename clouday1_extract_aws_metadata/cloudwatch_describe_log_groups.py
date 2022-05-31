@@ -3,8 +3,9 @@ import boto3
 import json
 
 
-def cloudwatch_describe_log_groups(region):
-    client = boto3.client('logs', region_name=region)
+def cloudwatch_describe_log_groups(region, AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('logs', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
     response = client.describe_log_groups()
     json_list = json.dumps(response)
 
