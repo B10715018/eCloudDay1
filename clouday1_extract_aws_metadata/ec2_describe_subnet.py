@@ -3,8 +3,9 @@ import json
 import os
 
 
-def ec2_describe_subnets(region):
-    client = boto3.client('ec2', region_name=region)
+def ec2_describe_subnets(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('ec2', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
     response = client.describe_subnets()
     json_list = json.dumps(response)
     script_dir = os.path.dirname('.')

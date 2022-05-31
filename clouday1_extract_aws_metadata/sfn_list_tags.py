@@ -4,9 +4,10 @@ import os
 # describe all available state machine
 
 
-def sfn_list_tags(region):
+def sfn_list_tags(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
     try:
-        client = boto3.client('stepfunctions', region_name=region)
+        client = boto3.client('stepfunctions', region_name=region,
+        aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
         script_dir = os.path.dirname('.')
         file_path_read = os.path.join(
             script_dir, 'data/step-function-list-state-machine-'+region+'.json')

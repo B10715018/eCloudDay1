@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-0.0.28 (05/24/2022)
+0.0.34 (05/31/2022)
 -------------------
 - First Release : Collect metadata from AWS Service,
   Supported Service Include: Lambda, API Gateway, Cloudwatch, SNS, Step Function, Cognito, EC2, Dynamo DB, S3
@@ -32,3 +32,9 @@ Change Log
 - TwentiethSixth Release: Fix the rds describe instance file
 - TwentiethSeventh Release: Fix minor bug in RDS extractingv metadata
 - TwentiethEight Release: Added RDS and EC2 instance prepare node
+- TwentiethNine Release: Added credential in every function
+- Thirty Release: Fix ec2 prepare node
+- Thirty One Release: Fix transcribe prepare node
+- Thirty two Release: Added the additional tag and fix translate and transcribe node
+- Thirty Three Release: fix minor bug when exporting to JSON
+- Thirty Four Release: Pretty fix export to JSON

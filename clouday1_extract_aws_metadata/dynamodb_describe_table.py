@@ -12,9 +12,10 @@ class DateTimeEncoder(JSONEncoder):
             return obj.isoformat()
 
 
-def dynamodb_describe_table(region):
+def dynamodb_describe_table(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
 
-    client = boto3.client('dynamodb', region_name=region)
+    client = boto3.client('dynamodb', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
     TableNameList = []
     count = 0
     script_dir = os.path.dirname('.')

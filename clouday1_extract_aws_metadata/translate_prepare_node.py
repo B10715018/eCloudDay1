@@ -16,7 +16,8 @@ def translate_prepare_node(region, account_id, cytoscape_node_data):
                     "region": region,
                     "account_id": account_id,
                     "name": "translate",
-                    "cost_for_month": 15.00
+                    "cost_for_month": 15.00,
+                    "tag": {}
                 }
             })
             break

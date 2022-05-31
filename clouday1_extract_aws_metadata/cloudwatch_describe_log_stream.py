@@ -3,8 +3,9 @@ import json
 import os
 
 
-def cloudwatch_describe_log_stream(region):
-    client = boto3.client('logs', region_name=region)
+def cloudwatch_describe_log_stream(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('logs', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
     try:
         script_dir = os.path.dirname('.')
         file_path_read = os.path.join(
