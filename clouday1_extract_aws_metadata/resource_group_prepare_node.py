@@ -13,7 +13,7 @@ def resource_group_prepare_node(region, account_id, cytoscape_node_data):
         openfile.close()
         for item in rg_object['Groups']:
             file_path_read_tag=os.path.join(script_dir,
-            'data/rg-list-tags/get-bucket-tagging-'+item['Name']+'-'+region+'.json')
+            'data/resource-group-resources/resource-group-list-'+item['Name']+'-'+region+'.json')
             rg_tag_object={}
             try:
                 with open(file_path_read_tag,'r') as openfile_tag:
@@ -38,3 +38,4 @@ def resource_group_prepare_node(region, account_id, cytoscape_node_data):
                     "cost_for_month": 0.26
                 }
             })
+
