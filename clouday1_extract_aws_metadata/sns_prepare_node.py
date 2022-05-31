@@ -30,6 +30,6 @@ def sns_prepare_node(region, account_id, cytoscape_node_data):
                     "region": region,
                     "name": sns_name,
                     "tag": sns_tag,
-                    "cost_for_month": "1.50 USD",
+                    "cost_for_month": 1.50
                 }
             })

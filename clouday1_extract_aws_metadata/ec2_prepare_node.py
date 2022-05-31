@@ -34,6 +34,6 @@ def ec2_prepare_node(region, account_id, cytoscape_node_data):
                 "LaunchTime": LaunchTime,
                 "InstanceType": InstanceType,
                 "tag": ec2_tag,
-                "cost_for_month": "64.54 USD"
+                "cost_for_month": 64.54
             }
         })
