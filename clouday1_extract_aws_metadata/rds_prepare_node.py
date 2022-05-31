@@ -30,6 +30,6 @@ def rds_prepare_node(region, account_id, cytoscape_node_data):
                 "instance_status": item['DBInstanceStatus'],
                 "vpc": item['VpcSecurityGroups'][0]['VpcSecurityGroupId'],
                 "tag":rds_tag,
-                "cost_for_month": 14.4
+                "cost_for_month": 14.4,
                 }
             })
