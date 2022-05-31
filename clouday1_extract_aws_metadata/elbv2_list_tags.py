@@ -2,8 +2,9 @@ import boto3
 import json
 import os
 
-def elb_list_tags(region):
-    client = boto3.client('elbv2', region_name=region)
+def elb_list_tags(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+    client = boto3.client('elbv2', region_name=region,
+    aws_access_key_id=AWS_ACCESS_KEY,aws_secret_access_key=AWS_SECRET_KEY)
     ElbArnList = []
     ElbNameList = []
     count = 0
