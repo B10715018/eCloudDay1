@@ -2,9 +2,10 @@ import boto3
 import json
 import os
 
-def resource_group_get_tags(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+
+def resource_group_get_tags(region, AWS_ACCESS_KEY, AWS_SECRET_KEY):
     client = boto3.client('resource-groups', region_name=region,
-    aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
+                          aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
     try:
         script_dir = os.path.dirname('.')
         file_path_read = os.path.join(
