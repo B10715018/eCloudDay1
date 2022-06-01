@@ -3,9 +3,9 @@ import json
 import os
 
 
-def resource_group_list_group_resources(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+def resource_group_list_group_resources(region, AWS_ACCESS_KEY, AWS_SECRET_KEY):
     client = boto3.client('resource-groups', region_name=region,
-    aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
+                          aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
     try:
         script_dir = os.path.dirname('.')
         file_path_read = os.path.join(
@@ -35,4 +35,3 @@ def resource_group_list_group_resources(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
 
     except:
         print('File not found for list group resources')
-resource_group_list_group_resources('us-west-2','AKIA3BD523NLHVGEZDDC','23Coye0Q6+1xRnyU4ZK4ZaY+brKx3Cag/ajAlzUV')
