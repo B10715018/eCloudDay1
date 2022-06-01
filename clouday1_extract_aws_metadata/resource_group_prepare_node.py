@@ -10,14 +10,22 @@ def resource_group_prepare_node(region, account_id, cytoscape_node_data):
     with open(file_path_read, 'r') as openfile:
         resource_group_object = json.load(openfile)
         openfile.close()
-        count=0
         groupARN=[]
         groupName=[]
         for item in resource_group_object['GroupIdentifiers']:
             groupARN.append(item['GroupArn'])
             groupName.append(item['GroupName'])
-            count+=1
-        for i in range(count):
+            file_path_read_tag=os.path.join(script_dir,
+            'data/resource-group-list-tags/resource-group-list-tags-'+region+'-'+groupName+'.json')
+            resource_group_tag_onbject={}
+            try:
+                with open(file_path_read_tag,'r') as openfile_tag:
+                    resource_group_tag_onbject=json.load(openfile_tag)
+                    openfile_tag.close()
+                    resource_group_tag=resource_group_tag_onbject['Tags']
+            except:
+                print('file not exist')
+            
             cytoscape_node_data.append({
                 "data": {
                     "type": "Resource-Group",
@@ -26,6 +34,7 @@ def resource_group_prepare_node(region, account_id, cytoscape_node_data):
                     "account_id": account_id,
                     "region": region,
                     "name": groupName,
+                    "tag" : resource_group_tag,
                     "cost_for_month": 0.00
                     }
                 })
