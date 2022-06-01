@@ -41,6 +41,6 @@ def dynamodb_prepare_node(region, account_id, cytoscape_node_data):
                     "partition_key": ddb_table["Table"]["KeySchema"][0]["AttributeName"],
                     "items": ddb_items["Items"],
                     "tag":ddb_tag,
-                    "cost_for_month": 17.03
+                    "cost_for_month": 7.03
                 }
             })
