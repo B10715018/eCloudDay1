@@ -34,6 +34,6 @@ def lambda_prepare_node(region, account_id, cytoscape_node_data):
                     "role": item['Role'],
                     "codesize": item['CodeSize'],
                     "tag": lambda_tag,
-                    "cost_for_month": "0.03 USD",
+                    "cost_for_month": 0.03
                 }
             })
