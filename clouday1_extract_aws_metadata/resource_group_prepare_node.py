@@ -28,7 +28,7 @@ def resource_group_prepare_node(region, account_id, cytoscape_node_data):
                 openfile_resource.close()
                 rg_resource=[]
                 for item in rg_resource_object['Resources']:
-                    rg_resource.append(item['Identifier']['ResourceType'])
+                    rg_resource.append(item['Identifier']['ResourceArn'])
             cytoscape_node_data.append({
                 "data": {
                     "type": "Resource-Group",
