@@ -30,9 +30,15 @@ def rg_find_connection(cytoscape_node_data):
                             nodeArn = node['data']['id']
                             # if node exist then update to its field
                             if(resourceArn == nodeArn):
+                                # there is possibility one service have many resource group
+                                resourceGroupList = []
+                                if('resourceGroup' in node['data']):
+                                    print('There is double data')
+                                    resourceGroupList = node['data']['resourceGroup']
+                                resourceGroupList.append(groupArn)
                                 print('node is in resourceGroup:', nodeArn)
                                 node['data'].update({
-                                    'resourceGroup': groupArn
+                                    'resourceGroup': resourceGroupList
                                 })
         except:
             print('Error in resource group find connection')
