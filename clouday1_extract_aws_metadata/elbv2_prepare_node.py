@@ -50,6 +50,6 @@ def elbv2_prepare_node(region, account_id, cytoscape_node_data):
                 "lodabalancer_type" : item['Type'],
                 "availability_zones" :az_list,
                 "tag":elb_tag,
-                "cost_for_month" : 9.94
+                "cost_for_month" : 4.91
                 }
             })
