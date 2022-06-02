@@ -3,9 +3,9 @@ import json
 import os
 
 
-def resource_group_list_group_resources(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
+def resource_group_list_group_resources(region, AWS_ACCESS_KEY, AWS_SECRET_KEY):
     client = boto3.client('resource-groups', region_name=region,
-    aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
+                          aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_KEY)
     try:
         script_dir = os.path.dirname('.')
         file_path_read = os.path.join(
@@ -26,7 +26,7 @@ def resource_group_list_group_resources(region,AWS_ACCESS_KEY,AWS_SECRET_KEY):
                 )
                 json_response = json.dumps(response)
                 file_path_write = os.path.join(
-                    script_dir, 'data/resource-group-resources/resource-group-list-group_resources-'+region+'-'+groupName[i]+'.json')
+                    script_dir, 'data/resource-group-resources/resource-group-list-group-resources-'+region+'-'+groupName[i]+'.json')
                 with open(file_path_write, 'w') as outfile:
                     outfile.write(json_response)
                     outfile.close()

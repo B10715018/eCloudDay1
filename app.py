@@ -5,47 +5,52 @@ from command.initialize import Initialize
 from command.collect import Collect
 from command.prepare import Prepare
 from dotenv import load_dotenv, find_dotenv
-app=Flask(__name__)
+app = Flask(__name__)
 CORS(app)
 load_dotenv(find_dotenv())
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+
+
 @app.route('/')
 def root_route():
     return 'Hello World'
+
 
 @app.route('/newPost', methods=['POST'])
 def initialize():
     # clear all the data inside the VM
     os.system('./tools/shell/jobClearJSON.sh')
     # get the input
-    input=request.json
+    input = request.json
     print(AWS_ACCESS_KEY_ID)
     print(AWS_SECRET_ACCESS_KEY)
 
     # make class instance
-    initialize_command=Initialize(input['region'], input['user_id'],
-    input['account_name'],input['aws_access_key_id'],input['aws_secret_access_key'],
-    input['aws_session_token'])
+    initialize_command = Initialize(input['region'], input['user_id'],
+                                    input['account_name'], input['aws_access_key_id'], input['aws_secret_access_key'],
+                                    input['aws_session_token'])
     # execute class function
     initialize_command.validate_input()
     initialize_command.check_identity()
-    initialize_command.send_request_to_s3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
-    requestID=initialize_command.make_request(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+    initialize_command.send_request_to_s3(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    requestID = initialize_command.make_request(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     print('The requestID is:', requestID)
     # print parameter inside class
     initialize_command.print_class_parameter()
     # get account id to initialize collect class
-    account_id=initialize_command.get_account_id()
-    user_aws_access_key_id=initialize_command.get_aws_access_key_id()
-    user_aws_secret_access_key=initialize_command.get_aws_secret_access_key()
+    account_id = initialize_command.get_account_id()
+    user_aws_access_key_id = initialize_command.get_aws_access_key_id()
+    user_aws_secret_access_key = initialize_command.get_aws_secret_access_key()
     # get the region
-    regions=initialize_command.get_region()
+    regions = initialize_command.get_region()
     for region in regions:
         # initialize class
-        collect_command = Collect(region,account_id,user_aws_access_key_id,
-        user_aws_secret_access_key)
+        collect_command = Collect(region, account_id, user_aws_access_key_id,
+                                  user_aws_secret_access_key)
 
         # call command functions
         collect_command.get_lambda_list()
@@ -83,7 +88,7 @@ def initialize():
         collect_command.describe_ec2_internet_gateway()
         collect_command.list_sfn()
         collect_command.describe_sfn()
-        collect_command.list_waf_web_acl()
+        # collect_command.list_waf_web_acl()
         collect_command.get_apigw_integration()
         collect_command.get_cloudwatch_cognito_event()
         collect_command.list_cognito_identity_pool()
@@ -94,6 +99,9 @@ def initialize():
         collect_command.list_ddb_tag()
         collect_command.list_s3_tag()
         collect_command.list_lambda_tag()
+        collect_command.list_resource_group()
+        collect_command.list_resource_group_resources()
+        collect_command.list_resource_group_tag()
 
     # initialize a class
     for i in range(len(regions)):
@@ -111,6 +119,7 @@ def initialize():
         prepare_command.prepare_cognito_node()
         prepare_command.prepare_rds_node()
         prepare_command.prepare_ec2_node()
+        prepare_command.prepare_rg_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()
@@ -122,43 +131,50 @@ def initialize():
         prepare_command.find_edge_lambda_to_sfn()
         prepare_command.find_edge_apigw_to_lambda()
         prepare_command.find_edge_sns_to_lambda()
+        prepare_command.rg_find_connection()
         # EXPORT INTO JSON FILE
-        if(i==len(regions)-1):
+        if(i == len(regions)-1):
             prepare_command.exportToJSON()
-            prepare_command.export_JSON_to_S3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
-            prepare_command.write_to_dynamoDB(str(requestID),AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
-    return {  
+            prepare_command.export_JSON_to_S3(
+                AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+            prepare_command.write_to_dynamoDB(
+                str(requestID), AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    return {
         'status': 'Success',
         'code': 200,
         'message': 'Succeed creating and processing request'
     }
 
-@app.route('/update',methods=['POST'])
+
+@app.route('/update', methods=['POST'])
 def update():
     # clear all data inside VM
     os.system('./tools/shell/jobClearJSON.sh')
     # get the input from http
-    input=request.json
+    input = request.json
     print(input)
     # initialize the Initialize Class
-    initialize_command=Initialize('','','','','','')
+    initialize_command = Initialize('', '', '', '', '', '')
     # execute the sequence for update
-    initialize_command.process_requestID(input['requestID'],AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
-    initialize_command.update_ddb_status(input['requestID'],AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
-    initialize_command.get_credentials(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+    initialize_command.process_requestID(
+        input['requestID'], AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    initialize_command.update_ddb_status(
+        input['requestID'], AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    initialize_command.get_credentials(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     initialize_command.check_identity()
     # print the parameter inside Initialize Class
     initialize_command.print_class_parameter()
-    # get account_id 
-    account_id=initialize_command.get_account_id()
-    user_aws_access_key_id=initialize_command.get_aws_access_key_id()
-    user_aws_secret_access_key=initialize_command.get_aws_secret_access_key()
+    # get account_id
+    account_id = initialize_command.get_account_id()
+    user_aws_access_key_id = initialize_command.get_aws_access_key_id()
+    user_aws_secret_access_key = initialize_command.get_aws_secret_access_key()
     # get the region
-    regions=initialize_command.get_region()
+    regions = initialize_command.get_region()
     for region in regions:
         # initialize class
-        collect_command = Collect(region,account_id,user_aws_access_key_id,
-        user_aws_secret_access_key)
+        collect_command = Collect(region, account_id, user_aws_access_key_id,
+                                  user_aws_secret_access_key)
 
         # call command functions
         collect_command.get_lambda_list()
@@ -196,7 +212,7 @@ def update():
         collect_command.describe_ec2_internet_gateway()
         collect_command.list_sfn()
         collect_command.describe_sfn()
-        collect_command.list_waf_web_acl()
+        # collect_command.list_waf_web_acl()
         collect_command.get_apigw_integration()
         collect_command.get_cloudwatch_cognito_event()
         collect_command.list_cognito_identity_pool()
@@ -207,6 +223,9 @@ def update():
         collect_command.list_ddb_tag()
         collect_command.list_s3_tag()
         collect_command.list_lambda_tag()
+        collect_command.list_resource_group()
+        collect_command.list_resource_group_resources()
+        collect_command.list_resource_group_tag()
 
     # initialize a class
     for i in range(len(regions)):
@@ -224,6 +243,7 @@ def update():
         prepare_command.prepare_cognito_node()
         prepare_command.prepare_rds_node()
         prepare_command.prepare_ec2_node()
+        prepare_command.prepare_rg_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()
@@ -235,16 +255,20 @@ def update():
         prepare_command.find_edge_lambda_to_sfn()
         prepare_command.find_edge_apigw_to_lambda()
         prepare_command.find_edge_sns_to_lambda()
+        prepare_command.rg_find_connection()
         # EXPORT INTO JSON FILE
-        if(i==len(regions)-1):
+        if(i == len(regions)-1):
             prepare_command.exportToJSON()
-            prepare_command.export_JSON_to_S3(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
-            prepare_command.write_to_dynamoDB(str(input['requestID']),AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
-    return {  
+            prepare_command.export_JSON_to_S3(
+                AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+            prepare_command.write_to_dynamoDB(
+                str(input['requestID']), AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    return {
         'status': 'Success',
         'code': 200,
         'message': 'Succeed updating metadata file'
     }
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9000, debug=True)
