@@ -33,6 +33,7 @@ def resource_group_prepare_node(region, account_id, cytoscape_node_data):
                     "region": region,
                     "name": groupName,
                     "tag": resource_group_tag,
+                    "console_url" : "https://"+region+".console.aws.amazon.com/resource-groups/group/"+groupName+"?region="+region,
                     "cost_for_month": 0.00
                 }
             })

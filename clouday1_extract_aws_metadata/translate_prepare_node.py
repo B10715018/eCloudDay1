@@ -17,6 +17,7 @@ def translate_prepare_node(region, account_id, cytoscape_node_data):
                     "account_id": account_id,
                     "name": "translate",
                     "cost_for_month": 15.00,
+                    "console_url" : "https://"+region+".console.aws.amazon.com/translate/home?region="+region+"#translation",
                     "tag": {}
                 }
             })

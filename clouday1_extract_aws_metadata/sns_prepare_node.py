@@ -30,6 +30,7 @@ def sns_prepare_node(region, account_id, cytoscape_node_data):
                     "region": region,
                     "name": sns_name,
                     "tag": sns_tag,
+                    "console_url" : "https://"+region+".console.aws.amazon.com/sns/v3/home?region="+region+"#/topic/"+sns['TopicArn'],
                     "cost_for_month": 1.50
                 }
             })

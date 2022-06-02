@@ -33,6 +33,7 @@ def api_gw_prepare_node(region, account_id, cytoscape_node_data):
                 "region": region,
                 "resource": apigw_resource['items'],
                 "tag": apiTag,
+                "console_url" : region+".console.aws.amazon.com/apigateway/home?region="+region+"#/apis/"+apiId+"/resources",
                 "cost_for_month": 3.50
             }
         })

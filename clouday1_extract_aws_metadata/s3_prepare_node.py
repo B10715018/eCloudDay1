@@ -35,6 +35,7 @@ def s3_prepare_node(region, account_id, cytoscape_node_data):
                     "name": item['Name'],
                     "CreationDate":item['CreationDate'],
                     "tag":filtered_s3_tag,
+                    "console_url" : "https://s3.console.aws.amazon.com/s3/buckets/"+item['Name']+"?region="+region,
                     "cost_for_month": 0.27
                 }
             })

@@ -34,6 +34,7 @@ def lambda_prepare_node(region, account_id, cytoscape_node_data):
                     "role": item['Role'],
                     "codesize": item['CodeSize'],
                     "tag": lambda_tag,
+                    "console_url" : "https://"+region+".console.aws.amazon.com/lambda/home?region="+region+"#/functions/"+item['FunctionName'],
                     "cost_for_month": 0.03
                 }
             })

@@ -41,6 +41,7 @@ def dynamodb_prepare_node(region, account_id, cytoscape_node_data):
                     "partition_key": ddb_table["Table"]["KeySchema"][0]["AttributeName"],
                     "items": ddb_items["Items"],
                     "tag":ddb_tag,
+                    "console_url" : "https://"+region+".console.aws.amazon.com/dynamodbv2/home?region="+region+"#table?initialTagKey=&name="+item+"&tab=overview",
                     "cost_for_month": 7.03
                 }
             })
