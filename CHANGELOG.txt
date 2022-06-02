@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-0.0.39 (06/02/2022)
+0.0.41 (06/02/2022)
 -------------------
 - First Release : Collect metadata from AWS Service,
   Supported Service Include: Lambda, API Gateway, Cloudwatch, SNS, Step Function, Cognito, EC2, Dynamo DB, S3
@@ -43,3 +43,5 @@ Change Log
 - Thirty Seven Release: Pretty Fix export to JSON for resourceGroup
 - Thirty Eight Release: Fix Resource Group Naming become name instead of ARN
 - Thirty Nine Release: Add the type into the first array in data.json for front end purpose
+- Forty Release: Add console URL and resource in resourceGroup node
+- Forty One Release: Remove fatal bug at the resource group prepare node
