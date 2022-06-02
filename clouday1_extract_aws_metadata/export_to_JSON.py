@@ -21,7 +21,8 @@ def export_to_JSON(cytoscape_node_data, cytoscape_edge_data):
             "Others": []
         },
         "region": [],
-        "resourceGroup":[]
+        "resourceGroup":[],
+        "type": []
     }]
     # filtered the node data into one new array consisting tag and region
     for i in range(len(cytoscape_node_data)):
@@ -62,6 +63,13 @@ def export_to_JSON(cytoscape_node_data, cytoscape_edge_data):
     cytoscape_miscellaneous_data[0]['resourceGroup'] = set(
         cytoscape_miscellaneous_data[0]['resourceGroup'])
 
+    # filter all type in the node data
+    for data in cytoscape_node_data:
+        misc_rg=cytoscape_miscellaneous_data[0]['type']
+        misc_rg.append(data['data']['type'])
+    # make type from list to set
+    cytoscape_miscellaneous_data[0]['type']=set(
+        cytoscape_miscellaneous_data[0]['type'])
     filtered_cytoscape_data.append(cytoscape_miscellaneous_data)
     filtered_cytoscape_data.append(cytoscape_node_data)
     filtered_cytoscape_data.append(cytoscape_edge_data)

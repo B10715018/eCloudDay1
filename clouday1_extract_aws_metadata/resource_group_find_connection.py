@@ -35,8 +35,8 @@ def rg_find_connection(cytoscape_node_data):
                                 if('resourceGroup' in node['data']):
                                     print('There is double data')
                                     resourceGroupList = node['data']['resourceGroup']
-                                resourceGroupList.append(groupArn)
-                                print('node is in resourceGroup:', nodeArn)
+                                resourceGroupList.append(groupName)
+                                print('node is in resourceGroup:', groupName)
                                 node['data'].update({
                                     'resourceGroup': resourceGroupList
                                 })
