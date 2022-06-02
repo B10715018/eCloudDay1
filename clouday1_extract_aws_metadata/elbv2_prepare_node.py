@@ -38,6 +38,7 @@ def elbv2_prepare_node(region, account_id, cytoscape_node_data):
                     "lodabalancer_type": item['Type'],
                     "availability_zones": az_list,
                     "tag": elb_tag,
+                    "console_url" : "https://"+"region+.console.aws.amazon.com/ec2/v2/home?region="+region+"#LoadBalancers:sort="+item['LoadBalancerName'],
                     "cost_for_month": 4.91
                 }
             })

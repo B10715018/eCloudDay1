@@ -29,6 +29,7 @@ def sfn_prepare_node(region, account_id, cytoscape_node_data):
                     "name": sfn['name'],
                     "CreationDate" : sfn['creationDate'],
                     "tag": sfn_tag,
+                    "console_url" : "https://"+region+".console.aws.amazon.com/states/home?region="+region+"/statemachines/view/"+sfn['stateMachineArn'],
                     "cost_for_month": 0.65
                 }
             })

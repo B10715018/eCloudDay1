@@ -17,6 +17,7 @@ def transcribe_prepare_node(region, account_id, cytoscape_node_data):
                     "account_id": account_id,
                     "name": "transcribe",
                     "cost_for_month": 24.04,
+                    "console_url" : "https://"+region+".console.aws.amazon.com/transcribe/home?"+region+"#jobs",
                     "tag": {}
                 }
             })
