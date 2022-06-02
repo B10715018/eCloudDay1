@@ -1,13 +1,10 @@
 import os
 import json
-
-
 class SetEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-        return json.JSONEncoder.default(self, obj)
-
+   def default(self, obj):
+      if isinstance(obj, set):
+        return list(obj)
+      return json.JSONEncoder.default(self, obj)
 
 def export_to_JSON(cytoscape_node_data, cytoscape_edge_data):
     filtered_cytoscape_data = []
