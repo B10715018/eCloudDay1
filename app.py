@@ -88,7 +88,9 @@ def initialize():
         collect_command.describe_ec2_internet_gateway()
         collect_command.list_sfn()
         collect_command.describe_sfn()
-        # collect_command.list_waf_web_acl()
+        collect_command.list_waf_web_acl()
+        collect_command.list_waf_tags()
+        collect_command.list_waf_resource()
         collect_command.get_apigw_integration()
         collect_command.get_cloudwatch_cognito_event()
         collect_command.list_cognito_identity_pool()
@@ -104,8 +106,11 @@ def initialize():
         collect_command.list_resource_group_tag()
 
     # initialize a class
+    cytoscape_node_data=[]
+    cytoscape_edge_data=[]
     for i in range(len(regions)):
-        prepare_command = Prepare(regions[i], account_id)
+        prepare_command = Prepare(regions[i], account_id,
+        cytoscape_node_data,cytoscape_edge_data)
 
         # prepare node logic
         prepare_command.prepare_lambda_node()
@@ -120,6 +125,7 @@ def initialize():
         prepare_command.prepare_rds_node()
         prepare_command.prepare_ec2_node()
         prepare_command.prepare_rg_node()
+        prepare_command.prepare_waf_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()
@@ -212,7 +218,9 @@ def update():
         collect_command.describe_ec2_internet_gateway()
         collect_command.list_sfn()
         collect_command.describe_sfn()
-        # collect_command.list_waf_web_acl()
+        collect_command.list_waf_web_acl()
+        collect_command.list_waf_tags()
+        collect_command.list_waf_resource()
         collect_command.get_apigw_integration()
         collect_command.get_cloudwatch_cognito_event()
         collect_command.list_cognito_identity_pool()
@@ -244,6 +252,7 @@ def update():
         prepare_command.prepare_rds_node()
         prepare_command.prepare_ec2_node()
         prepare_command.prepare_rg_node()
+        prepare_command.prepare_waf_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()

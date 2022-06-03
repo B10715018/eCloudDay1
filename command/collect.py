@@ -47,6 +47,8 @@ from clouday1_extract_aws_metadata import lambda_list_tags
 from clouday1_extract_aws_metadata import resource_group_list_groups
 from clouday1_extract_aws_metadata import resource_group_list_group_resources
 from clouday1_extract_aws_metadata import resource_group_list_tags
+from clouday1_extract_aws_metadata import wafv2_list
+from clouday1_extract_aws_metadata import waf_list_tags
 
 '''Collect class for collecting data from AWS Services'''
 
@@ -199,8 +201,15 @@ class Collect:
     def describe_sfn(self):
         sfn_describe.sfn_describe(self.region_name,
                                   self.aws_access_key_id, self.aws_secret_access_key)
-
     def list_waf_web_acl(self):
+        wafv2_list.wafv2_list_web_acl(self.region_name,self.aws_access_key_id,
+        self.aws_secret_access_key)
+
+    def list_waf_tags(self):
+        waf_list_tags.waf_list_tags(self.region_name,self.aws_access_key_id,
+        self.aws_secret_access_key)
+
+    def list_waf_resource(self):
         waf_list_resource_web_acls.waf_list_resource_web_acl(self.region_name,
                                                              self.aws_access_key_id, self.aws_secret_access_key)
 
