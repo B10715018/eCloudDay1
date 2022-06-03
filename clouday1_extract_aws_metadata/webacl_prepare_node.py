@@ -34,6 +34,7 @@ def waf_prepare_node(region, account_id, cytoscape_node_data):
                 "data": {
                     "type": "WAF",
                     "id": waf['ARN'],
+                    "arn": waf['ARN'],
                     "region": region,
                     "name": waf['Name'],
                     "resources": resourceList,

@@ -14,6 +14,7 @@ def elbv2_prepare_node(region, account_id, cytoscape_node_data):
 
         for item in elb_object['LoadBalancers']:
             az_list = [x['ZoneName'] for x in item['AvailabilityZones']]
+            # get ELB tags
             each_file = 'elbv2-list-tags-' + \
                 item['LoadBalancerName']+'-'+region+'.json'
             file_path_read_2 = os.path.join(
@@ -35,7 +36,7 @@ def elbv2_prepare_node(region, account_id, cytoscape_node_data):
                     "region": region,
                     "vpc_id": item['VpcId'],
                     "created_time": item['CreatedTime'],
-                    "lodabalancer_type": item['Type'],
+                    "LoadBalancer_type": item['Type'],
                     "availability_zones": az_list,
                     "tag": elb_tag,
                     "console_url" : "https://"+"region+.console.aws.amazon.com/ec2/v2/home?region="+region+"#LoadBalancers:sort="+item['LoadBalancerName'],
