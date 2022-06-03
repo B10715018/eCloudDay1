@@ -25,6 +25,7 @@ from clouday1_extract_aws_metadata import resource_group_prepare_node
 from clouday1_extract_aws_metadata import resource_group_find_connection
 from clouday1_extract_aws_metadata import webacl_prepare_node
 from clouday1_extract_aws_metadata import elbv2_prepare_node
+from clouday1_extract_aws_metadata import edge_waf_to_elbv2_find
 
 
 class Prepare:
@@ -137,6 +138,10 @@ class Prepare:
     def rg_find_connection(self):
         resource_group_find_connection.rg_find_connection(
             self.cytoscape_node_data)
+
+    def find_edge_waf_to_elb(self):
+        edge_waf_to_elbv2_find.edge_waf_to_elbv2_find(self.cytoscape_edge_data,
+        self.cytoscape_node_data,self.region_name)
 
     def export_JSON_to_S3(self, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY):
         export_to_s3.upload_to_S3(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)

@@ -140,6 +140,7 @@ def initialize():
         prepare_command.find_edge_apigw_to_lambda()
         prepare_command.find_edge_sns_to_lambda()
         prepare_command.rg_find_connection()
+        prepare_command.find_edge_waf_to_elb()
         # EXPORT INTO JSON FILE
         if(i == len(regions)-1):
             prepare_command.exportToJSON()
@@ -269,6 +270,7 @@ def update():
         prepare_command.find_edge_apigw_to_lambda()
         prepare_command.find_edge_sns_to_lambda()
         prepare_command.rg_find_connection()
+        prepare_command.find_edge_waf_to_elb()
         # EXPORT INTO JSON FILE
         if(i == len(regions)-1):
             prepare_command.exportToJSON()
