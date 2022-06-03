@@ -1,9 +1,9 @@
-from clouday1_extract_aws_metadata import ddb_initial_request
-from clouday1_extract_aws_metadata import send_request_to_s3
-from clouday1_extract_aws_metadata import iam_get_caller_identity
-from clouday1_extract_aws_metadata import processing_requestID
-from clouday1_extract_aws_metadata import get_credentials_from_s3
-from clouday1_extract_aws_metadata import update_ddb_status
+from clouday1_extract_aws_metadata.ddb_initial_request import initial_request_to_ddb
+from clouday1_extract_aws_metadata.send_request_to_s3 import send_request_to_s3
+from clouday1_extract_aws_metadata.iam_get_caller_identity import get_account_id
+from clouday1_extract_aws_metadata.processing_requestID import process_requestID
+from clouday1_extract_aws_metadata.get_credentials_from_s3 import get_credentials_from_s3
+from clouday1_extract_aws_metadata.update_ddb_status import update_ddb_status
 
 class Initialize:
     '''Initialize the request and validate the aws credentials'''
@@ -103,22 +103,22 @@ class Initialize:
             }
 
     def check_identity(self):
-        account_id=iam_get_caller_identity.get_account_id(self.aws_access_key_id,
+        account_id=get_account_id(self.aws_access_key_id,
             self.aws_secret_access_key,self.region_name[0])
         self.account_id=account_id
 
     def send_request_to_s3(self,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
-        send_request_to_s3.send_request_to_s3(self.account_name,self.account_id,
+        send_request_to_s3(self.account_name,self.account_id,
         self.aws_access_key_id,self.aws_secret_access_key,self.region_name,
         self.user_id,self.aws_session_token,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
 
     def make_request(self,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
-        requestID=ddb_initial_request.initial_request_to_ddb(self.region_name,self.account_id,
+        requestID=initial_request_to_ddb(self.region_name,self.account_id,
         self.account_name,self.user_id,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
         return requestID
 
     def process_requestID(self,requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
-        response=processing_requestID.process_requestID(requestID,
+        response=process_requestID(requestID,
         AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
         self.account_name=response['message']
         if(response['status_code']!=200):
@@ -134,7 +134,7 @@ class Initialize:
         }
     
     def get_credentials(self,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
-        response=get_credentials_from_s3.get_credentials_from_s3(self.account_name,
+        response=get_credentials_from_s3(self.account_name,
         AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
         self.account_id=response['message']['account_id']
         self.aws_access_key_id=response['message']['aws_access_key_id']
@@ -144,4 +144,4 @@ class Initialize:
         self.region_name=response['message']['region']
     
     def update_ddb_status(self,requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY):
-        update_ddb_status.update_ddb_status(requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
+        update_ddb_status(requestID,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
