@@ -18,7 +18,7 @@ def edge_elbv2_to_ec2_find(region, account_id, cytoscape_edge_data):
 
         # read elb target group  
         file_path_read_target_group = os.path.join(
-            script_dir, 'data/elbv2-target-group/elbv2-describe-target-group-'+elbName+'.json')
+            script_dir, 'data/elbv2-target-group/elbv2-describe-target-group-'+elbName+'-'+region+'.json')
         with open(file_path_read_target_group, 'r') as openfile_target_group:
             target_group_object = json.load(openfile_target_group)
             openfile_target_group.close()
@@ -28,7 +28,7 @@ def edge_elbv2_to_ec2_find(region, account_id, cytoscape_edge_data):
 
             # read elb target group health  
             file_path_read_target_health = os.path.join(
-            script_dir, 'data/elbv2-target-health/elbv2-describe-target-health-'+targetgroupName+'.json')
+            script_dir, 'data/elbv2-target-health/elbv2-describe-target-health-'+targetgroupName+'-'+region+'.json')
             with open(file_path_read_target_health, 'r') as openfile_target_health:
                 elb_target_health = json.load(openfile_target_health)
                 openfile_target_health.close()
@@ -48,4 +48,3 @@ def edge_elbv2_to_ec2_find(region, account_id, cytoscape_edge_data):
                             print('Found connection between elb:{} and ec2:{}'.format(elbArn,'arn:aws:ec2:'+region+':'+account_id+':instance/'+targetId))
                 except:
                         print('No connection between elb and ec2')
-

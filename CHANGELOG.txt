@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-0.0.46 (06/03/2022)
+0.0.47 (06/03/2022)
 -------------------
 - First Release : Collect metadata from AWS Service,
   Supported Service Include: Lambda, API Gateway, Cloudwatch, SNS, Step Function, Cognito, EC2, Dynamo DB, S3
@@ -50,3 +50,4 @@ Change Log
 - Forty Four Release: Add ELB prepare node
 - Forty Five Release: Introduce find edge waf to another aws services
 - Forty Six Release: Remove bug in PYPI
+- Forty Seven Release: Added edge elb to ec2
