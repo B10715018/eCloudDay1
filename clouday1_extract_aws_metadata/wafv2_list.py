@@ -17,7 +17,3 @@ def wafv2_list_web_acl(region, AWS_ACCESS_KEY, AWS_SECRET_KEY):
     with open(file_path_write, 'w') as outfile:
         outfile.write(json_response)
         outfile.close()
-
-
-wafv2_list_web_acl('us-west-2', 'AKIA3BD523NLHVGEZDDC',
-                   '23Coye0Q6+1xRnyU4ZK4ZaY+brKx3Cag/ajAlzUV')

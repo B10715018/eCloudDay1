@@ -26,11 +26,11 @@ from clouday1_extract_aws_metadata import resource_group_find_connection
 
 
 class Prepare:
-    def __init__(self, region_name, account_id):
+    def __init__(self, region_name, account_id,cytoscape_node_data,cytoscape_edge_data):
         self.region_name = region_name
         self.account_id = account_id
-        self.cytoscape_node_data = []
-        self.cytoscape_edge_data = []
+        self.cytoscape_node_data = cytoscape_node_data
+        self.cytoscape_edge_data = cytoscape_edge_data
 
     def exportToJSON(self):
         export_to_JSON.export_to_JSON(
