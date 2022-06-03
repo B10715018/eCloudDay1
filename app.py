@@ -77,6 +77,7 @@ def initialize():
         collect_command.describe_elbv2_load_balancer()
         collect_command.describe_elbv2_target_group()
         collect_command.describe_elbv2_target_health()
+        collect_command.list_elb_tags()
         collect_command.describe_ec2_instances()
         collect_command.describe_ec2_vpc_endpoint()
         collect_command.describe_ec2_subnets()
@@ -126,6 +127,7 @@ def initialize():
         prepare_command.prepare_ec2_node()
         prepare_command.prepare_rg_node()
         prepare_command.prepare_waf_node()
+        prepare_command.prepare_elbv2_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()
@@ -207,6 +209,7 @@ def update():
         collect_command.describe_elbv2_load_balancer()
         collect_command.describe_elbv2_target_group()
         collect_command.describe_elbv2_target_health()
+        collect_command.list_elb_tags()
         collect_command.describe_ec2_instances()
         collect_command.describe_ec2_vpc_endpoint()
         collect_command.describe_ec2_subnets()
@@ -253,6 +256,7 @@ def update():
         prepare_command.prepare_ec2_node()
         prepare_command.prepare_rg_node()
         prepare_command.prepare_waf_node()
+        prepare_command.prepare_elbv2_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()

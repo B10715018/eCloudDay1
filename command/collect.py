@@ -22,6 +22,7 @@ from clouday1_extract_aws_metadata import rds_describe_instance
 from clouday1_extract_aws_metadata import elbv2_describe_load_balancer
 from clouday1_extract_aws_metadata import elbv2_describe_target_group
 from clouday1_extract_aws_metadata import elbv2_describe_target_health
+from clouday1_extract_aws_metadata import elbv2_list_tags
 from clouday1_extract_aws_metadata import ec2_describe_instances
 from clouday1_extract_aws_metadata import ec2_describe_vpc_endpoint
 from clouday1_extract_aws_metadata import ec2_describe_subnet
@@ -49,7 +50,6 @@ from clouday1_extract_aws_metadata import resource_group_list_group_resources
 from clouday1_extract_aws_metadata import resource_group_list_tags
 from clouday1_extract_aws_metadata import wafv2_list
 from clouday1_extract_aws_metadata import waf_list_tags
-
 '''Collect class for collecting data from AWS Services'''
 
 
@@ -157,6 +157,10 @@ class Collect:
     def describe_elbv2_target_health(self):
         elbv2_describe_target_health.elbv2_describe_target_health(self.region_name,
                                                                   self.aws_access_key_id, self.aws_secret_access_key)
+
+    def list_elb_tags(self):
+        elbv2_list_tags.elb_list_tags(self.region_name,self.aws_access_key_id,
+        self.aws_secret_access_key)
 
     def describe_ec2_instances(self):
         ec2_describe_instances.ec2_describe_instances(self.region_name,
