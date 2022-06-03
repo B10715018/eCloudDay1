@@ -28,17 +28,3 @@ def waf_list_resource_web_acl(region, AWS_ACCESS_KEY, AWS_SECRET_KEY):
         with open(file_path_write_list_resource, 'w')as outfile:
             outfile.write(json_list)
             outfile.close()
-
-        #     # write resource tags for every resource inside the webACL
-        #     response3 = client.list_tags_for_resource(
-        #         ResourceARN=webARN
-        #     )
-        #     json_list_3 = json.dumps(response3)
-        #     script_dir = os.path.dirname('.')
-        #     file_path_write_list_waf_tags = os.path.join(
-        #         script_dir, 'data/waf-list-tags/waf-list-tags-' +
-        #         response2['WebACL']
-        #         ['Name']+'-'+region+'.json')
-        #     with open(file_path_write_list_waf_tags, 'w')as outfile:
-        #         outfile.write(json_list_3)
-        #         outfile.close()
