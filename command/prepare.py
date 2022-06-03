@@ -23,6 +23,7 @@ from clouday1_extract_aws_metadata import rds_prepare_node
 from clouday1_extract_aws_metadata import ec2_prepare_node
 from clouday1_extract_aws_metadata import resource_group_prepare_node
 from clouday1_extract_aws_metadata import resource_group_find_connection
+from clouday1_extract_aws_metadata import webacl_prepare_node
 
 
 class Prepare:
@@ -83,6 +84,10 @@ class Prepare:
     def prepare_rg_node(self):
         resource_group_prepare_node.resource_group_prepare_node(self.region_name,
                                                                 self.account_id, self.cytoscape_node_data)
+    
+    def prepare_waf_node(self):
+        webacl_prepare_node.waf_prepare_node(self.region_name,self.account_id,
+        self.cytoscape_node_data)
 
     def find_sfn_connection(self):
         sfn_find_connection.sfn_find_connection(
