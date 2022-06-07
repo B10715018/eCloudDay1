@@ -21,8 +21,8 @@ def ec2_prepare_node(region, account_id, cytoscape_node_data):
         if "Tags" in ec2['Instances'][0].keys():
             for tag in ec2['Instances'][0]['Tags']:
                 ec2_tag[tag['Key']]=tag['Value']
-
-        
+        status=''
+        status=ec2['Instances'][0]['State']['Name']
         cytoscape_node_data.append({
             "data": {
                 "id": 'arn:aws:ec2:'+region+':'+account_id+':instance/'+ec2Id,
@@ -34,6 +34,7 @@ def ec2_prepare_node(region, account_id, cytoscape_node_data):
                 "LaunchTime": LaunchTime,
                 "InstanceType": InstanceType,
                 "tag": ec2_tag,
+                "status": status,
                 "console_url" : "https://"+"region+.console.aws.amazon.com/ec2/v2/home?region="+region+"#InstanceDetails:instanceId="+ec2Id,
                 "cost_for_month": 6.30
             }
