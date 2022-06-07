@@ -152,6 +152,7 @@ def initialize():
     return {
         'status': 'Success',
         'code': 200,
+        'id': requestID,
         'message': 'Succeed creating and processing request'
     }
 
@@ -241,8 +242,11 @@ def update():
         collect_command.list_resource_group_tag()
 
     # initialize a class
+    cytoscape_node_data=[]
+    cytoscape_edge_data=[]
     for i in range(len(regions)):
-        prepare_command = Prepare(regions[i], account_id)
+        prepare_command = Prepare(regions[i], account_id,
+        cytoscape_node_data,cytoscape_edge_data)
 
         # prepare node logic
         prepare_command.prepare_lambda_node()

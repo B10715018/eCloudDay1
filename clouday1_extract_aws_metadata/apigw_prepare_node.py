@@ -15,6 +15,7 @@ def api_gw_prepare_node(region, account_id, cytoscape_node_data):
         apiName = apigw['name']
         apiId = apigw['id']
         #get tags for each apigw 
+        apiTag={}
         if "tags" in apigw.keys():
             apiTag = apigw['tags'] 
 

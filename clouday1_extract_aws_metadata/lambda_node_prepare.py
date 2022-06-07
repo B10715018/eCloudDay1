@@ -18,12 +18,15 @@ def lambda_prepare_node(region, account_id, cytoscape_node_data):
                 lambda_tag_object=json.load(openfile_tag)
                 openfile_tag.close()
             lambda_tag=lambda_tag_object['Tags']
+            lambda_runtime=''
+            if('Runtime' in item):
+                lambda_runtime=item['Runtime']
             cytoscape_node_data.append({
                 "data": {
                     "type": "Lambda",
                     "id": item["FunctionArn"],
                     "arn": item["FunctionArn"],
-                    "runtime": item["Runtime"],
+                    "runtime": lambda_runtime,
                     "timeout": item["Timeout"],
                     "memory_size": item["MemorySize"],
                     "version": item["Version"],
