@@ -34,7 +34,8 @@ def edge_waf_to_elbv2_find(cytoscape_edge_data,cytoscape_node_data,region):
                                 "target":resourceArn,
                             }
                         }
-                        cytoscape_edge_data.append(data_waf_to_resource)
+                        if(cytoscape_edge_data.count(data_waf_to_resource) == 0):
+                            cytoscape_edge_data.append(data_waf_to_resource)
                         break
         except:
             print('No resource in waf is found')

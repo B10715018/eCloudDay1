@@ -30,6 +30,7 @@ def edge_sns_to_lambda_find(cytoscape_edge_data):
                                     "target": lambdaArn
                                 }
                             }
-                            cytoscape_edge_data.append(data_sns_lambda)
+                            if(cytoscape_edge_data.count(data_sns_lambda) == 0):
+                                cytoscape_edge_data.append(data_sns_lambda)
                     except:
                         print('Something error in sns and lambda edge')

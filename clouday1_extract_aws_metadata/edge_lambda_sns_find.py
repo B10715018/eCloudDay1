@@ -33,7 +33,6 @@ def edge_lambda_sns_find(cytoscape_edge_data, region):
                     }
                     if(cytoscape_edge_data.count(lambda_sns_edge_data) == 0):
                         cytoscape_edge_data.append(lambda_sns_edge_data)
-                    cytoscape_edge_data.append(lambda_sns_edge_data)
             except:
                 print('No connection between lambda{} and sns{}'.format(
                     lambdas['FunctionName'], sns['TopicArn'])
