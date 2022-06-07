@@ -36,6 +36,7 @@ def edge_apigw_to_lambda_find(cytoscape_edge_data, cytoscape_node_data):
                                             "target": lambdaArn
                                         }
                                     }
-                                    cytoscape_edge_data.append(data_api_lambda)
+                                    if(cytoscape_edge_data.count(data_api_lambda) == 0):
+                                        cytoscape_edge_data.append(data_api_lambda)
                     except:
                         print('Something error happen when creating apigw and lambda edge')

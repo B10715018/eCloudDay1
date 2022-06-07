@@ -28,7 +28,8 @@ def edge_lambda_to_sfn_find(region,cytoscape_edge_data):
                             "target":sfn['stateMachineArn']
                         }
                     }
-                    cytoscape_edge_data.append(data_lambda_to_sfn)
+                    if(cytoscape_edge_data.count(data_lambda_to_sfn) == 0):
+                        cytoscape_edge_data.append(data_lambda_to_sfn)
             except:
                 print('No SFN is found')
 

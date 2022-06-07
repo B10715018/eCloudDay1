@@ -27,13 +27,15 @@ def edge_lambda_ddb_find(cytoscape_edge_data, region):
                     print('Found connection between {} and {}'.format(
                         lambdas['FunctionName'], ddb))
                     arn_ddb='arn:aws:dynamodb:'+region+':'+account_id+':table/'+ddb
-                    cytoscape_edge_data.append({
+                    lambda_ddb_edge_data={
                         "data": {
                             "id": lambdas['FunctionName'] + '-' + arn_ddb,
                             "source": lambdas["FunctionArn"],
                             "target": arn_ddb,
                         }
-                    })
+                    }
+                    if(cytoscape_edge_data.count(lambda_ddb_edge_data) == 0):
+                        cytoscape_edge_data.append(lambda_ddb_edge_data)
             except:
                 print('No connection between {} and {}'.format(
                     lambdas['FunctionName'], ddb))
