@@ -63,8 +63,8 @@ def sfn_find_connection(cytoscape_node_data, cytoscape_edge_data):
                                     "target": targetId,
                                 }
                             }
-                            cytoscape_edge_data.append(sfn_edge_data)
-
+                            if(cytoscape_edge_data.count(sfn_edge_data) == 0):
+                                 cytoscape_edge_data.append(sfn_edge_data)
                 except:
                     print('No connection inside step function')
             openfile.close()
