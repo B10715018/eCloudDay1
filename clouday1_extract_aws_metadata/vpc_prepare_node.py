@@ -11,16 +11,18 @@ def vpc_prepare_node(region, account_id, cytoscape_node_data):
     for vpc in vpc_object["Vpcs"]:
         # name
         vpcKeyName=""
-        for tags in vpc['Tags']:
-            if(tags['Key']=='Name'):
-                vpcKeyName = tags['Value']
+        if('Tags' in vpc.keys()):
+            for tags in vpc['Tags']:
+                if(tags['Key']=='Name'):
+                    vpcKeyName = tags['Value']
         vpcId = vpc['VpcId']
         # cidr block
         cidrBlock=vpc['CidrBlock']
         # tags
         vpc_tags={}
-        for tags in vpc['Tags']:
-            vpc_tags[tags['Key']]=tags['Value']
+        if('Tags' in vpc.keys()):
+            for tags in vpc['Tags']:
+                vpc_tags[tags['Key']]=tags['Value']
         # state
         state=''
         state=vpc['State']
