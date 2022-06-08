@@ -30,7 +30,7 @@ def rds_prepare_node(region, account_id, cytoscape_node_data):
                 "instance_status": item['DBInstanceStatus'],
                 "vpc": item['VpcSecurityGroups'][0]['VpcSecurityGroupId'],
                 "tag":rds_tag,
-                "console_url" : "https://"+"region+.console.aws.amazon.com/rds/home?region="+region+"#database:id="+item['DBInstanceIdentifier']+";is-cluster=false",
+                "console_url" : "https://"+region+".console.aws.amazon.com/rds/home?region="+region+"#database:id="+item['DBInstanceIdentifier']+";is-cluster=false",
                 "cost_for_month": 14.4,
                 }
             })

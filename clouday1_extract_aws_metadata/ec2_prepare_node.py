@@ -35,7 +35,7 @@ def ec2_prepare_node(region, account_id, cytoscape_node_data):
                 "InstanceType": InstanceType,
                 "tag": ec2_tag,
                 "status": status,
-                "console_url" : "https://"+"region+.console.aws.amazon.com/ec2/v2/home?region="+region+"#InstanceDetails:instanceId="+ec2Id,
+                "console_url" : "https://"+region+".console.aws.amazon.com/ec2/v2/home?region="+region+"#InstanceDetails:instanceId="+ec2Id,
                 "cost_for_month": 6.30
             }
         })
