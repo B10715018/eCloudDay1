@@ -70,6 +70,9 @@ chmod u+x ./tools/shell/jobClearJSON.sh
 
 ## Documentation on how to create CI/CD from local to EC2
 [Link to Tutorial to create CI/CD](./docs/ci_cd_local_to_ec2.md)
+
+## Documentation to Fix Gateway Timeout Error
+[Link to Fix Gateway Timeout Error](./docs/fix_nginx_gateway_timeout.md)
 ## Reference
 - [How to setup nginx, gunicorn(WGSI) and Django tutorial](https://www.youtube.com/watch?v=I4eN7QQzKd0) 
 
