@@ -11,16 +11,18 @@ def subnet_prepare_node(region, account_id, cytoscape_node_data):
     for subnet in subnet_object["Subnets"]:
         # name
         subnetKeyName=""
-        for tags in subnet['Tags']:
-            if(tags['Key']=='Name'):
-                subnetKeyName = tags['Value']
+        if("Tags" in subnet.keys()):
+            for tags in subnet['Tags']:
+                if(tags['Key']=='Name'):
+                    subnetKeyName = tags['Value']
         subnetId = subnet['SubnetId']
         # cidr block
         cidrBlock=subnet['CidrBlock']
         # tags
         subnet_tag={}
-        for tags in subnet['Tags']:
-            subnet_tag[tags['Key']]=tags['Value']
+        if("Tags" in subnet.keys()):
+            for tags in subnet['Tags']:
+                subnet_tag[tags['Key']]=tags['Value']
         # state
         state=''
         state=subnet['State']

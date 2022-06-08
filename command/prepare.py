@@ -8,6 +8,8 @@ from clouday1_extract_aws_metadata.sns_prepare_node import sns_prepare_node
 from clouday1_extract_aws_metadata.sfn_prepare_node import sfn_prepare_node
 from clouday1_extract_aws_metadata.apigw_prepare_node import api_gw_prepare_node
 from clouday1_extract_aws_metadata.cognito_prepare_node import cognito_prepare_node
+from clouday1_extract_aws_metadata.vpc_prepare_node import vpc_prepare_node
+from clouday1_extract_aws_metadata.subnet_prepare_node import subnet_prepare_node
 from clouday1_extract_aws_metadata.sfn_find_connection import sfn_find_connection
 from clouday1_extract_aws_metadata.edge_apigw_to_lambda_find import edge_apigw_to_lambda_find
 from clouday1_extract_aws_metadata.edge_sns_to_lambda_find import edge_sns_to_lambda_find
@@ -94,6 +96,12 @@ class Prepare:
     def prepare_elbv2_node(self):
         elbv2_prepare_node(self.region_name,self.account_id,
         self.cytoscape_node_data)
+
+    def prepare_vpc_node(self):
+        vpc_prepare_node(self.region_name,self.account_id,self.cytoscape_node_data)
+    
+    def prepare_subnet_node(self):
+        subnet_prepare_node(self.region_name,self.account_id,self.cytoscape_node_data)
 
     def find_sfn_connection(self):
         sfn_find_connection(self.cytoscape_node_data, self.cytoscape_edge_data)

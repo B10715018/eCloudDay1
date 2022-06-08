@@ -47,6 +47,3 @@ def elbv2_prepare_node(region, account_id, cytoscape_node_data):
                     "cost_for_month": 4.91
                 }
             })
-    print(cytoscape_node_data)
-
-elbv2_prepare_node('us-west-2','758325631830',[])

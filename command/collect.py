@@ -50,6 +50,7 @@ from clouday1_extract_aws_metadata.resource_group_list_group_resources import re
 from clouday1_extract_aws_metadata.resource_group_list_tags import resource_group_get_tags
 from clouday1_extract_aws_metadata.wafv2_list import wafv2_list_web_acl
 from clouday1_extract_aws_metadata.waf_list_tags import waf_list_tags
+from clouday1_extract_aws_metadata.ec2_describe_vpcs import ec2_describe_vpcs
 '''Collect class for collecting data from AWS Services'''
 
 
@@ -269,3 +270,7 @@ class Collect:
     def list_resource_group_tag(self):
         resource_group_get_tags(self.region_name,
         self.aws_access_key_id, self.aws_secret_access_key)
+    
+    def list_vpcs(self):
+        ec2_describe_vpcs(self.region_name,self.aws_access_key_id,
+        self.aws_secret_access_key)
