@@ -15,6 +15,15 @@ def rds_prepare_node(region, account_id, cytoscape_node_data):
             rds_tag = {}
             for tag in item['TagList']:
                 rds_tag[tag['Key']]=tag['Value']
+            #vpc
+            vpcId=''
+            vpcId='arn:aws:ec2:'+region+':'+account_id+':vpc/'+item['DBSubnetGroup']['VpcId']
+            #subnet(list)
+            subnetId=[]
+            for subnet in item['DBSubnetGroup']['Subnets']:
+                subnetArn='arn:aws:ec2:'+region+':'+account_id+':subnet/'+subnet['SubnetIdentifier']
+                subnetId.append(subnetArn)
+
             cytoscape_node_data.append({
             "data": {
                 "type": "RDS",
@@ -28,7 +37,9 @@ def rds_prepare_node(region, account_id, cytoscape_node_data):
                 "storage_type": item['StorageType'],
                 "launch_time" :item['InstanceCreateTime'],
                 "instance_status": item['DBInstanceStatus'],
-                "vpc": item['VpcSecurityGroups'][0]['VpcSecurityGroupId'],
+                "vpc_security_group": item['VpcSecurityGroups'][0]['VpcSecurityGroupId'],
+                "vpc":vpcId,
+                "subnet":subnetId,
                 "tag":rds_tag,
                 "console_url" : "https://"+region+".console.aws.amazon.com/rds/home?region="+region+"#database:id="+item['DBInstanceIdentifier']+";is-cluster=false",
                 "cost_for_month": 14.4,

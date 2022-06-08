@@ -24,7 +24,10 @@ def elbv2_prepare_node(region, account_id, cytoscape_node_data):
             elb_tag = {}
             for tag in elb_tag_object[0]['Tags']:
                 elb_tag[tag['Key']] = tag['Value']
-
+            subnetId=[]
+            for subnet in item['AvailabilityZones']:
+                subnetArn='arn:aws:ec2:'+region+':'+account_id+':subnet/'+subnet['SubnetId']
+                subnetId.append(subnetArn)
             cytoscape_node_data.append({
                 "data": {
                     "type": "ElbV2",
@@ -34,7 +37,8 @@ def elbv2_prepare_node(region, account_id, cytoscape_node_data):
                     "dns": item['DNSName'],
                     "account_id": account_id,
                     "region": region,
-                    "vpc_id": item['VpcId'],
+                    "vpc": 'arn:aws:ec2:'+region+':'+account_id+':vpc/'+item['VpcId'],
+                    "subnet": subnetId,
                     "created_time": item['CreatedTime'],
                     "LoadBalancer_type": item['Type'],
                     "availability_zones": az_list,

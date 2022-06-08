@@ -105,6 +105,7 @@ def initialize():
         collect_command.list_resource_group()
         collect_command.list_resource_group_resources()
         collect_command.list_resource_group_tag()
+        collect_command.list_vpcs()
 
     # initialize a class
     cytoscape_node_data=[]
@@ -128,6 +129,8 @@ def initialize():
         prepare_command.prepare_rg_node()
         prepare_command.prepare_waf_node()
         prepare_command.prepare_elbv2_node()
+        prepare_command.prepare_vpc_node()
+        prepare_command.prepare_subnet_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()
@@ -240,6 +243,7 @@ def update():
         collect_command.list_resource_group()
         collect_command.list_resource_group_resources()
         collect_command.list_resource_group_tag()
+        collect_command.list_vpcs()
 
     # initialize a class
     cytoscape_node_data=[]
@@ -263,6 +267,8 @@ def update():
         prepare_command.prepare_rg_node()
         prepare_command.prepare_waf_node()
         prepare_command.prepare_elbv2_node()
+        prepare_command.prepare_vpc_node()
+        prepare_command.prepare_subnet_node()
         # prepare edge logic
         prepare_command.find_sfn_connection()
         prepare_command.find_edge_lambda_to_sns()

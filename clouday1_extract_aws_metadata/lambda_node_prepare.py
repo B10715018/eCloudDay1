@@ -21,6 +21,14 @@ def lambda_prepare_node(region, account_id, cytoscape_node_data):
             lambda_runtime=''
             if('Runtime' in item):
                 lambda_runtime=item['Runtime']
+            vpcId=''
+            subnetId=[]
+            if('VpcConfig' in item):
+                vpcId='arn:aws:ec2:'+region+':'+account_id+':vpc/'+item['VpcConfig']['VpcId']
+                for subnet in item['VpcConfig']['SubnetIds']:
+                    subnetArn='arn:aws:ec2:'+region+':'+account_id+':subnet/'+subnet
+                    subnetId.append(subnetArn)
+    
             cytoscape_node_data.append({
                 "data": {
                     "type": "Lambda",
@@ -36,6 +44,8 @@ def lambda_prepare_node(region, account_id, cytoscape_node_data):
                     "description": item['Description'],
                     "role": item['Role'],
                     "codesize": item['CodeSize'],
+                    "vpc": vpcId,
+                    "subnet": subnetId,
                     "tag": lambda_tag,
                     "console_url" : "https://"+region+".console.aws.amazon.com/lambda/home?region="+region+"#/functions/"+item['FunctionName'],
                     "cost_for_month": 0.03
