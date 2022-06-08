@@ -1,2 +1,2 @@
 #!/bin/sh
-python "./command/prepare.py";
+echo "Not used anymore"
