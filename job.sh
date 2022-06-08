@@ -1,2 +1,2 @@
 #!/bin/sh
-python "./command/collect.py";
+echo "No longer used"
