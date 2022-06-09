@@ -72,7 +72,7 @@ def subnet_prepare_node(region, account_id, cytoscape_node_data):
                 "default_for_az":defaultForAz,
                 "map_public_ip_on_launch": mapPublicIpOnLaunch,
                 "map_customer_owned_ip_on_launch": mapCustomerOwnedIpOnLaunch,
-                "vpc":'arn:aws:ec2:'+region+':'+account_id+':subnet/'+vpcId,
+                "vpc":'arn:aws:ec2:'+region+':'+account_id+':vpc/'+vpcId,
                 "ipv6_cidr_block_association_set": ipv6Cidr,
                 "private_dns_name_options_on_launch": privateDnsNameOptionsOnLaunch,
                 "tag": subnet_tag,
