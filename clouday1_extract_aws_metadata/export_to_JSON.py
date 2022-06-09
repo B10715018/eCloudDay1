@@ -19,7 +19,9 @@ def export_to_JSON(cytoscape_node_data, cytoscape_edge_data):
         },
         "region": [],
         "resourceGroup":[],
-        "type": []
+        "type": [],
+        "subnet": [],
+        "vpc": [],
     }]
     # filtered the node data into one new array consisting tag and region
     for i in range(len(cytoscape_node_data)):
@@ -70,7 +72,25 @@ def export_to_JSON(cytoscape_node_data, cytoscape_edge_data):
     filtered_cytoscape_data.append(cytoscape_miscellaneous_data)
     filtered_cytoscape_data.append(cytoscape_node_data)
     filtered_cytoscape_data.append(cytoscape_edge_data)
-
+    # filter all the resource based on the subnet
+    for data in cytoscape_node_data:
+        misc_subnet=cytoscape_miscellaneous_data[0]['subnet']
+        if('subnet' in data['data']):
+            for subnet in data['data']['subnet']:
+                misc_subnet.append(subnet)
+    # make subnet into set
+    cytoscape_miscellaneous_data[0]['subnet']=set(
+        cytoscape_miscellaneous_data[0]['subnet']
+    )
+    # filter all the resource based on the vpc
+    for data in cytoscape_node_data:
+        misc_vpc=cytoscape_miscellaneous_data[0]['vpc']
+        if('vpc' in data['data']):
+            misc_vpc.append(data['data']['vpc'])
+    # make vpc into set
+    cytoscape_miscellaneous_data[0]['vpc']=set(
+        cytoscape_miscellaneous_data[0]['vpc']
+    ) 
     script_dir = os.path.dirname('.')
     file_path_write = os.path.join(
         script_dir, 'data/data.json')
