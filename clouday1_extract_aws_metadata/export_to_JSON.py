@@ -22,6 +22,7 @@ def export_to_JSON(cytoscape_node_data, cytoscape_edge_data):
         "type": [],
         "subnet": [],
         "vpc": [],
+        "vpc_security_group":[],
     }]
     # filtered the node data into one new array consisting tag and region
     for i in range(len(cytoscape_node_data)):
@@ -91,6 +92,15 @@ def export_to_JSON(cytoscape_node_data, cytoscape_edge_data):
     cytoscape_miscellaneous_data[0]['vpc']=set(
         cytoscape_miscellaneous_data[0]['vpc']
     ) 
+    # vpc security group
+    for data in cytoscape_node_data:
+        misc_vpc_sg=cytoscape_miscellaneous_data[0]['vpc_security_group']
+        if('vpc_security_group' in data['data']):
+            misc_vpc_sg.append(data['data']['vpc_security_group'])
+    # make vpc sg into set
+    cytoscape_miscellaneous_data[0]['vpc_security_group']=set(
+        cytoscape_miscellaneous_data[0]['vpc_security_group']
+    )
     script_dir = os.path.dirname('.')
     file_path_write = os.path.join(
         script_dir, 'data/data.json')
