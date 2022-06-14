@@ -13,12 +13,12 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
 
-@app.route('/')
+@app.route('/api')
 def root_route():
     return 'Hello World'
 
 
-@app.route('/newPost', methods=['POST'])
+@app.route('/api/newPost', methods=['POST'])
 def initialize():
     # clear all the data inside the VM
     os.system('./tools/shell/jobClearJSON.sh')
@@ -160,7 +160,7 @@ def initialize():
     }
 
 
-@app.route('/update', methods=['POST'])
+@app.route('/api/update', methods=['POST'])
 def update():
     # clear all data inside VM
     os.system('./tools/shell/jobClearJSON.sh')
